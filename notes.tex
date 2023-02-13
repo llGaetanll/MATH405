@@ -5,8 +5,8 @@
 \usepackage[
     top=10mm,
     bottom=10mm,
-    left=10mm,
-    right=10mm,
+    left=30mm,
+    right=30mm,
     marginparwidth=0mm,
     marginparsep=0mm,
     % headheight=15pt,
@@ -336,6 +336,8 @@
 
 \renewcommand{\date}[1]{\underline{\bf #1}}
 
+\def\eps{\varepsilon}
+
 
 % create a command for TODOs
 \newcommand{\TODO}{\color{red}\textbf{TODO}\color{black}}
@@ -344,7 +346,7 @@
 
 \begin{document}
   \footnotesize
-  \begin{multicols*}{2}
+  % \begin{multicols*}{2}
 
     \date{Fri. Feb 10 2023}
 
@@ -387,6 +389,9 @@
 
     What this means is that, for a vector space $V$, there is an associated
     mapping in $F^n$. Notice that we know nothing about the vectors $\alpha_i$.
+
+    We define $[\alpha]_{\B}$ to be the {\it coordinates} of $\alpha$ with
+    respect to $\B$.
 
     {\bf Check}: The mapping $\alpha \mapsto [\alpha]_{\B} \in F^n$ satisfies
 
@@ -495,5 +500,344 @@
       [\alpha]_{\B'} = P^{-1} [\alpha]_{\B}
     \]
 
-  \end{multicols*}
+    \date{Mon. Feb 13 2023}
+
+    \TODO{} Missing {\it some} info
+
+    {\bf Want}: Describe the mapping $T: F^n \to F^n$
+
+    \[
+      T([\alpha]_{\B_\text{old}}) = [\alpha]_{\B'_{\text{new}}}
+    \]
+
+    \btw {
+      If we switch the basis for some reason, we want to see what the new
+      coordinates are.
+    }
+
+    {\bf To do this}: For each $\alpha_j'$, compute
+    $[\alpha_j']_{\B_\text{old}}$. Let
+
+    \[
+      P = \Big[[\alpha_1']_{\B_\text{old}} \cdots [\alpha_n']_{\B_{\text{old}}}\Big]
+    \]
+
+    be an $n \times n$ matrix.
+
+    {\bf Claim}: For any $\alpha \in V$
+
+    \[
+      P \cdot [\alpha]_{\B'_\text{new}} = [\alpha]_{\B_\text{old}}
+    \]
+
+    {\bf How?}
+
+    \[
+      P \cdot [\alpha_1']_{\B'_\text{new}} = P \cdot \begin{bmatrix}
+        1 \\
+        0 \\
+        \vdots \\
+        0
+      \end{bmatrix}
+      = [\alpha_1']_{\B_\text{old}}
+    \]
+
+    This is the $1^{st}$ column of $P$, and similarly for all columns.
+
+    {\bf Thus}: For any $\alpha \in V$, 
+
+    \[
+      [\alpha]_\text{new} = P^{-1} \cdot [\alpha]_\text{old}
+    \]
+
+    \example {
+      In practice, we have the following.
+
+      $V = \Span(\{x^3, x^5\})$ subspace of $\P = \text{all polynomials}$. Let
+      $f(x) = x^3, g(x) = x^5, \B = [x^3, x^5]$. Let $h(x) = 10^3 - 2x^5 \in V$.
+
+      {\bf Question}: What are the coordinates of $h$ with respect to $\B$?
+
+      {\bf Answer}:
+      \[
+        [h]_{\B} = \begin{bmatrix}
+          10 \\
+          -2
+        \end{bmatrix}
+      \]
+    }
+
+    \example{
+      Let $k(x) = 2x^3 + 5x^5$, $l(x) = x^3 + 3x^5$.
+
+      Let $\B' = \{k(x), l(x)\}$ be another basis of $V$.
+
+      {\bf Question}: What are the coordinates of $h$ with respect to $\B'$?
+
+      {\bf Answer}:
+
+      $[k(x)]_{\B} = \begin{bmatrix} 2 \\ 5 \end{bmatrix}$ and $[l(x)]_{\B} =
+      \begin{bmatrix} 1 \\ 3 \end{bmatrix}$.
+
+      So
+
+      \[
+        P = \begin{bmatrix}
+          2 & 1 \\
+          5 & 3 \\
+        \end{bmatrix}
+      \]
+
+      {\bf Check}:
+
+      \[
+        P^{-1} = \begin{bmatrix}
+          3 & -1 \\
+          -5 & 2 \\
+        \end{bmatrix}
+      \]
+
+      Then
+
+      \[
+        \begin{bmatrix}
+          3 & -1 \\
+          -5 & 2 \\
+        \end{bmatrix}
+        \cdot
+        \begin{bmatrix}
+          10 \\ -2
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+          32 \\ -54
+        \end{bmatrix}
+      \]
+
+      {\bf This means}:
+
+      \[
+        h(x) = 32k(x) - 54l(x) = 10x^3 - 2x^5
+      \]
+
+      Which is what we expect.
+
+    }
+
+    \example {
+      Let $V = \R^2$. Standard basis $\B = \{\eps_1, \eps_2\} = \{(1, 0), (0, 1)\}$
+
+      \[
+        [(5, 4)]_{\B} = \begin{bmatrix}
+          5 \\ 4
+        \end{bmatrix}
+      \]
+
+      Fix angle $\theta$, Let
+
+      \[
+        \B' = \{(\cos(\theta), \sin(\theta)), (-\sin(\theta), \cos(\theta))\}
+      \]
+
+      {\bf Question}: What is $\begin{bmatrix} 5 \\ 4
+      \end{bmatrix}_{\B'_\text{new}}$?
+
+      {\bf Answer}:
+
+      \begin{enumerate}
+        \item Form $P$
+
+          \[
+            [(\cos(\theta), \sin(\theta))]_{\B} = \begin{bmatrix} \cos(\theta)
+            \\ \sin(\theta) \end{bmatrix}
+          \]
+
+          \[
+            [(-\sin(\theta), \cos(\theta))]_{\B} = \begin{bmatrix} -\sin(\theta)
+            \\ \cos(\theta) \end{bmatrix}
+          \]
+
+          Then 
+
+          \[
+            P = \begin{bmatrix}
+              \cos(\theta) & -\sin(\theta) \\
+              \sin(\theta) & \cos(\theta)
+            \end{bmatrix}
+          \]
+
+          {\bf Fact}:
+
+          \[
+            P^{-1} = \begin{bmatrix}
+              \cos(\theta) & \sin(\theta) \\
+              -\sin(\theta) & \cos(\theta)
+            \end{bmatrix}
+          \]
+
+          so we have
+
+          \begin{align*}
+            [(5, 4)]_{\B'_\text{new}} =&P^{-1}
+            \begin{bmatrix} 5 \\ 4 \end{bmatrix} \\
+            =&\begin{bmatrix}
+              \cos(\theta) & \sin(\theta) \\
+              -\sin(\theta) & \cos(\theta)
+            \end{bmatrix}
+            \begin{bmatrix} 5 \\ 4 \end{bmatrix} \\
+            =&\begin{bmatrix}
+              5\cos(\theta) & 4\sin(\theta) \\
+              -5\sin(\theta) & 4\cos(\theta)
+            \end{bmatrix}
+          \end{align*}
+      \end{enumerate}
+    }
+
+    \section{Chapter 3}
+
+    Say $V$, $W$ are both vector spaces over the same field $F$.
+    
+    \definition{
+      A {\bf Linear Transformation} $T: V \to W$ is a function satisifying two
+      rules
+
+      \begin{enumerate}
+        \item For all $\alpha, \beta \in V$,
+
+          \[
+            T(\alpha + \beta) = T(\alpha) + T(\beta)
+          \]
+
+          Note that the first $+$ is addition in $V$, but the second
+          is addition in $W$.
+
+        \item For all $\alpha \in V$ and $c \in F$,
+
+          \[
+            T(c\alpha) = cT(\alpha)
+          \]
+      \end{enumerate}
+
+      \btw{The book combines these two into one.}
+    }
+
+    Lots of examples to come
+
+    {\bf Two basic facts}:
+
+    Suppose that $T: V \to W$ is a linear transformation
+    \begin{enumerate}
+      \item $T(0) = 0$
+
+        {\bf Proof}:
+
+        $T(0 + 0) = T(0) + T(0)$ thus $T(0) = 0$.
+
+        \btw{Always be aware of where the $0$ lives}
+
+        \TODO{} Not super clear
+
+      \item For all $\{\alpha_1, ..., \alpha_n\} \subseteq V$, all $\{c_1, ...,
+        c_n\} \in F$,
+
+        \[
+          c_1 T(\alpha_1) + \cdots + c_n T(\alpha_n)
+        \]
+
+        {\bf Proof} Easy induction on $n$.
+    \end{enumerate}
+
+    \example {
+      Take $A \in F^{m \times n}$ an $m \times n$ matrix with entries in $F$.
+
+      Then $T_A: F^n \to F^m$ given by $T_A(x) = A \cdot X$ is a linear
+      transformation.
+
+      {\bf Check}
+
+      Chose any $X, Y \in F^n$, then
+
+      \[
+        T_A(X + Y) = A \cdot (X + Y) = A \cdot X + A \cdot Y = T_A(X) + T_A(Y)
+      \]
+
+      For $c \in F$, have
+
+      \[
+        T_A(cX) = A \cdot (cX) = cAX = c T_A(X)
+      \]
+
+      which is what we expect.
+    }
+
+    \example {
+      Consider $\P$ the set of all polynomials $a_0 + a_1x + \cdots + a_n x^n$.
+
+      Differentiation
+
+      \[
+        D: \P \to \P
+      \]
+
+      $F(f) = f'$, the {\bf derivative}
+
+      {\bf Claim}: $D: \P \to \P$ is a linear transformation.
+
+      {\bf Check}: 
+      \[
+        D(f + g) = (f + g)' = f' + g' = D(f) + D(g)
+      \]
+
+      and for $c \in F$,
+
+      \[
+        D(cf) = (cf)' = c \cdot f' = c \cdot D(f)
+      \]
+
+      which is what we expect.
+    }
+
+    \example {
+      Let $C(\R)$ be all combinations of all functions $f: \R \to \R$.
+
+      Define $I: C(\R) \to C(\R)$ the {\bf integral}
+
+      \[
+        I(f) = \int_0^x f(t)dt
+      \]
+
+      \btw {
+        Note that the integral exists because you can always integrate a
+        contiunous function.
+      }
+
+      The result is also continuous and differentiable by the Fundamental
+      Theorem of Calculus.
+
+      \[
+        D(I(f)) = f
+      \]
+
+      Is the {\bf Fundamental Theorem of Calculus}.
+
+      Therefore $I(f)$ really {\it is} continuous, $I(f) \in C(\R)$.
+
+      {\bf Question}: Is it really linear?
+
+      {\bf Check}:
+
+      \begin{align*}
+        I(f + g) =&\int_0^x (f(t) + g(t))dt \\
+                 =&\int_0^x f(t)dt + \int_0^x g(t)dt \\
+                 =&I(f) + I(g)
+      \end{align*}
+
+      and
+
+      \[
+        I(cf) = \int_0^x cf(t)dt = c\int_0^x f(t)dt = cI(f)
+      \]
+    }
+
+  % \end{multicols*}
 \end{document}

@@ -12,7 +12,7 @@
     % headheight=15pt,
     centering,
     % showframe,
-    % includefoot,
+    includefoot,
     % includehead
 ]{geometry}
 \usepackage{fancyhdr}
@@ -337,6 +337,7 @@
 \renewcommand{\date}[1]{\underline{\bf #1}}
 
 \def\eps{\varepsilon}
+\def\range{\text{Range}}
 
 
 % create a command for TODOs
@@ -837,6 +838,207 @@
       \[
         I(cf) = \int_0^x cf(t)dt = c\int_0^x f(t)dt = cI(f)
       \]
+    }
+
+    \newpage
+
+    \date{Fri. Feb 15 2023}
+
+    Recall: A linear transformation $T: V \to W$ is a function between two
+    vector spaces over the same field $F$, satisifying
+    \begin{enumerate}
+      \item For all $\alpha, \beta \in V$,
+
+        \[
+          T(\alpha + \beta) = T(\alpha) + T(\beta)
+        \]
+
+        Note that the first $+$ is addition in $V$, but the second
+        is addition in $W$.
+
+      \item For all $\alpha \in V$ and $c \in F$,
+
+        \[
+          T(c\alpha) = cT(\alpha)
+        \]
+    \end{enumerate}
+
+    For all $\alpha_1,..., \alpha_k \in V$,  and $c_1, ..., c_k \in F$, it
+    breaks nicely into
+
+    \[
+      T(c_1 \alpha_1 + \cdots + c_k \alpha_k) = c_1 T(\alpha_1) + \cdots + c_k
+      T(\alpha_k)
+    \]
+
+    \example {
+      $I^*: C(\R) \to \R$ (all continuous functions from $\R$ to $\R$)
+
+      \[
+        I^*(f) = \int_0^1 f(x)dx
+      \]
+
+      \[
+        I^*(x^2) = \int_0^1 x^2 dx = \frac{x^3}{x} \Big|_0^1 = \frac{1}{3}
+      \]
+
+      Note that the output of $I*$ is just a number here. Additionally, $I^*$ is
+      linear: you can split integrals up for polynomials, and you can take
+      constants outside.
+    }
+
+    For any $V, W$, we also have
+
+    \[
+      X: V \to W
+    \]
+
+    Is the zero transformation. It takes any $\alpha \in V$ to the $0$ of $W$.
+    We'll use this to prove theorems about linear transformations later.
+
+    \thm{
+      \begin{enumerate}
+        \item Linear Transformations $T: V \to W$ are {\bf determined} by their
+          behavior on a basis $\B$ of $V$. More precisely,
+
+          Suppose that $\B = \{\alpha_1, ..., \alpha_n\}$ is a basis for $V$ and
+          suppose that $T, U: V \to W$ are both linear tranformations (and they
+          agree on a basis), such that
+
+          \[
+            T(\alpha_1) = U(\alpha_1), T(\alpha_2) = U(\alpha_2), ..., T(\alpha_n) =
+            U(\alpha_n)
+          \]
+
+          Then $T = U$
+
+        \item For {\bf any map} $T_0: \B \to W$, there s a unique linear
+          transformation $T: V \to W$ with $T \supseteq T_0$. In other words,
+
+          Let $\B = \{\alpha_1, ..., \alpha_n\}$ be {\bf any basis} for $V$
+          and let $\beta_1, ..., \beta_n$ be {\bf any vectors} in $W$.
+
+          Then, there is a {\bf unique} linear transformation $T: V \to W$ such
+          that
+
+          \[
+            T(\alpha_1) = \beta_1, T(\alpha_2) = \beta_2, ..., T(\alpha_n) = \beta_n
+          \]
+      \end{enumerate}
+    }
+    {
+      \begin{enumerate}
+        \item {\bf Uniqueness}: Chose any $\alpha \in V$, since $\B$ is a basis,
+
+        \btw{
+            Will show that $T = U \Leftrightarrow$ For any $\alpha \in V$,
+            $T(\alpha) = U(\alpha)$
+        }
+
+        \[
+          \alpha = c_1 \alpha_1 + \cdots + c_n \alpha_n
+        \]
+        
+        for some {\bf unique} $c_1, ..., c_n \in F$.
+
+        Since $T$ is a linear transformation,
+
+        \[
+          T(\alpha) = c_1 T(\alpha_1) + \cdots + c_n T(\alpha_n)
+        \]
+
+        Likewise with $U$,
+
+        \[
+          U(\alpha) = c_1 U(\alpha_1) + \cdots + c_n U(\alpha_n)
+        \]
+
+        But, since $T(\alpha_1) = U(\alpha_1), ..., T(\alpha_n) = U(\alpha_n)$,
+        $T(\alpha) = U(\alpha)$.
+
+        \btw{
+          Essentially, if $T, U$ work the same for all $\alpha_i$, then their
+          sum will obviously be the same, and so they'll give the same result
+          for the same $\alpha$.
+        }
+
+        Note that this theorem {\it still} works for infinite dimensional
+        vector spaces.
+
+      \item {\bf Existence}: Chose any $\alpha \in V$. \btw{ We must define
+        $T(\alpha)$}
+
+        Since $\B$ is a basis, we can write
+
+        \[
+          \alpha = c_1 \alpha_1 + \cdots + c_n \alpha_n
+        \]
+
+        which is unique.
+
+        Define 
+
+        \[
+          T(\alpha) := c_1 \beta_1 + \cdots + c_n \beta_n \in W
+        \]
+
+        {\bf Check}: Is $T$ linear?
+
+        Say $\gamma = d_1 \alpha_1 + \cdots + d_n \alpha_n$, $\delta = e_1
+        \alpha_1 + \cdots + e_n \alpha_n$.
+
+        In $V$, we have that $\gamma + \delta = (d_1 + e_1) \alpha_1 + \cdots +
+        (d_n + e_n) \alpha_n$.
+
+        By our definition of $T$, we have
+
+        \begin{align*}
+          T(\gamma + \delta) =&(d_1 + e_1) \beta_1 + \cdots + (d_n + e_n) \beta_n \\
+          =&(d_1 \beta_1 + \cdots + d_n \beta_n) + (e_1 \beta_1 +
+          \cdots + e_n \beta_n) \\
+          =&T(\gamma) + T(\delta)
+        \end{align*}
+
+        {\bf Check}: $T(c\gamma) = cT(\delta)$
+
+        So such a tranformation $T$ exists. Additionally by part (1), it is
+        unique.
+
+      \end{enumerate}
+    }
+
+    Let $T: V \to W$ be a linear transformation.
+
+    \definition{
+      $\range(T) = \{ T(\alpha) : \alpha \in V\} \subseteq W$ is the set of all
+      vectors in $W$ hit by $T$.
+
+      {\bf Fact}: $\range(T)$ is a {\bf subspace} of $W$.
+
+      \begin{enumerate}
+        \item $0$ is in it. This is because $T(0) = 0$, obviously.
+        \item {\bf Combinations of $\alpha_i$ are in it}
+
+          Say that $\beta_1, \beta_2 \in \range(T)$. \btw {must show that $\beta_1 +
+          \beta_2 \in \range(T)$ }
+
+          Since $\beta_1 \in \range(T)$, there is some $\alpha_1 \in V$ such that
+
+          \[
+            T(\alpha_1) = \beta_1
+          \]
+
+          similarly for $\beta_2$. Now $T(\alpha_1 + \alpha_2) = T(\alpha_1) +
+          T(\alpha_2) = \beta_1 + \beta_2$, since $T$ is linear. So $T(\alpha_1 +
+          \alpha_2) = \beta_1 + \beta_2$ so $\beta_1 + \beta_2 \in \range(T)$ \btw{
+          since $\alpha_1, \alpha_2 \in V$ means that $\alpha_1 + \alpha_2 \in V$,
+          because it's a vector space! }
+
+        \item {\bf Scaling Works:}
+          Say $\beta \in \range(T)$, and $c \in F$.  Chose $\alpha \in V$ such that
+          $T(\alpha) = \beta$. Then $T(c\alpha) = cT(\beta) c \beta$, therefore
+          $c\alpha \in \range(T)$.
+      \end{enumerate}
     }
 
   % \end{multicols*}

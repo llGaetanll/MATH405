@@ -73,8 +73,8 @@
 
 
 \newcommand{\Span}{\mathrm{Span}}
-\newcommand{\rank}{\mathrm{rank}}
-\newcommand{\nullity}{\mathrm{nullity}}
+\newcommand{\rank}{\mathrm{Rank}}
+\newcommand{\nullity}{\mathrm{Nullity}}
 \newcommand{\longhookrightarrow}{\lhook\joinrel\relbar\joinrel\rightarrow}
 \newcommand{\la}{\leftarrow}
 \newcommand{\ra}{\rightarrow}
@@ -323,8 +323,8 @@
   \baronly{Example}{problem_fg}{problem_bg}{#1}
 }
 
-\newcommand{\remark}[1]{
-  \baronly{Remark}{problem_fg}{problem_bg}{#1}
+\newcommand{\note}[1]{
+  \baronly{Note}{problem_fg}{problem_bg}{#1}
 }
 
 \def\B{\mathcal B}
@@ -338,6 +338,7 @@
 
 \def\eps{\varepsilon}
 \def\range{\text{Range}}
+\def\Null{\text{Null}}
 
 
 % create a command for TODOs
@@ -347,7 +348,10 @@
 
 \begin{document}
   \footnotesize
-  % \begin{multicols*}{2}
+
+    \tableofcontents
+    
+    \newpage
 
     \date{Fri. Feb 10 2023}
 
@@ -467,7 +471,7 @@
 
     \subsection{Change of Basis}
 
-    Given $\B = \{\alpha_1, ..., \alpha_n\}$, and $\B' = \{\alpha_1', ...,
+    Given $\B = \{\alpha_1, \dots, \alpha_n\}$, and $\B' = \{\alpha_1', ...,
     \alpha_n'\}$ bases for $V$.
 
     We want to describe the map going from $[\alpha]_{\B} \mapsto
@@ -486,7 +490,7 @@
     For an $n \times m$ matrix
 
     \[
-      P = \Big[ [\alpha_1']_{\B}, ..., [\alpha_n']_{\B} \Big]
+      P = \Big[ [\alpha_1']_{\B}, \dots, [\alpha_n']_{\B} \Big]
     \]
 
     {\bf Check}: for any $\alpha \in V$
@@ -554,8 +558,8 @@
     \example {
       In practice, we have the following.
 
-      $V = \Span(\{x^3, x^5\})$ subspace of $\P = \text{all polynomials}$. Let
-      $f(x) = x^3, g(x) = x^5, \B = [x^3, x^5]$. Let $h(x) = 10x^3 - 2x^5 \in V$.
+      $V = \Span(\{x^3, x^5\})$ subspace of $\P$, the set of all polynomials. Let
+      $f(x) = x^3, g(x) = x^5, \B = \{x^3, x^5\}$. Let $h(x) = 10x^3 - 2x^5 \in V$.
 
       {\bf Question}: What are the coordinates of $h$ with respect to $\B$?
 
@@ -568,26 +572,34 @@
       \]
     }
 
+    Let's now see what happens when we create a new basis $\B'$.
+
     \example{
       Let $k(x) = 2x^3 + 5x^5$, $l(x) = x^3 + 3x^5$.
 
-      Let $\B' = \{k(x), l(x)\}$ be another basis of $V$.
+      Let $\B' = \{k(x), l(x)\} = \{2x^3 + 5x^5, x^3 + 3x^5\}$ be another basis
+      of $V$, still with $\B = \{f(x), g(x)\} = \{x^3, x^5\}$.
 
-      {\bf Question}: What are the coordinates of $h$ with respect to $\B'$?
+      {\bf Question}: What are the coordinates of $h(x) = 10x^3 - 2x^5$ with
+      respect to $\B'$ now?
 
       {\bf Answer}:
 
-      $[k(x)]_{\B} = \begin{bmatrix} 2 \\ 5 \end{bmatrix}$ and $[l(x)]_{\B} =
-      \begin{bmatrix} 1 \\ 3 \end{bmatrix}$.
+      Well we know that $[k(x)]_{\B} = \begin{bmatrix} 2 \\ 5 \end{bmatrix}$ and
+      $[l(x)]_{\B} = \begin{bmatrix} 1 \\ 3 \end{bmatrix}$, these are just the
+      coordinates of $k$, and $l$ with respect to $\B$.
 
-      So
+      So now we can construct our $P$ matrix
 
       \[
-        P = \begin{bmatrix}
+        P = \Big[ [k(x)]_{\B}, [l(x)]_{\B} \Big] = \begin{bmatrix}
           2 & 1 \\
           5 & 3 \\
         \end{bmatrix}
       \]
+
+      notice that $P$'s columns are constructed from $k(x)$ and $l(x)$,
+      expressed in terms of our standard basis $\B$.
 
       {\bf Check}:
 
@@ -694,7 +706,7 @@
       \end{enumerate}
     }
 
-    \section{Chapter 3}
+    \section{Linear Transformations}
 
     Say $V$, $W$ are both vector spaces over the same field $F$.
     
@@ -718,13 +730,44 @@
             T(c\alpha) = cT(\alpha)
           \]
       \end{enumerate}
-
-      \btw{The book combines these two into one.}
     }
 
-    Lots of examples to come
+    The book combines the two definitions above into one, like this,
 
-    {\bf Two basic facts}:
+    \[
+      T(c\alpha + \beta) = cT(\alpha) + T(\beta)
+    \]
+
+    Let's quickly take some time to understand what $V$ and $W$ are here.
+    Suppose we have a transformation $T: V \to W$, then $V$ is the {\bf
+    domain} and $W$ is the {\bf codomain}.
+
+    Here, $T$ behaves just like a function, which means that it {\it must} use
+    all of $T$, but it {\it does not} have to use all of $W$. For example, the
+    following is a perfectly valid transformation.
+
+    \example {
+      Let $T: \P^3 \to \P^2$ be the transformation that takes all degree $3$
+      polynomials to the space of degree $2$ polynomials, with
+
+      \[
+        T(f) = \vec{0}
+      \]
+
+      for all $f \in \P^3$.
+    }
+
+    Its obvious that there are more degree $2$ polynomials in the world than
+    just the $\vec{0}$ polynomial. So here, we say that the $\range(T) =
+    \{\vec{0}\}$, and that 
+
+    \[
+      \range(T) \subseteq W
+    \]
+
+    but maybe we are getting ahead of ourselves.
+
+    \subsection{Basic Facts}
 
     Suppose that $T: V \to W$ is a linear transformation
     \begin{enumerate}
@@ -732,11 +775,14 @@
 
         {\bf Proof}:
 
-        $T(0 + 0) = T(0) + T(0)$ thus $T(0) = 0$.
+        \[
+          T(0 + 0) = T(0) + T(0) = \vec{0} + \vec{0} = \vec{0}
+        \]
+
+        {\bf Note}: $0$ lives in the field, and $\vec{0}$ lives in $W$, the {\bf
+        codomain} of the transformation $T$.
 
         \btw{Always be aware of where the $0$ lives}
-
-        \TODO{} Not super clear
 
       \item For all $\{\alpha_1, ..., \alpha_n\} \subseteq V$, all $\{c_1, ...,
         c_n\} \in F$,
@@ -745,46 +791,78 @@
           c_1 T(\alpha_1) + \cdots + c_n T(\alpha_n)
         \]
 
-        {\bf Proof} Easy induction on $n$.
+        {\bf Proof} Easy induction on $n$, just follows from part (2) of the
+        definition.
     \end{enumerate}
 
-    \example {
-      Take $A \in F^{m \times n}$ an $m \times n$ matrix with entries in $F$.
 
-      Then $T_A: F^n \to F^m$ given by $T_A(x) = A \cdot X$ is a linear
-      transformation.
+    \subsection{Examples}
 
-      {\bf Check}
+    Let's look at multiple examples of linear transformations to get an idea of
+    how they behave.
 
-      Chose any $X, Y \in F^n$, then
+    \example{
+      We already know that each matrix $A$ has an associated linear
+      transformation $T_A$. Let's look at this in more detail now.
+
+      Let $A \in F^{m \times n}$ be an $m \times n$ matrix with entries from a
+      field $F$.
+
+      Then, let $T_A: F^n \to F^m$ be defined by
 
       \[
-        T_A(X + Y) = A \cdot (X + Y) = A \cdot X + A \cdot Y = T_A(X) + T_A(Y)
+        T_A(\vec{x}) = A \vec{x}
       \]
 
-      For $c \in F$, have
+      where $\vec{x}$ is a vector in $F^n$.
 
-      \[
-        T_A(cX) = A \cdot (cX) = cAX = c T_A(X)
-      \]
+      Let's check that this is indeed a linear transformation.
 
-      which is what we expect.
+      Chose any $\vec{x}, \vec{y} \in F^n$, then
+
+      \begin{enumerate}
+        \item \btw{Check that $T_A(\vec{x} + \vec{y}) = T_A(\vec{x}) + T_A(\vec{y})$}
+
+          Let $\vec{x}, \vec{y} \in V$, then
+
+          \[
+            T_A(\vec{x} + \vec{y}) = A (\vec{x} + \vec{y}) = A \vec{x} + A \vec{y} = T_A(\vec{x}) + T_A(\vec{y})
+          \]
+
+          so this works as we expect.
+
+        \item \btw{Check that $T_A(c\vec{x}) = cT_A(\vec{x})$ for $c \in F$.}
+
+          let $c \in F$, then we have
+
+          \[
+            T_A(cX) = A \cdot (cX) = cAX = c T_A(X)
+          \]
+
+          which is also what we expect.
+      \end{enumerate}
+
+      so we have proved that $T_A$ is a linear transformation!
     }
 
     \example {
       Consider $\P$ the set of all polynomials $a_0 + a_1x + \cdots + a_n x^n$.
 
-      Differentiation
+      Let's define $D: \P \to \P$ which takes a function $f \in \P$ to $f' \in
+      \P$, where $f'$ is the {\it derivative} of $f$.
 
       \[
-        D: \P \to \P
+        D(f) = f'
       \]
 
-      $F(f) = f'$, the {\bf derivative}
+      {\bf Claim}:
 
-      {\bf Claim}: $D: \P \to \P$ is a linear transformation.
+      $D$ is a linear transformation.
 
-      {\bf Check}: 
+      {\bf Proof}: 
+
+      Take two functions $f, g \in \P$, then by definition of $D$, we have
+
       \[
         D(f + g) = (f + g)' = f' + g' = D(f) + D(g)
       \]
@@ -792,16 +870,17 @@
       and for $c \in F$,
 
       \[
-        D(cf) = (cf)' = c \cdot f' = c \cdot D(f)
+        D(cf) = (cf)' = c \cdot f' = c D(f)
       \]
 
-      which is what we expect.
+      so the derivative is a linear transformation!
     }
 
     \example {
-      Let $C(\R)$ be all combinations of all functions $f: \R \to \R$.
+      Let $C(\R)$ be the set of all continuous functions $f: \R \to \R$.
 
-      Define $I: C(\R) \to C(\R)$ the {\bf integral}
+      Let's define $I: C(\R) \to C(\R)$ which takes a function $f \in C(\R)$ to
+      $F \in C(\R)$, where $F$ is the {\it antiderivative} of $f$.
 
       \[
         I(f) = \int_0^x f(t)dt
@@ -809,7 +888,7 @@
 
       \btw {
         Note that the integral exists because you can always integrate a
-        contiunous function.
+        continuous function.
       }
 
       The result is also continuous and differentiable by the Fundamental
@@ -823,9 +902,13 @@
 
       Therefore $I(f)$ really {\it is} continuous, $I(f) \in C(\R)$.
 
-      {\bf Question}: Is it really linear?
+      {\bf Claim}:
 
-      {\bf Check}:
+      $I$ is a linear transformation.
+
+      {\bf Proof}:
+
+      Take two functions $f, g \in \P$, then by definition of $I$, we have
 
       \begin{align*}
         I(f + g) =&\int_0^x (f(t) + g(t))dt \\
@@ -838,6 +921,8 @@
       \[
         I(cf) = \int_0^x cf(t)dt = c\int_0^x f(t)dt = cI(f)
       \]
+
+      so the integral is a linear transformation!
     }
 
     \newpage
@@ -897,12 +982,14 @@
     We'll use this to prove theorems about linear transformations later.
 
     \thm{
+      Let's prove existence and uniqueness of linear transformations.
+
       \begin{enumerate}
         \item Linear Transformations $T: V \to W$ are {\bf determined} by their
           behavior on a basis $\B$ of $V$. More precisely,
 
           Suppose that $\B = \{\alpha_1, ..., \alpha_n\}$ is a basis for $V$ and
-          suppose that $T, U: V \to W$ are both linear tranformations (and they
+          suppose that $T, U: V \to W$ are both linear transformations (and they
           agree on a basis), such that
 
           \[
@@ -1039,7 +1126,179 @@
           $T(\alpha) = \beta$. Then $T(c\alpha) = cT(\beta) c \beta$, therefore
           $c\alpha \in \range(T)$.
       \end{enumerate}
+
+      In other books this space is also called the \textbf{image} of $T$.
     }
 
-  % \end{multicols*}
+    % \date{Fri. Feb 17 2023}
+    %
+    % Recall $T: V \to W$ is a linear transformation over $F$
+    %
+    % see grayson for notes today
+
+    
+  \definition{
+    The \textbf{Null Space} of $T: V \to W$ is the set
+
+    \[
+      \Null(T) = \{\alpha \in V \vert T(\alpha) = \vec{0}\}
+    \]
+
+    \btw{
+      In other words, this is the set of all vectors $\alpha$ in $V$ that, after
+      a transformation $T$ is applied, go to $\vec{0}$. Note that $\vec{0}$ here
+      is the zero of the vector space $W \subseteq V$.
+    }
+
+    This is also sometimes called the \textbf{Kernel} of $T$.
+  }
+
+  \thm{
+    Let $T: V \to W$ be a linear transformation. $\Null(T)$ is a subspace of $V$.
+  }
+  {
+    Let $\alpha, \beta \in \Null(T)$ and $c \in F$. Then,
+    \[
+      T(c\alpha + \beta) = cT(\alpha) + T(\beta) = c\vec{0} + \vec{0} = \vec{0}
+      \Ra c\alpha + \beta \in \Null(T)
+    \]
+  }
+
+  It's pretty easy to see from this (and it should make sense) that the Null
+  Space for a transformation $T$ is itself a vector space.
+
+  \definition{
+    The \textbf{Nullity} of $T$ is the dimension of the Null space of $T$.
+  }
+
+  \newpage
+
+  \definition{
+    The \textbf{Rank} of $T$ is the dimension of $\range(T)$. Is this is equal
+    to the dimension of $W$, $T$ is said to have \textbf{full rank}.
+  }
+
+  Note again that this comes back to our definition of $W$ for our
+  transformation $T$. Earlier, we saw that $W$ was the {\it codomain} of $T$. If
+  you think about how functions behave, this is like having a {\it surjective}
+  function.
+
+  \example{
+    Let $\P_2$ be the set of all polynomials of degree 2 or less over a field
+    $F$. Then, we have $\dim(\P_2)= 3$.
+    
+    Consider the linear transformation $D: \P_2 \to \P_2$, the differentiation
+    operator. Then
+    
+    \[
+      \range(D) = \Span(\{D(1), D(x), D(x^2)\}) = \Span(\{1, 2x\}) \Rightarrow \rank(D) = 2
+    \]
+
+    In other words, the Range of $D$ is the Span of a basis of $\P_2$ (in this
+    case $\{1, x, x^2\}$) after being evaluated through $D$, so $\{1, 2x\}$. So
+    the rank of $D$ here is $2$.
+
+    For the Null Space of $D$, we have that
+
+    \[
+      \Null(D) = \{c \in F\} \Rightarrow \nullity(D) = 1
+    \]
+
+    The Null Space is the set of all constant functions since those are the
+    function that, on $D$, go to $\vec{0}$.
+  }
+
+  \subsection{The Rank-Nullity Theorem}
+  \namedtheorem{Rank-Nullity Theorem}{
+    Let $V$ be a vector space with $\dim V = n$. Let $T: V \to W$.
+    \[ \rank(T) + \nullity(T) = \dim V = n \] 
+  }{
+    First, choose $\{\constants{\alpha}{k}\}$ to be a basis for $\Null(T)$. This
+    set is necessarily linearly independent in $V$. So, we can choose an
+    additional $\{\alpha_{k+1}, \cdots, \alpha_n\}$ so that
+    $\{\constants{\alpha}{n}\}$ is a basis of $V$.
+    
+    Certainly, $k \leq n$, since $\Null(T)$ is a subspace of $V$.
+    
+    We claim $A = \{T(\alpha_{k+1}), \cdots, T(\alpha_{n})\}$ is a basis for
+    $\range(T)$. From this we have our theorem.
+    
+    Clearly, $A \subseteq \range(T)$. We also have, that since
+    $\{\constants{\alpha}{n}\}$ is a basis of $V$, $\{T(\alpha_i)\}$ spans
+    $\range(T)$.
+    
+    However, $T(\alpha_1) = T(\alpha_2) = \cdots = T(\alpha_k) = \vec{0}$, since
+    they are in the null space, and hence do not contribute to the span. Thus,
+    $A$ spans $\range(V)$. Now we need only show $A$ is \lind. We choose
+    constants such that
+
+    \[
+      c_{k+1}T(\alpha_{k+1}) + \cdots + c_nT(\alpha_n) = \vec{0}
+    \]
+
+    Let 
+
+    \[
+      \alpha^* = c_{k+1}\alpha_{k+1} + \cdots + c_n\alpha_n \in V
+    \]
+
+    We then have
+    
+    \[
+      T(\alpha^*) = c_{k+1}T(\alpha_{k+1}) + \cdots + c_nT(\alpha_n) = \vec{0} \Rightarrow \alpha^* \in \Null(T)
+    \]
+
+    So, we then have that, since $\alpha^*$ is in the null space,
+
+    \[
+      \alpha^* = \lincomb{d}{\alpha}{k} = c_{k+1}\alpha_{k+1} + \cdots + c_n\alpha_n
+    \]
+
+    \[
+      \lincomb{d}{\alpha}{k} - c_{k+1}\alpha_{k+1} - \cdots - c_n\alpha_n = \vec{0} \in V
+    \]
+
+    But since $\{\constants{\alpha}{n}\}$ is a basis of $V$, all the constants
+    are zero, and in particular all of the $c_i$ are zero. So,
+    $\{T(\alpha_{k+1}), \cdots, T(\alpha_n)\}$ is linearly independent and is
+    thus a basis of $\range(T)$.
+  }
+
+  Now that we have the rank-nullity theorem, we can analyze transformations and
+  their matrices.
+
+  \definition{
+    Let $A$ be a matrix in $F^{m \times n}$.
+    
+    The \textbf{Column Space} is the vector space spanned by the $n$ columns of
+    $A$. This is precisely $\range(T_A)$.
+    
+    The \textbf{Row Space} is the vector space spanned by the $m$ rows of $A$.
+  }
+
+  \thm{
+    Let $A$ be a matrix, that when row-reduced has $n$ unknowns and $r$ non-zero
+    rows. $\nullity(T_A) = n - r$
+  }{
+    This follows from the fact that elementary row operations preserve the row
+    space, and that solving a linear system in $r$ equations with $n$ unknowns
+    will have $n - r$ degrees of freedom.
+
+    \TODO{} I guess I can believe this but some more info would be nice.
+  }
+
+  \note{
+    Let $A$ be a matrix. Then the following are equal
+    \begin{itemize}
+      \item The dimension of the row space of $A$
+      \item The dimension of the column space of $A$
+      \item The number of nonzero rows in the row-reduced form of $A$
+      \item $\rank(T_A)$	
+    \end{itemize}
+
+  }{
+    This follows immediately from the above and the Rank-Nullity Theorem.
+  }
+
+
 \end{document}

@@ -1300,5 +1300,208 @@
     This follows immediately from the above and the Rank-Nullity Theorem.
   }
 
+  \date{Mon. Feb 20 2023}
+
+  \TODO{} Missing first 10 minutes of class (sorry)
+
+  Consider
+
+  \[
+    A = \begin{bmatrix}
+      1 & 2 & 3 & 4 \\
+      2 & 4 & 6 & 8 \\
+      1 & 0 & 1 & 1
+    \end{bmatrix}
+  \]
+
+  Then
+
+  \[
+    A^{rr} = \begin{bmatrix}
+      1 & 0 & 1 & 1 \\
+      0 & 1 & 1 & 3/2 \\
+      0 & 0 & 0 & 0
+    \end{bmatrix}
+  \]
+
+  Is the row reduced matrix.
+
+  A basis for the row space of $A$ is
+  \[
+    \{(1, 0, 1, 1), (0, 1, 1, 1/3)\}
+  \]
+
+  but another is
+
+  \[
+    \{(1, 2, 3, 4), (1, 0, 1, 1)\}
+  \]
+
+  We have $T_A: \R^4 \to \R^3$, and $\rank(T_A) = 2$.
+
+  Basis for $\range(T_A)$ equals the basis for $\text{Col Space}(A)$
+
+  % Note: doing row reductions {\it affects} the columns, 
+
+  There are many more linear transformations than the ones given by a matrix,
+  for instance the derivative or integrals.
+
+  Let $T: V \to W$ be a linear transformation. From here there are two questions
+  we can now ask.
+
+  \begin{enumerate}
+    \item Is $T$ onto?
+
+      It is if and only if $\range(T) = W$. We saw this earlier.
+      In terms of dimension, this means that $\rank(T) = \dim(W)$.
+
+      Note that here, $V, W$ must be {\bf finite dimensional}.
+
+    \item Is $T$ one to one?
+
+      This requires some more work.
+  \end{enumerate}
+
+  \thm{
+    $T: V \to W$ is one to one if and only if $\Null(T) = \{\vec{0}\}$.
+
+    \btw{In other words, the Null space must only contain the zero vector.}
+  }
+  {
+    Assume that $T$ is one to one. We know that $T(\vec{0}_V) = \vec{0}_W$.
+    Chose any $\alpha \in \Null(T)$, then $T(\alpha) = \vec{0}_W$, by definition
+    of being in the Null Space. Since $T$ is one to one, $\alpha$ must equal
+    $\vec{0}_V$. \\
+
+    Now assume that $\Null(T)$ is just $\vec{0}_W$. To see that $T$ is one to
+    one, chose any $\alpha, \alpha' \in V$, with $T(\alpha) = T(\alpha')$. Then
+    $T(\alpha - \alpha') = T(\alpha) - T(\alpha')$ by linearity, but then since
+    $\alpha = \alpha'$, $T(\alpha - \alpha') = \vec{0}$ so $T(\alpha - \alpha')$
+    must be in the Null space of $T$, and since $\Null(T) = \{\vec{0}\}$, and
+    $\alpha - \alpha' = 0$, so $\alpha = \alpha'$ and thus $T$ is one to one.
+  }
+
+  \definition{
+    $T$ is called {\bf non-singular} if $T$ is one to one.
+
+    This is just another term for something we already know.
+  }
+
+  Now suppose that $T: V \to W$ is a linear transformation with $\dim(V) =
+  \dim(W)$. Then $T$ is one to one if and only if $T$ is onto.
+
+  {\bf Proof}:
+
+  By the Rank-Nullity theorem from last time, we have that
+
+  \[
+    \rank(T) + \nullity(T) = \dim(V)
+  \]
+
+  Now, assume that $T$ is one to one, then $\nullity(T) = 0$, but then $\rank(T)
+  = \dim(V) = \dim(W)$.
+
+  Now conversely, assume that $T$ is onto. Then
+
+  \[
+    \rank(T) = \dim(W) = \dim(V)
+  \]
+
+  Therefore $\nullity(T) = 0$, and so $T$ is one to one.
+
+  \TODO{} typeset above
+
+  We are now starting to get a pretty good understanding of linear
+  transformations, but suppose that we now want to combine them.
+
+  \subsection{Combining Linear Transformations}
+
+  Say $T: V \to W$ and $U: W \to Y$ are linear transformations over $F$.
+
+  \btw{ then $U \circ T: V \to Y$ is a function. }
+
+  {\bf Check the following}:
+
+  \begin{enumerate}
+    \item $U \circ T$ is a linear transformation.
+
+      \btw{
+        You know how to do this, just check that they scale and add as we
+        expect.
+      }
+
+    \item If both $T$ and $U$ are one to one, then the composition is also one
+      to one.
+
+    \item If both $T$ and $U$ are onto, the composition is also onto.
+  \end{enumerate}
+
+  \note{
+    $T \circ U$ would {\bf not} be a linear transformation, assuming that $Y$
+    and $V$ are not the same vector space.
+
+    Linear Transformations don't commute nicely like that.
+
+    \TODO{} check that statement above.
+  }
+
+  \TODO{} Mention somewhere that a linear transformation is nothing but a
+  function, a nice function (additionally, its just a set too)
+
+  Let's now look at $T$ again.
+
+  \definition{
+    A linear transformation $T: V \to W$ is called {\bf invertible} if there is
+    a linear transformation $U: W \to V$ such that
+
+    \begin{enumerate}
+      \item $U \circ T: V \to V$ is the identity from $V$. In other words
+
+        \[
+          U(T(\alpha)) = \alpha
+        \]
+
+        For any $\alpha \in V$.
+
+      \item $T \circ U: W \to W$
+
+        \[
+          T(U(\alpha)) = \alpha
+        \]
+
+        For any $\alpha \in W$.
+
+    \end{enumerate}
+  }
+
+  \note {
+    It might be interesting for you to prove that, if one of the above applies,
+    the other automatically applies as well.
+  }
+
+  If $T$ is invertible, we call such a $U$ $T^{-1}$, the inverse
+  transformation of $T$.
+
+  \note{
+    Inverse transformations are unique, if they exist.
+
+    \btw{We didn't talk about this in class but it {\it has} to be true.}
+  }
+
+  {\bf Proposition}: If $T: V \to W$ is an {\it invertible} linear
+  transformation if and only if $T$ is both one to one and onto.
+
+  % In fact the inverse map is given by
+  %
+  % \[
+  %
+  % \]
+
+  \note {
+    If $T$ has an inverse, then it must be the case that $\dim(V) = \dim(W)$.
+
+    If this is surprising, just consider that this follows from the fact that
+    $T$ is both one to one, and onto.
+  }
 
 \end{document}

@@ -340,6 +340,9 @@
 \def\range{\text{Range}}
 \def\Null{\text{Null}}
 
+\def\RowSpace{\text{RowSpace}}
+\def\ColSpace{\text{ColSpace}}
+
 
 % create a command for TODOs
 \newcommand{\TODO}{\color{red}\textbf{TODO}\color{black}}
@@ -742,9 +745,9 @@
     Suppose we have a transformation $T: V \to W$, then $V$ is the {\bf
     domain} and $W$ is the {\bf codomain}.
 
-    Here, $T$ behaves just like a function, which means that it {\it must} use
-    all of $T$, but it {\it does not} have to use all of $W$. For example, the
-    following is a perfectly valid transformation.
+    Here, $T$ is just a function, which means that it {\it must} use all of $T$,
+    but it {\it does not} have to use all of $W$. For example, the following is
+    a perfectly valid transformation.
 
     \example {
       Let $T: \P^3 \to \P^2$ be the transformation that takes all degree $3$
@@ -1302,9 +1305,49 @@
 
   \date{Mon. Feb 20 2023}
 
-  \TODO{} Missing first 10 minutes of class (sorry)
+  Suppose that $A$ is an $m \times n$ matrix. Now suppose that we row reduce
+  $A$, let's call this matrix $A^{rr}$. Then we have that
 
-  Consider
+  \[
+    \RowSpace(A) = \RowSpace(A^{rr})
+  \]
+
+  And we know that $\rank(A)$ is the number of non-zero rows of $A^{rr}$ which
+  we call $r$.
+
+  Moreover, the solution set of the homogeneous system $A\vec{x} = \vec{0}$ has
+  dimension $n - r$, where $n$ is the number of columns subtract the number of
+  redundant equations.
+
+  Now, we know that for a matrix $A$, there is an associated linear
+  transformation $T_A: F^n \to F^m$.
+
+  Last time, we also saw that 
+  \begin{enumerate}
+    \item $\range(T_A) = \ColSpace(A)$, 
+    \item $\Null(T_A)$ is the solution set of $A \vec{x} = \vec{0}$.
+  \end{enumerate}
+
+  Now we can put everything together. Recall the Rank-Nullity theorem, then we
+  have that, for any linear transformation $T_A$,
+
+  \begin{enumerate}
+    \item $\rank(T_A) + \nullity(T_A) = \dim(F^n) = n$
+    \item $\rank(T_A) := \dim(\range(T_A))$
+    \item $\nullity(T_A) = \dim(\Null(A)) = n - r$, which is exactly the dimension of
+      the set of all solutions to the homogeneous.
+    \item Finally we have that
+      \begin{align*}
+        \rank(A) &= \dim(\RowSpace(A)) = \dim(\ColSpace(A)) \\
+                 &= \dim(\RowSpace(A^{rr})) \\
+                 &= \rank(T_A) \\
+                 &= r
+      \end{align*}
+  \end{enumerate}
+
+  Recall also that $\nullity(T_A) = \dim(\Null(T_A)) = n - r$.
+
+  Consider a matrix $A$ where
 
   \[
     A = \begin{bmatrix}
@@ -1387,29 +1430,28 @@
     This is just another term for something we already know.
   }
 
-  Now suppose that $T: V \to W$ is a linear transformation with $\dim(V) =
-  \dim(W)$. Then $T$ is one to one if and only if $T$ is onto.
+  \thm {
+    Now suppose that $T: V \to W$ is a linear transformation with $\dim(V) =
+    \dim(W)$. Then $T$ is one to one if and only if $T$ is onto.
+  }
+  {
+    By the Rank-Nullity theorem from last time, we have that
 
-  {\bf Proof}:
+    \[
+      \rank(T) + \nullity(T) = \dim(V)
+    \]
 
-  By the Rank-Nullity theorem from last time, we have that
+    Now, assume that $T$ is one to one, then $\nullity(T) = 0$, but then $\rank(T)
+    = \dim(V) = \dim(W)$.
 
-  \[
-    \rank(T) + \nullity(T) = \dim(V)
-  \]
+    Now conversely, assume that $T$ is onto. Then
 
-  Now, assume that $T$ is one to one, then $\nullity(T) = 0$, but then $\rank(T)
-  = \dim(V) = \dim(W)$.
+    \[
+      \rank(T) = \dim(W) = \dim(V)
+    \]
 
-  Now conversely, assume that $T$ is onto. Then
-
-  \[
-    \rank(T) = \dim(W) = \dim(V)
-  \]
-
-  Therefore $\nullity(T) = 0$, and so $T$ is one to one.
-
-  \TODO{} typeset above
+    Therefore $\nullity(T) = 0$, and so $T$ is one to one.
+  }
 
   We are now starting to get a pretty good understanding of linear
   transformations, but suppose that we now want to combine them.
@@ -1440,13 +1482,11 @@
     $T \circ U$ would {\bf not} be a linear transformation, assuming that $Y$
     and $V$ are not the same vector space.
 
-    Linear Transformations don't commute nicely like that.
-
-    \TODO{} check that statement above.
+    \btw {Linear transformations don't commute nicely like that.}
   }
 
-  \TODO{} Mention somewhere that a linear transformation is nothing but a
-  function, a nice function (additionally, its just a set too)
+  % \TODO{} Mention somewhere that a linear transformation is nothing but a
+  % function, a nice function (additionally, its just a set too)
 
   Let's now look at $T$ again.
 
@@ -1491,17 +1531,11 @@
   {\bf Proposition}: If $T: V \to W$ is an {\it invertible} linear
   transformation if and only if $T$ is both one to one and onto.
 
-  % In fact the inverse map is given by
-  %
-  % \[
-  %
-  % \]
-
   \note {
     If $T$ has an inverse, then it must be the case that $\dim(V) = \dim(W)$.
 
     If this is surprising, just consider that this follows from the fact that
-    $T$ is both one to one, and onto.
+    $T$ must be both one to one, and onto in order to have an inverse.
   }
 
 \end{document}

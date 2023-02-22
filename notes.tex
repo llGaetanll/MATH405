@@ -1537,5 +1537,272 @@
     If this is surprising, just consider that this follows from the fact that
     $T$ must be both one to one, and onto in order to have an inverse.
   }
+  
+  \newpage
+
+  \date{Wed. Feb 22 2023}
+
+  {
+    \it Today was exam review. As such, everything for today is written as
+    examples.
+  }
+
+  {\bf What to expect}
+
+  \begin{enumerate}
+    \item Short answer {\bf True} / {\bf False}. Then write a sentence
+      explaining your choice, doesn't need to be a proof.
+    \item Matrix stuff. Row Space, Col Space, Col Space, Rank of Matrix,
+      Solution set of homogeneous system, etc...
+    \item Linear Transformations. Polynomials, $\{e^{ix}, e^{-ix}\}$ stuff,
+      etc...
+    \item Full Proofs of statements. Rather straightforward, just involving
+      linear independence, or spanning, or dimensions, etc...
+  \end{enumerate}
+
+  The exam {\it is} 50 minutes, problems {\it will} be reasonable.
+  At this point, we have definitely covered everything that will be on exam 1.
+
+  \section{Example Problems}
+
+  \example {
+    {\bf Problem 3.1.4}
+
+    Want: A linear transformation $T: \R^3 \to \R^2$ such that $T(1, -1, 1) =
+    (1, 0)$, and $T(1, 1, 1) = (0, 1)$
+
+    Firstly, {\it is there one}?
+
+    The two vectors passed to $T$ are linearly independent, so {\bf they can be
+    expanded to a basis}. Say for example,
+
+    \[
+      \B = \{(1, -1, 1), (1, 1, 1), (0, 0, 1)\}
+    \]
+
+    Where $\B$ is a basis of $\R^3$. Now, there will be a {\it unique} linear
+    transformation that will take it to any two points in $\R^2$ (even if those
+    two points are not linearly independent.)
+
+    {\bf Fundamental Fact}:
+
+    If $V, W$ are vector spaces, and $\B = \{\alpha_1, \dots, \alpha_n\}$ is a
+    basis of $V$, then for any $\beta_1, ...,\beta_n \subseteq W$, there is {\it
+    exactly} one linear transformation $T$ for which
+
+    \[
+      T(\alpha_1) = \beta_1, \dots, T(\alpha_n) = \beta_n
+    \]
+
+    {\sc Note}: $\beta_i$ do {\it not} have to be linearly independent! For
+    instance consider the $0$ transformation, then $\beta_1 = \cdots = \beta_n =
+    \vec{0} \in W$.
+
+    {\bf Question}: How do we define such a $T$?
+
+    Take any $\alpha^* = c_1 \alpha_1 + \cdots + c_n \alpha_n$. Then by
+    linearity,
+
+    \[
+      T(\alpha^*) = c_1 \beta_1 + \cdots + c_n \beta_n
+    \]
+
+    {\sc Note}: This shows that such a $T$ {\it does} exist, but it's not {\it
+    constructive}. We don't {\it actually} know what it is; we only know what
+    properties it has, and that it exists.
+
+    {\sc Note}: Before we expanded $\{(1, -1, 1), (1, 1, 1)\}$ to a basis, there
+    were an {\it infinite} family of linear transformations. This is because we
+    got to choose the last vector of $\B$, in our case $(0, 0, 1)$. If we have
+    chosen, say, $(0, 1, 0)$ instead, then we would have gotten an entirely
+    different transformation $T$.
+  }
+
+  \example {
+    {\bf Problem 2.4.6a}
+
+    {\bf Question}: How do we show that $e^{ix}$ and $e^{-ix}$ are linearly
+    independent?
+
+    Let $f_1(x) = 1, f_2(x) = e^{ix}, f_3(x) = e^{-ix}$.
+
+    {\bf Claim}: $f_1, f_2, f_3$ are {\it linearly independent}.
+
+    Recall what this means. For {\it any} $x$,
+
+    \[
+      c_1 f_1(x) + c_2 f_2(x) + c_3 f_3(x) = \vec{0}
+    \]
+
+    Implies that $c_1, c_2, c_3$ must all be $0$. Where $\vec{0}$ is the zero
+    function: $z(x) = 0$ for all $x$.
+
+    \[
+      c_1 + c_2 e^{ix} + c_3 e^{-ix} = \vec{0}
+    \]
+
+    Now let $x = -100i$, then $e^{i(-100i)} = e^{100}$, then $e^{-i(-100i)} =
+    e^{-100}$, so we have
+
+    \[
+      c_1 + c_2 e^{100} + c_3 e^{-100} = \vec{0}
+    \]
+
+    Therefore, $c_1, c_2, c_3$ {\it must} all be $0$, since clearly all the
+    functions are positive for $x = -100i$. This shows that the functions are
+    linearly independent.
+
+    Since $c_1 f_1(x) + c_2 f_2(x) + c_3 f_3(x) = \vec{0}$ {\it has} to work for
+    {\it any} value of $x$, if you just find {\it one} counterexample (like $x =
+    -100i$ above), that shows that they are linearly independent.
+
+    % \TODO{} write above better
+  }
+
+  \example {
+    {\bf Question}: Suppose that the field $F$ is $\C$. Is 
+
+    \[
+      W = \{g_1(x) = 1, g_2(x) = \sin x, g_3(x) = \cos x\}
+    \]
+
+    Linearly independent?
+    
+    {\bf Answer}: Yes!
+
+    Suppose that for some $x = \theta$ we have
+
+    \begin{align*}
+      c_1 g_1(x) + c_2 g_2(x) + c_3 g_3(x) =& \vec{0} \\
+             c_1 + c_2 \sin x + c_3 \cos x =& \vec{0}
+    \end{align*}
+
+    Then
+
+    \[
+      c_2 \sin x + c_3 \cos x = - c_1
+    \]
+    
+    Then look at $\theta + \pi$,
+
+    \[
+      c_2 \sin (\theta + \pi) + c_3 \cos (\theta + \pi) = - c_1
+    \]
+
+    So then we have the set of equations
+
+    \[
+      c_2 \sin \theta + c_3 \cos \theta = c_2 \sin(\theta + \pi) + c_3 \cos(\theta + \pi)
+    \]
+
+    But since $\sin \theta = -\sin(\theta + \pi)$ and $\cos \theta = -
+    \cos(\theta + \pi)$, we have
+
+    \begin{align*}
+      c_2 \sin \theta + c_3 \cos \theta  &= -c_2 \sin \theta - c_3 \cos \theta \\
+      2c_2 \sin \theta + 2c_3 \cos \theta  &= 0
+    \end{align*}
+
+    But in order for this to be true for all $\theta$, $c_1$ and $c_2$ must both
+    be $0$.
+
+    {\sc Note}: We know that $\sin^2 x + \cos^2 x = 1$, but we're not allowed to
+    square $g_2$ and $g_3$ here. That's not a linear operation, so it's not
+    relevant. However, it {\it is} true that $\{1, \cos^2 x, \sin^2 x\}$ {\it
+    are} linearly dependent.
+
+    {\sc Note}: $f_2 \in \Span(\{g_1, g_2, g_3\})$.
+
+    \begin{align*}
+      e^{-ix} =&\cos(-x) + i \sin(-x) \\
+      e^{-ix} =&\cos(x) = i \sin(x)
+    \end{align*}
+
+    So $f_1 \in \Span(\{1, \sin x, \cos x\})$, but $\dim(W) = 3$, and we already
+    know that $f_1, f_2, f_3$ are linearly independent from the previous
+    example, so we just found another basis for $W$
+
+    \[
+      \{f_1, f_2, f_3\} = \Span(W)
+    \]
+  }
+
+  \example {
+    {\bf Problem 2.4.4d}
+
+    Let $W = \Span(\{(1, 0, i), (1 + i, 1, -1)\})$.
+
+    {\bf Question}: Is this set linearly independent?
+
+    Yes, neither is $0$, or a multiple of the other.
+
+    {\bf Question}: What is $\dim(W)$?
+
+    $2$
+
+    So a basis could be
+
+    \[
+      \B = \{(1, 0, i), (1 + i, 1, -1)\}
+    \]
+
+    The vectors themselves.
+
+    {\bf Question}: Let $\beta_1 = (1, 1, 0)$. Is $\beta_1 \in W$?
+
+    Let's try to make it.
+
+    \[
+      (1, 1, 0) = c_1 (1, 0, i) + c_2 (1 + i, 1, -1)
+    \]
+
+    Need: $1 = c_1 + c_2 (i + i)$, and $1 = c_1 (0) + c_2 (1)$ so $c_2 = 1$,
+    and finally, $0 = c_1 (i) + c_2 (-1)$.
+
+    So $\beta_1 = (-i)(1, 0, -i) + 1 (1 + i, 1, -1)$
+  }
+  
+  \example {
+    {\bf 4d on Homework 3}
+
+    If $\dim(V) = \dim(W)$, and $\B = \{ \alpha_1, \dots, \alpha_k\}$ is a basis
+    for $V$, must
+
+    \[
+      T(\alpha_1) + \cdots + T(\alpha_k)
+    \]
+
+    Be a basis for $W$?
+
+    {\bf Answer}: No!
+
+    Let $T$ be the $0$ transformation, then everything is mapped to $0$.
+  }
+
+  {\sc Note}: Here it's worth reiterating the difference between the {\it
+  codomain} and the {\it range} of $T$.
+
+  Suppose that $T: V \to W$ is a linear transformation that maps vectors from
+  $V$ to $W$. Then, we say that $V$ is the {\it domain} of $T$, and that $W$ is
+  the {\it codomain} of $T$.
+
+  We know that a linear transformation is just a function, and one thing that we
+  know about functions is that they {\it must} use their entire domain (so
+  everything from $V$ has to map {\it somewhere} in $W$), but they {\it don't}
+  have to use all of their codomain.
+
+  The nuance here is the word {\it "somewhere"}. Suppose that we have the
+  function $f: \R \to \R$ with $f(x) = 5$. Then the domain of $f$ is $\R$ and so
+  is the codomain. Here, we can see that $5$ is {\it somewhere} in the codomain
+  of $f$, but it's certainly {\it not all} of it. Then, we say that the {\it
+  range} of $f$ is $\{5\}$. This is all just by definition.
+
+  Let's look at another example. Suppose that $g: \R \to \Z$ with $g(x) =
+  \lfloor x \rfloor$ this time. In this case, $g$ {\it does} use up all of its
+  codomain, since every value in $\R$ will be mapped to a value in $\Z$.
+
+  Linear transformation behave in exactly the same way. When we talk about
+  $\dim(W)$, we're talking about the size of a basis of $W$, but $T$ makes no
+  promises about mapping elements from $V$ to all of it.
 
 \end{document}

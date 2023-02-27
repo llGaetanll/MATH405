@@ -1,6 +1,6 @@
 # Linear Algebra
 
-You can read these notes by viewing the attached PDF
+In this repo, you'll find two PDFs. One is my notes for the class, called `notes.pdf`. The other is `examples.pdf`, which is a list of example problems with provided solutions to help you practice your understanding. 
 
 ## Help me out!
 

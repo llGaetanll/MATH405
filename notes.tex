@@ -1144,7 +1144,7 @@
     The \textbf{Null Space} of $T: V \to W$ is the set
 
     \[
-      \Null(T) = \{\alpha \in V \vert T(\alpha) = \vec{0}\}
+      \Null(T) = \{\alpha \in V \vert T(\alpha) = \vec{0}\} \subseteq V
     \]
 
     \btw{
@@ -1804,5 +1804,143 @@
   Linear transformation behave in exactly the same way. When we talk about
   $\dim(W)$, we're talking about the size of a basis of $W$, but $T$ makes no
   promises about mapping elements from $V$ to all of it.
+
+  \date{Mon. Feb 27 2023}
+  
+  {\it From this point, the course is going to become much more abstract.}
+
+  Fix $V, W$ vector spaces over the same field $F$.
+
+  Let $L(V, W)$ consist of all linear transformations $T: V \to W$.
+
+  \thm {
+    $L(V, W)$ is a vector space.
+  }
+  {
+    Say that $T, U$ are each linear transformations. Let $T + U: V \to W$ be
+    defined by
+
+    \[
+      (T + U)(\alpha) = T(\alpha) + U(\alpha)
+    \]
+
+    For $T \in L(V, W)$ and $c \in F$. Let $cT: V \to W$ be the linear
+    transformation
+
+    \[
+      (cT)(\alpha) = cT(\alpha)
+    \]
+
+    It's easy to check that these linear transformations satisfy the properties
+    of being a vector space.
+  }
+
+  \thm {
+    Suppose that $\dim(V) = n$ and $\dim(W) = m$, then $\dim(L(V, W)) = nm$.
+  }
+  {
+    Recall that a linear transformation $T: V \to W$ is determined by what it
+    does to a basis of $V$.
+
+    Chose a basis $\B = \{\alpha_1, \dots, \alpha_n \}$ of $V$, and $\B' =
+    \{\beta_1, \dots, \beta_n \}$ of $W$.
+
+    For any $1 \le p \le m$ and $1 \le q \le n$,
+
+    Let $E^{pq}: V \to W$ be determined by
+
+    \[
+      E^{pq}(\alpha_i) = \begin{cases}
+        \beta_j & \text{ if } i = q \\
+        0       & \text{ if } i \ne q
+      \end{cases}
+      = \delta_{iq} \cdot \beta_j
+    \]
+
+    Where $\delta_{iq}$ is the ``Kroneker $\delta$ function" defined by
+
+    \[
+      \delta_{iq} = \begin{cases}
+        1 & \text{ if } i = q \\
+        0 & \text{ if } i \ne q
+      \end{cases}
+    \]
+
+    {\bf Claim}: $E^{pq}: 1 \le p \le m, 1 \le q \le n$ is a basis for $L(V,
+    W)$.
+
+    {\bf Proof}: \btw {Why does $\{E^{pq}\}$ span $L(V, W)$?}
+
+    For $1 \le p \le m, 1 \le q \le n$, $E^{pq}(\alpha_q) = \beta_p$ but
+    $E^{pq}(\alpha_{q'}) = 0$ for all $q' \ne q$.
+
+    Choose any $T \in L(V, W)$, i.e. $T: V \to W$ is a linear transformation.
+    \btw{What does this $T$ do to $V$?}
+
+    For $1 \le q \le n$, say $T(\alpha_q) = A_{1q \beta_1} + A_{2q \beta_2} +
+    \cdots + A_{mq \beta_m}$, for some $A_{1q}, \dots, A_{mq}$
+
+    \btw {Here, we're building an $m \times n$ matrix!}
+
+    {\bf Subclaim}:
+
+    \[
+      T = \sum_{p = 1}^m \sum_{q = 1}^n A_{pq} E^{pq}
+    \]
+
+    \btw {The subclaim shows that $T$ is in the span of $E^{pq}$}
+
+    {\bf Proof of Subclaim}
+
+    Let $U = \sum_{p = 1}^m \sum_{q = 1}^n A_{pq} E^{pq}$. \btw {We're going to
+    show that $T$, and $U$ do the same thing to every basis element. Linear
+    transformations are equal if and only if they agree on a basis.}
+    
+    Fix $1 \le q \le n$
+
+    \begin{align*}
+      U(\alpha_q) =&\sum_{p = 1}^m \sum_{q = 1}^n A_{pq} E^{pq}(\alpha_q) \\
+                  =&\sum_{p = 1}^m  A_{pq} \beta_p \\
+                  =&A_{1q} \beta_1 + A_{2q} \beta_2 + \cdots + A_{mq} \beta_m  \\
+                  =&T(\alpha_q)
+    \end{align*}
+
+    So we see that $T$ and $U$ agree on every $\alpha \in \B$, so $T = U$.
+
+    \btw {Now we need to show that they are linearly independent.}
+
+    {\bf Subclaim 2}: $E^{pq}$ are linearly independent.
+
+    Chose $\{c_{pq}\} \in F$ such that
+
+    \[
+      \sum_{p = 1}^m \sum_{q = 1}^n c_{pq} E^{pq} = 0
+    \]
+
+    \btw {Now we must show that all $c_{pq}$ must be $0$.}
+
+    Fix any $\le q \le n$. Then
+
+    \begin{align*}
+      U(\alpha_q) =&\sum_{p = 1}^{m} \Big( \sum_{q = 1}^{n} c_{pq} E^{pq} (\alpha_q) \Big) & \\
+      =&\sum_{p = 1}^{m} c_{pq} \beta_p & \text{By cheatsheet}
+      =&0 &
+    \end{align*}
+
+    Since $U$ is the zero transformation. Thus
+
+    \[
+      c_{1q} \beta_1 + c_{2q} \beta_2 + \cdots + c_{mq} \beta_m = 0
+    \]
+
+    Since $\{\beta_1, \dots, \beta_m\}$ is a basis for $W$.
+
+    This means that $c_{1q} = c_{2q} = \cdots = c_{mq} = 0$.
+
+    This holds for every $1 \le q \le n$, therefore all $c_{pq}$ must be $0$, so
+    $\{E^{pq}\}$ is linearly independent.
+  }
+
+
 
 \end{document}

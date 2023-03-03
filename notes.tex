@@ -24,6 +24,8 @@
 \usepackage{chngcntr}
 \usepackage{float}
 \usepackage{multicol}
+% \usepackage{quiver}
+\usepackage{tikz-cd}
 
 
 % \input xypic (for commutative diagrams)
@@ -1942,5 +1944,262 @@
   }
 
 
+  \date{Wed. Mar 1 2023}
+
+  \definition{
+    Suppose that $V, W$ are vector spaces over the same field $F$. An {\bf
+    isomorphism} is a linear transformation $T$ that has an inverse $U: W \to V$
+    satisfying
+
+    \[
+      U \circ T = I_V
+    \]
+    
+    and 
+
+    \[
+      T \circ U = I_W
+    \]
+
+    Write $T^{-1}$ for this $U$ if it exists.
+
+    Note that $T$ here is {\it necessarily} a bijection.
+
+    Note that $V$ and $W$ must be over the {\bf same field} for $T$ to be an
+    isomorphism.
+  }
+
+  \definition{
+    The vector spaces $V, W$ are called {\bf isomorphic} if there exists an {\it
+    isomorphism} $T$ from $V$ to $W$. 
+
+    Note that there may be {\it many different} isomorphisms.
+  }
+
+  What does this all mean? Well if $V$ and $W$ are isomorphic, then, even if
+  they are very different, they will behave in very similar ways.
+
+  The following hold
+
+  \begin{itemize}
+    \item $\dim V = \dim W$
+    \item If $V' \subseteq V$ is a subspace, then $T(V') = W' \subseteq W$ is a
+      subspace of $W$ with $\dim(V') = \dim(W')$. Basically if $V$ and $W$ are
+      isomorphic, then $V'$ and $W'$ are also isomorphic.
+  \end{itemize}
+
+  {\bf Recall}: A linear transformation $T: V \to W$ is an isomorphism if and
+  only if $T$ is both one to one and onto (in other words, if $T$ is a bijection)
+
+  {\bf Specical Case}: If we're lucky and $\dim(V) = \dim(W)$, then there's an
+  easier test. If $T: V \to W$ is a linear transformation, then the following
+  are equivalent
+
+  \begin{itemize}
+    \item $T$ is an isomorphism
+    \item $T$ is one to one
+    \item $T$ is onto
+  \end{itemize}
+
+  Let's look at examples!
+
+  \example {
+    Let $V$ be a vector space over $F$ of dimension $\dim(V) = n$. Let $\B =
+    \{\alpha_1, \dots, \alpha_n\}$ be an ordered basis for $V$. The coordinate
+    transformation
+
+    \[
+      C_{\B}: V \to F^n
+    \]
+    
+    is an isomorphism, sending $\alpha \mapsto [\alpha]_{\B}$. In other words it
+    translates $\alpha$ to the language of $\B$.
+
+    If $V = \P^2$, $\B = \{1, x, x^2\}$, for any $f \in \P^2$, $f(x) = a_0 + a_1
+    x + a_2 x^2$,
+
+    \[
+      C_{\B}(f) = [f]_{\B} = \begin{bmatrix} a_0 \\ a_1 \\ a_2 \end{bmatrix} \in F^3
+    \]
+
+    is an isomorphism.
+
+    Given any $\begin{bmatrix} a_0 \\ a_1 \\ a_2 \end{bmatrix} \in F^3$, Let
+    $\alpha = a_0 + a_1 x + a_2 x^2 \in \P^2$, then $C_{\B} (\alpha) =
+    [\alpha]_{\B} = \begin{bmatrix} a_0 \\ a_1 \\ a_2 \end{bmatrix}$ is {\bf
+    onto}.
+
+    {\bf Conclusion}:
+
+    If $V$ has dimension $n$, then
+
+    \[
+      V \cong F^n
+    \]
+
+    and we say that $V$ is {\it isomorphic} to $F^n$
+  }
+
+  This is great! Now we can compare $V$ directly to some $F^n$.
+
+  {\bf Corrolary}
+
+  If $V, W$ are vector spaces over the same field $F$ and $\dim(V) = \dim(W)$,
+  then $V \cong W$.
+
+  This is huge! As long as linear transformations have the same dimension, they
+  behave in the same way.
+
+  {\bf Proof}
+
+  There exists a $C_{\B}: V \to F^n$ and $C_{\B'}: W \to F^n$, so there {\it must} exist a
+  linear transformation $C_{\B'}^{-1} \circ C_{\B}$ is a linear transformation
+  going from $V \to W$, this is an isomorphism!
+
+  {\bf Check}
+
+  \begin{itemize}
+    \item The composition of any 2 isomorphisms {\it is} an isomorphism
+    \item If $T$ is an isomorphism going from $V$ to $W$, then $T^{-1}: W \to V$
+      is an isomorphism
+  \end{itemize}
+
+  Let's recall some things
+
+  For any field $F$ and any $m, n \ge 1$. If $F^{m \times n}$ consists of all $m
+  \times n$ matrices over $F$, $F^{m \times n}$ is a vector space of dimension
+  $mn$
+
+  \[
+    \dim(F^{m \times n}) = mn
+  \]
+
+  After all, there are $mn$ free variables in the basis.
+  
+  Now, let $V, W$ be vector spaces over $F$. Let $\dim(V) = nb$ and $\dim(W) =
+  m$. Now let $L(V, W)$ be the set of all linear transformations $T: V \to W$.
+
+  We saw that $L(V, W)$ is a vector space of dimension $mn$, and that
+
+  \[
+    \{E^{pq} : 1 \le q \le n, 1 \le p \le m\}
+  \]
+  
+  is a basis for $L(V, W)$. But notice: $L(V, W)$ is a vector space of dimension
+  $mn$, but so is $F^{m \times n}$. So they must be isomorphic!
+
+  \[
+    L(V, W) \cong F^{m \times n}
+  \]
+
+  {\bf Question}: What is a linear transformation giving this isomorphism?
+
+  {\it Sure, they're isomorphic, but how do we get from one to the other?}
+
+  So the input here is just a linear transformation $T: V \to W$ (an element of
+  $L(V, W)$), and the output is some $m$ by $n$ matrix (an element of $F^{m
+  \times n}$).
+
+  Chose a basis $\B = \{\alpha_1, \dots, \alpha_n\}$ for $V$ with $\dim(V) =
+  n$, and a basis $\B' = \{\beta_1, \dots, \beta_m\}$ for $W$ with $\dim(W)$.
+  Then there is an isomorphism $C_{\B}$ Taking $V$ to $F^n$.
+
+  But there is also a coordinate isomorphism $C_{\B'}$ from $W$ to $F^m$.
+
+  But recall that $T$ goes from $V$ to $W$, so the diagram commutes. 
+
+  Let $M_{\B'}^{\B}(T) = \left[ [T(\alpha_1)]_{\B'}, [T(\alpha_2)]_{\B'}, \dots,
+  [T(\alpha_n)]_{\B'} \right]$ .
+
+  Then, we propose that, for any $\alpha \in V$,
+
+  \[
+    M_{\B'}^{\B} (T) \cdot [\alpha]_{\B} = [T(\alpha)]_{\B'}
+  \]
+
+  \subsection{Diagram}
+  \[
+    \begin{tikzcd}[sep=large]
+      {\alpha \in V} && { [\alpha]_{\mathcal B} \in F^n} \\
+      \\
+      {T(\alpha) \in W} && {[T(\alpha)]_{\mathcal B'} \in F^n}
+      \arrow["{C_{\mathcal B}}", from=1-1, to=1-3]
+      \arrow["T"', from=1-1, to=3-1]
+      \arrow["{C_{\mathcal B'}}"', from=3-1, to=3-3]
+      \arrow["{M_{\mathcal B'}^{\mathcal B}(T)}", dashed, from=1-3, to=3-3]
+    \end{tikzcd}
+  \]
+
+  Let's give a concrete example for this.
+
+  \example {
+    Let $D: \P_2 \to \P_1$
+
+    \[
+      D(a_0 + a_1 x + a_2 x^2) = a_1 + 2a_2 x
+    \]
+
+    $\B = \{1, x, x^2\}$ be a basis for $\P_2$, and $\B' = \{1, x\}$ be a basis
+    for $P_1$.
+
+    {\bf Question}
+
+    What is the matrix $M_{\B'}^{\B}(D)$? Well
+
+    $D(1) = 0$, $D(x) = 1, D(x^2) = 2x$, then $[D(1)]_{\B'} = \begin{bmatrix} 0
+    \\ 0 \end{bmatrix}$, $[D(x)]_{\B'} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$,
+    $[D(x^2)]_{\B'} = \begin{bmatrix} 0 \\ 2 \end{bmatrix}$,
+
+    So
+
+    \[
+      M_{\B'}^{\B}(D) = \begin{bmatrix}
+        0 & 1 & 0 \\
+        0 & 0 & 2
+      \end{bmatrix}
+    \]
+
+    But what does this mean? Well, chose any $f \in P_2$, say
+
+    \[
+      f(x) = 5 + 3x - x^2
+    \]
+
+    What are the coordinates of $f$ with respect to $\B$?
+
+    \[
+      [f]_{\B} = \begin{bmatrix} 5 \\ 3 \\ -1 \end{bmatrix}
+    \]
+
+    Then
+
+    \[
+      M_{\B'}^{\B}(D) \cdot [f]_{\B} = \begin{bmatrix}
+        0 & 1 & 0 \\
+        0 & 0 & 2
+      \end{bmatrix}
+      \begin{bmatrix} 5 \\ 3 \\ -1 \end{bmatrix}
+      =
+      \begin{bmatrix} 3 \\ -2 \end{bmatrix}
+    \]
+
+    But what does this final vector mean? Well, it's just $[D(f)]_{\B'}$, in other
+    words, it's the derivative of $f$ with respect to the basis $\B'$!
+  }
+
+  Really, all we're doing here is moving around in the diagram. All we need to
+  do is to apply $T$ to every $\alpha_i$, living in $V$.
+
+  {\bf Note}: Look at Homework number 13 on 3.4.
+
+  To show that $\{E^{pq}\}$ span $L(V, W)$, chose $T: V \to W$. Think about
+  $M_{\B'}^{\B}(E^{pq})$
+
+
+
+  % \date{Fri. Mar 3 2023}
+  %
+  %
+  % 
 
 \end{document}

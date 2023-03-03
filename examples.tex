@@ -1577,8 +1577,11 @@
   {
     {\bf Differentiation Transformation}
     \begin{enumerate}
-      \item Range: The set of all polynomials $\mathcal P$.
-      \item Null Space: The null space is all constant functions.
+      \item Range: The set of all polynomials $\mathcal P$, since any polynomial
+        can be reached from differentiation.
+
+      \item Null Space: The null space is all constant functions. Since those
+        are the functions that map to zero after differentiation.
     \end{enumerate}
 
     {\bf Integration Transformation}
@@ -1590,12 +1593,15 @@
           I(f) = \int_0^x f(t) dt
         \]
 
-        And $\int_0^0 f(t) dt = 0$ for any function $f$.
+        And $\int_0^0 f(t) dt = 0$ for any function $f$. In other words, this is
+        any functions with no constants. The idea here is that you {\it cannot}
+        get a constant in a function as a result of integration, so for some
+        resulting function $g$, $g(x)$ must equal $0$.
 
       \item Null Space: The null space is only the function for which
 
         \[
-          \int_0^x f(t) dt
+          I(f) = \int_0^x f(t) dt = 0
         \]
 
         For all $x$, which is the zero function.

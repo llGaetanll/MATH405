@@ -2197,9 +2197,364 @@
 
 
 
-  % \date{Fri. Mar 3 2023}
-  %
-  %
-  % 
+  \date{Fri. Mar 3 2023}
+
+  Last time, we saw that, given a transformation $T: V \to W$, and bases $\B =
+  \{\alpha_1, \dots, \alpha_n\}$ of $V$, and $\B' = \{\beta_1, \dots, \beta_n\}$
+  of $W$.
+
+  The matrix of $T$ with respect to $\B, \B'$ is the $m \times n$ matrix
+
+  \[
+    M_{\B'}^\B(T) = \left[[T(\alpha_1)]_{\B'}, \dots, [T(\alpha_n)]_{\B'}\right]
+  \]
+
+  For any $\alpha \in V$,
+
+  \[
+    M_{\B'}^\B(T) \cdot [ \alpha ]_\B = [T(\alpha)]_{\B'}
+  \]
+
+  Let's now look at a special case.
+
+  \definition{
+    Let $V$ be a vector space over a field $F$, then a {\bf Linear Operator} $T:
+    V \to V$ is any linear transformation from $V$ to itself.
+  }
+
+  These are extremely applicable, even in the real world. Let's look at some
+  examples.
+
+  \example {
+    Let $V$ be $\R^2$. Possible linear operators are $T_{\theta} : \R^2 \to
+    \R^2$ where $T_{\theta}$ {\it rotates} points by $\theta$ radians.
+
+    Another $U: \R^2 \to \R^2$ would be to {\it stretch} $x$ by a factor of 5,
+    and $y$ by a factor of $2$. Notice that the unit square would be stretch by
+    a factor of $5 \times 2$ \btw{Some will notice that this is the information
+    that the determinant of $T$ encodes!}
+
+    A third example might be in differential equations. Let $V$ be the set of
+    all pairs of foxes and rabbits, and $T$ encodes the number of foxes and
+    rabbits one generation later.
+
+    Moreover, linear transformations are also used in physics! Let $V$ be an
+    ``Electron cloud" in Quantum mechanics. Heisenberg's uncertainty principle
+    tells us that, an observation on $V$ is a linear operator!
+
+    \btw{This is beyond the scope of the class, but the point is that this {\it
+    is} extremely useful in real life!}
+  }
+
+  Previously we defined $L(V, W)$ as being the vector space of all vector spaces
+  $V$ and $W$. Now let's define $L(V, V)$ as the space of all linear operators.
+
+  If $\dim(V) = n$, then $\dim(L(V, V)) = n^2$. This is all matrices
+  representing $T: V \to V$ will be square.
+
+  For $T, U \in L(V, V)$, then $UT \in L(V, V)$ is the linear operator which
+  ``does $T$ first, then $U$." In other words
+
+  \[
+    UT(\alpha) = U(T(\alpha)) = U \circ T (\alpha)
+  \]
+
+  Conversely
+
+  \[
+    TU(\alpha) = T(U(\alpha)) = T \circ U (\alpha)
+  \]
+
+  So these operations are read from {\it right to left}.
+
+  \note{
+    Typically $UT \ne TU$. The order in which you put on shoes and socks
+    matters.
+  }
+
+  \example {
+    Suppose that $T, U: \R^2 \to \R^2$, with
+
+    \[
+      T(\begin{bmatrix} x \\ y \end{bmatrix}) = \begin{bmatrix} 5x \\ 2y \end{bmatrix}
+    \]
+
+    and 
+
+    \[
+      U(\begin{bmatrix} x \\ y \end{bmatrix}) = \begin{bmatrix} y \\ x \end{bmatrix}
+    \]
+
+    swaps $x$ and $y$. So then
+
+    \[
+      UT(\begin{bmatrix} x \\ y \end{bmatrix}) = U(\begin{bmatrix} 5x \\ 2y
+    \end{bmatrix}) = \begin{bmatrix} 2y \\ 5x \end{bmatrix}
+    \]
+
+    and 
+
+    \[
+      TU(\begin{bmatrix} x \\ y \end{bmatrix}) = T(\begin{bmatrix} y \\ x
+    \end{bmatrix}) = \begin{bmatrix} 5y \\ 2x \end{bmatrix}
+    \]
+
+    which are not the same.
+  }
+
+  Let's look at what it means to raise a linear transformation to a power.
+
+
+  Let $T^2: V \to V$, then
+
+  \[
+    T^2(\alpha) = T(T(\alpha))
+  \]
+
+  \[
+    T^{10}(\alpha) = T( \cdots T(T(\alpha)) \cdots )
+  \]
+
+  10 times.
+
+  \[
+    (T - U)(T + U) = T^2 + TU - UT + U^2
+  \]
+
+  But note that $TU$ and $UT$ {\it cannot} be canceled out here, since they
+  might not be the same!
+
+  We often call the identity operator $I: V \to V$. It just ``does nothing".
+
+  \[
+    I(\alpha) = \alpha
+  \]
+
+  for any $\alpha \in V$.
+
+  \note {
+    $I$ commutes with everything!
+
+    \[
+      T \circ I = I \circ T
+    \]
+
+    for any linear operator $T$.
+  }
+
+  If $T$ is invertible, $T^{-1}$ ``undoes" $T$
+
+  \[
+    T^{-1} T = T T^{-1} = I
+  \]
+
+  But note the domain and codomain of $T$, they must be the same! 
+  \btw {If this isn't the case, the inverse might only work in {\it one
+  direction}}.
+
+  Let's simplify
+  this more
+
+  We say that $T$ is invertible
+  \begin{itemize}
+    \item if and only if $T$ is onto
+    \item if and only if $T$ is one to one
+  \end{itemize}
+
+  \btw {If you have one of these facts, the others come for free!}
+
+  \definition {
+    Fix $V$ a vector space of dimension $n$, and fix {\it one} basis $\B =
+    \{\alpha_1, \dots, \alpha_n\}$ of $V$. Then,
+
+    \[
+      M_{\B}^{\B} (T) = \Big[[T(\alpha_1)]_\B, \dots, [T(\alpha_n)]_\B \Big]
+    \]
+  }
+
+  Is an $n \times n$ matrix. Let's look at what it does.
+
+  Let's take some $\alpha \in V$, then
+
+  \[
+    M_{\B}^{\B} (T) \cdot [\alpha]_\B = [T(\alpha)]_\B
+  \]
+
+  Where $[\alpha]_\B$ and the result are $n \times 1$ column vectors. What this
+  matrix does then, is take a vector $\alpha \in V$, written in the basis of
+  $\B$, and output the result of applying $T$ to $\alpha$, still in the basis of
+  $\B$.
+
+  \note{
+    The book refers to $M_{\B}^{\B} (T)$ as $[T]_\B$. So we would have
+
+    \[
+      [T]_\B [\alpha]_\B = [T(\alpha)]_\B
+    \]
+  }
+
+  If you input the $\B$ coordinates of $\alpha$, you get the $\B$ coordinates of
+  $T(\alpha)$. What this means is that we have an isomorphism $T$ going from
+  $L(V, V)$ to $F^{n \times n}$
+
+  \[
+    \begin{tikzcd}[sep=large]
+      {L(V, V)} && { F^{n \times n}} \\
+      \arrow["T", from=1-1, to=1-3]
+    \end{tikzcd}
+  \]
+
+  In fact, there are many different isomorphisms $L(V, V) \to F^{n \times n}$.
+  Fix any basis $\B = \{\alpha_1, \dots, \alpha_n\}$ of $V$, then we get an
+  isomorphism using $\B$
+
+  \usetikzlibrary{decorations.pathmorphing}
+  \[
+    \begin{tikzcd}[sep=large]
+      {T: V \to V} && { [T]_{\B}} \\
+      \arrow["\text{Isomorphism}", leftrightsquigarrow, from=1-1, to=1-3]
+    \end{tikzcd}
+  \]
+
+  This isomorphism takes $T$ and writes it {\it in the language} of $\B$. We'll
+  see later what this isomorphism actually is, because we can construct it!
+
+  In the mean time, let's invoke a basis $\B' = \{\alpha_1', \dots, \alpha_n'\}$
+  of $V$, different of $\B$.
+
+  {\bf Question}: How are $[T]_\B$ and $[T]_{\B'}$ related?
+
+  We actually already know how to do this from section $2.4$. We had a ``change of
+  basis" matrix. Let's look at it again.
+
+  Given bases $\B = \{\alpha_1, \dots, \alpha_n\}$ and $\B' = \{\alpha_1',
+  \dots, \alpha_n'\}$ of $V$, the book gave us the matrix
+
+  \[
+    P = \Big[[\alpha_1']_\B, \dots, [\alpha_n']_\B \Big]
+  \]
+
+  In other words, $P$ is just the $\B$ representation of the basis vectors of
+  $\B'$, written as the column vectors of a matrix.
+
+  \TODO{} Question: How do we get the $\B$ representation of $\alpha_i'$? What
+  basis is $\alpha_i'$ written in when it's in the basis of $\B' = \{\alpha_1',
+  \dots, \alpha_n'\}$? I presume it's the standard basis, but is this correct?
+
+  So for any $\alpha \in V$,
+
+  \[
+    P[\alpha]_{\B'} = [\alpha]_\B
+  \]
+
+  What this means is that if we have a vector $\alpha \in V$, written using the
+  coordinates of $\B'$, we can translate it {\it to} the coordinates of $\B$ by
+  multiplying it by $P$.
+
+  \note {
+    Recall what we mean when we talk about $[\alpha]_\B$. This just means ``The
+    coordinates of $\alpha$, written using the basis $\B$".
+  }
+
+  In our notation $P$ is just $M_{\B}^{\B'} (I)$. It's the matrix that
+  translates {\it from} $\B'$ {\it to} $\B$. Why do we pass in the identity to
+  $M$? Well, recall the definition of $M_{\B}^{\B'}(T)$
+
+  \[
+    M_{\B}^{\B'} (T) = \Big[[T(\alpha_1')]_{\B}, \dots, [T(\alpha_n')]_{\B} \Big]
+  \]
+
+  So if the transformation is the identity, it becomes
+
+  \[
+    M_{\B}^{\B'} (I) = \Big[[\alpha_1']_{\B}, \dots, [\alpha_n']_{\B} \Big]
+  \]
+
+
+  Then, in our notation, we have
+
+  \[
+    M_{\B}^{\B'} (I) [\alpha]_{\B'} = [\alpha]_{\B}
+  \]
+
+  {\bf Question}: How are $M_{\B}^{\B'}(I)$ and $M_{\B'}^{\B}(I)$ related?
+
+  Well, we know that
+
+  \[
+    M_{\B}^{\B'}(I) [\alpha]_{\B'} = [\alpha]_{\B}
+  \]
+
+  So
+
+  \[
+    \left(M_{\B}^{\B'}(I)\right)^{-1} [\alpha]_{\B} = [\alpha]_{\B'}
+  \]
+
+  So they are inverses of each other!
+
+  \note {
+    We can do this because $M_{\B}^{\B'}(I) \cdot [\alpha]_{\B'}$ is nothing
+    more than matrix multiplication. We have a vector $\alpha$ written in the
+    basis of $\B'$, and we multiply it by the matrix $M_{\B}^{\B'}(I)$.
+
+    But how do we know that $M_{\B}^{\B'}(I)$ has an inverse? This is a fair
+    question and the answer might not be immediately obvious. Recall once more
+    then definition of $M_{\B}^{\B'}(I)$, we have
+
+    \[ M_{\B}^{\B'} (I) = \Big[[\alpha_1']_{\B}, \dots, [\alpha_n']_{\B} \Big]
+    \]
+
+    First, notice that each $\alpha_i'$ is a vector of size $n$, since
+    $\dim(V) = n$, so here, we're working with an $n \times n$ matrix. Secondly,
+    we know that $\{\alpha_1', \dots, \alpha_n'\}$ form a basis of $V$, so they
+    {\it must} be linearly independent. But if they're linearly independent,
+    that means that each column of $M_{\B}^{\B'} (I)$ is linearly independent,
+    so this is a full rank matrix and so it must have an inverse.
+  }
+
+  \example {
+    Given $[T]_\B$, we want $[T]_{\B'}$. This is a 3 step process.
+
+    \btw { We want $[T]_{\B'} [\alpha]_{\B'} = [T(\alpha)]_{\B'}$}
+
+    We first start with a vector $\alpha$ in the language of $\B'$, notated as
+    $[\alpha]_{\B'}$
+
+    \begin{enumerate}
+      \item Change $[\alpha]_{\B'}$ to $[\alpha]_\B$
+
+        We first multiply $[\alpha]_{\B'}$ by $M_{\B}^{\B'}(I)$, essentially
+        translating it from the basis of $\B'$ to $\B$
+
+        \[
+          M_{\B}^{\B'}(I) \cdot [\alpha]_{\B'} = [\alpha]_{\B}
+        \]
+
+      \item Apply $[T]_{\B} \cdot [\alpha]_\B = [T(\alpha)]_\B$
+
+        We then apply the transformation $[T]_{\B}$ to this.
+
+        \[
+          [T]_\B \cdot \Big( M_{\B}^{\B'}(I) \cdot [\alpha]_{\B'} \Big) = [T(\alpha)]_{\B}
+        \]
+
+        $[T]_{\B}$ is the linear operator working with vectors {\it in the language} of
+        $\B$, which is why we {\it can't} apply it to a vector $[\alpha]_{\B'}$.
+        We first had to translate $\alpha$ to the language of $[T]_\B$.
+
+      \item Change $[T(\alpha)]_{\B}$ to $[T(\alpha)]_{\B'}$
+
+        We now have a vector $[T(\alpha)]_\B$ which is the result of applying
+        $T$ to $\alpha$, all in the language of $\B$. In order for us to get it
+        in the language of $\B'$, we only have to multiply it by
+        $M_{\B'}^{\B}(I)$, the matrix which takes us from $\B$ to $\B'$.
+
+        \[
+          M_{\B'}^{\B}(I) \cdot \Bigg ([T]_\B \cdot \Big(M_{\B}^{\B'}(I) \cdot
+          [\alpha]_{\B'} \Big) \Bigg) = [T(\alpha)]_{\B'}
+        \]
+    \end{enumerate}
+  }
 
 \end{document}

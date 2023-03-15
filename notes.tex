@@ -3117,6 +3117,7 @@
   }
 
   \TODO{} cleanup
+
   \thm {
     Say $V, W$ are finite dimensional vector spaces with $\dim(V) = n, \dim(W) =
     m$, and $T: V \to W$ is any linear transformation where $\rank(T) = r$.
@@ -3224,7 +3225,7 @@
   Each of these lines is a linear functional!
 
   \[
-    f(\begin{bmatrix} a \\ b \\ c \end{bmatrix}) = 2(a) + 3(b) + 1(c)
+    f\left(\begin{bmatrix} a \\ b \\ c \end{bmatrix}\right) = 2(a) + 3(b) + 1(c)
   \]
 
   When we had a linear transformation $T: \R^3 \to \R^2$, say for example
@@ -3252,63 +3253,57 @@
   $\dim(\ColSpace((T_A)^t))$ which is the same as $\dim(\ColSpace(A^t))$ which
   is the same as $\dim(\RowSpace(A))$.
 
-  \TODO{} add tikz picture
+  \begin{center}
+    \begin{tikzpicture}[>=latex]
+      % Define the main vector spaces
+      \def\vsA{(-1,0) ellipse (2cm and 2.7cm)}
+      \def\vsB{(7,0) ellipse (2cm and 2.7cm)}
 
-  \begin{tikzpicture}[>=latex]
-    % Define the main vector spaces
-    \def\vsA{(0,0) ellipse (1cm and 2cm)}
-    \def\vsB{(6,0) ellipse (1cm and 2cm)}
+      % Draw the main vector spaces
+      \draw \vsA node at (-1,3) {$V: \dim(n)$};
+      \draw \vsB node at (7,3) {$W: \dim(m)$};
 
-    % Draw the main vector spaces
-    \draw \vsA node at (0,2.3) {$V$};
-    \draw \vsB node at (6,2.3) {$W$};
+      \node at (-3.3,0) {$\B$};
+      \node at (9.3,0) {$\B'$};
+      % \draw \bsBp node at (1,2.3) {$\B'$};
 
-    % Define the subspaces
-    \def\subA{(0,0) ellipse (0.5cm and 1cm)}
-    \def\subB{(6,0) ellipse (0.5cm and 1cm)}
+      % Define the subspaces
+      \def\subA{(-1,-0.4) ellipse (1cm and 1.1cm)}
 
-    % Draw the subspaces
-    \draw \subA node at (0,1.3) {$U$};
-    \draw \subB node at (6,1.3) {$T$};
+      % Draw the subspaces
+      \draw \subA node at (-1,1) {$\Null(T)$};
 
-    % Define the linear transformation
-    \draw[->] (1,0) -- node[above] {$T$} (5,0);
+      % Define the linear transformation
+      \draw[->] (1.2, 0.5) to [bend left=15] node[above] {$T$} (4.8,0.5);
+    \end{tikzpicture}
+  \end{center}
 
-    % Define the label for the linear transformation
-    \node at (3,1.8) {$\mathcal{L}(V,W)$};
-  \end{tikzpicture}
+  \begin{center}
+    \begin{tikzpicture}[>=latex]
+      % Define the main vector spaces
+      \def\vsA{(-1,0) ellipse (2cm and 2.7cm)}
+      \def\vsB{(7,0) ellipse (2cm and 2.7cm)}
 
-  % \begin{tikzpicture}[>=latex]
-  %   % Define the main vector spaces
-  %   \def\vsA{(0,0) ellipse (1.5cm and 1cm)}
-  %   \def\vsB{(6,0) ellipse (1.5cm and 1cm)}
-  %   \def\vsC{(3,-3) ellipse (1.5cm and 1cm)}
-  %
-  %   % Draw the main vector spaces
-  %   \draw \vsA node at (0,1) {$V$};
-  %   \draw \vsB node at (6,1) {$W$};
-  %   \draw \vsC node at (3,-4) {$U$};
-  %
-  %   % Define the subspaces
-  %   \def\subA{(0,0) ellipse (0.8cm and 0.5cm)}
-  %   \def\subB{(6,0) ellipse (0.8cm and 0.5cm)}
-  %   \def\subC{(3,-3) ellipse (0.8cm and 0.5cm)}
-  %
-  %   % Draw the subspaces
-  %   \draw \subA node at (0,0.8) {$U_1$};
-  %   \draw \subB node at (6,0.8) {$W_1$};
-  %   \draw \subC node at (3,-3.5) {$V_1$};
-  %
-  %   % Define the linear transformations
-  %   \draw[->] (1.5,0) -- node[above] {$T$} (4.5,0);
-  %   \draw[->] (0,-1) -- node[left] {$S$} (3,-2);
-  %   \draw[->] (6,-1) -- node[right] {$R$} (3,-2);
-  %
-  %   % Define the labels for the linear transformations
-  %   \node at (3,0.5) {$\mathcal{L}(V,W)$};
-  %   \node at (1.5,-1.5) {$\mathcal{L}(U,V)$};
-  %   \node at (4.5,-1.5) {$\mathcal{L}(U,W)$};
-  % \end{tikzpicture}
+      % Draw the main vector spaces
+      \draw \vsA node at (-1,3) {$V^*: \dim(n)$};
+      \draw \vsB node at (7,3) {$W^*: \dim(m)$};
+
+      \node at (-3.3,0) {$\B^*$};
+      \node at (9.5,0) {$\left(\B'\right)^*$};
+      % \draw \bsBp node at (1,2.3) {$\B'$};
+
+      % Define the subspaces
+      \def\subA{(-1,-0.4) ellipse (1cm and 1.1cm)}
+
+      % Draw the subspaces
+      \draw \subA node at (-1,1) {$\rank(T)$};
+
+      % Define the linear transformation
+      \draw[<-] (1.2, 0.5) to [bend left=15] node[above] {$T^t$} (4.8,0.5);
+
+      \node at (7,0) {$g$};
+    \end{tikzpicture}
+  \end{center}
 
   This marks the end of Chapter 3. Chapter 4 will focus on polynomial, and
   chapter 5 on determinants.

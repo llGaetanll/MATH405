@@ -2834,150 +2834,150 @@
 
   \TODO{} Get Notes for March 7
 
-  % \date{Fri. Mar 10 2023}
-  %
-  % For $n \times n$ matrices
-  %
-  % The $\trace(A)$ is defined as the sum of the main diagonal. In other words,
-  % the trace is a linear functional from $F^{n \times n} \to F$, and we then have
-  % the following operations.
-  %
-  % \begin{itemize}
-  %   \item $\trace(A + B) = \trace(A) + \trace(B)$
-  %   \item $\trace(cA) = c\trace(A)$
-  % \end{itemize}
-  %
-  % We also have the following fact, proved on the homework.
-  %
-  % \[
-  %   \trace(AB) = \trace(BA)
-  % \]
-  %
-  % And the following corollary
-  %
-  % If $A$ and $A'$ are similar, then
-  %
-  % \[
-  %   \trace(A) = \trace(A')
-  % \]
-  %
-  % The proof is that, if $A' = P^{-1} A P$, then $\trace(A') = \trace(P A^{-1} P)
-  % = \trace(A P^{-1} P) = \trace(A)$
-  %
-  % We also have another corollary,
-  %
-  % For any square matrices in fields of characteristic $0$, we have that
-  %
-  % $AB - BA = I$ is impossible, proved on the homework
-  %
-  % \TODO{} explain why
-  %
-  % Recall the dual space.
-  %
-  % If the $\dim(V) = n$ with basis $\B = \{\alpha_1, \dots, \alpha_n\}$, and
-  % $\dim(V^*) = n$ with basis $\{f_1, \dots, f_n \}$ with the following property
-  %
-  % \[
-  %   f_i(\alpha_j) = \begin{cases}
-  %     1 \text{if $i = j$} \\
-  %     0 \text{if $i \ne j$}
-  %   \end{cases}
-  % \]
-  %
-  % \definition {
-  %   The Annihilator of $S$ denoted by $\Ann(S)$ or $S^0$, defined by
-  %
-  %   \[
-  %     \{f \in V^* : f(\beta) = 0 \text{ for every $\beta \in S$ } \}
-  %   \]
-  %
-  %   By this definition, we can see that $S$ is a subspace of $V^*$ for any $S
-  %   \subseteq V$.
-  % }
-  %
-  % Note that if $S \subseteq T$, then $\Ann(T) \supseteq \Ann(S)$. Why?
-  %
-  % Choose some $f \in \Ann(T)$, then $f(\beta) = 0$ for all $\beta \in T$. Since
-  % $S \subseteq T$, this implies that all $S = 0$ for all $\beta \in S$.
-  % Therefore \TODO{}
-  %
-  % Let's look at some examples
-  %
-  % \example {
-  %   $\Ann(\{0\}) = \{f \in V^* : f(0) = 0\} = V^*$
-  %
-  %   $\Ann(V) = \{f \in V^* : f(\beta) = 0 \text{ for all $\beta \in V$ } \}$ is
-  %   the zero transformation in $V^*$.
-  % }
-  %
-  % \thm {
-  %   If $\dim(V)$ is finite, say $n$, then for any subspace $W \subseteq V$
-  %
-  %   \[
-  %     \dim(W) + \dim(\Ann(W)) = n
-  %   \]
-  % }
-  % {
-  %   Let $\{\alpha_1, \dots, \alpha_k\}$ be a basis for $W \subseteq V$.
-  %   This basis can be extended to a basis of $V$. Let $\B = \{\alpha_1, \dots,
-  %   \alpha_n\}$ be an extension to a basis for all of $V$.
-  %
-  %   Let $\B^* = \{f_1, \dots, f_n\}$ be the dual basis of $V^*$.
-  %
-  %   {\bf Claim}: $\{f_{k + 1}, \dots, f_{n}\}$ form a basis for $\Ann(W)$.
-  %
-  %   Given the claim, the theorem is proved, since the numbers would add up.
-  %
-  %   There are three steps.
-  %   \begin{enumerate}
-  %     \item Step 1 is to show that $\{f_{k + 1}, \dots, f_n\} \subseteq \Ann(W)$.
-  %
-  %       Chose any $\beta \in W$, say $\beta = c_1 \alpha_1 + \cdots + c_k \alpha_k$.
-  %       Now chose any $i \ge k + 1$. Then $f_i(\beta) = f_i(c_1 \alpha_1 + \cdots +
-  %       c_k \alpha_k) = c_1 f(\alpha_1) + \cdots + c_k f(\alpha_k)$. But since $i
-  %       \ge k$
-  %
-  %       \[
-  %         c_1 f(\alpha_1) + \cdots + c_k f(\alpha_k) = 0
-  %       \]
-  %
-  %       so what we've shown is that $f_i(\beta) = 0$, therefore $f_i \in \Ann(W)$.
-  %
-  %     \item Step 2: $\{f_{k + 1}, \dots, f_n\}$ are linearly independent.
-  %
-  %       This is obvious since this is how they were defined, all $f_1, \dots, f_n$
-  %       is a basis for $V^*$.
-  %
-  %     \item $\{f_{k + 1}, \dots, f_n\}$ spans $\Ann(W)$.
-  %
-  %       Chose any $g \in \Ann(W) \subseteq V^*$. Since $\B^*$ spans $V^*$
-  %
-  %       \[
-  %         g = d_1 f_1 + \cdots + d_n f_n
-  %       \]
-  %
-  %       for some $d_1, \dots, d_n$
-  %
-  %       then for any $j$,
-  %
-  %       \[
-  %         g(\alpha_j) = d_1 f_1(\alpha_j) + \cdots + d_n f_n (\alpha_j) = d_j
-  %         (1) = d_j
-  %       \]
-  %
-  %       But $g \in \Ann(W)$, therefore for $1 \le j \le k$
-  %
-  %       \[
-  %         g(\alpha_j) = 0
-  %       \]
-  %
-  %       since $\alpha_1, \dots, \alpha_k$ are in $W$.
-  %
-  %       Therefore, $d_1 = 0, d_2 = 0, \dots, d_k = 0$, therefore $g \in
-  %       \Span(\{f_{k + 1}, \dots, f_n\})$
-  %   \end{enumerate}
-  % }
-  %
+  \date{Fri. Mar 10 2023}
+
+  For $n \times n$ matrices
+
+  The $\trace(A)$ is defined as the sum of the main diagonal. In other words,
+  the trace is a linear functional from $F^{n \times n} \to F$, and we then have
+  the following operations.
+
+  \begin{itemize}
+    \item $\trace(A + B) = \trace(A) + \trace(B)$
+    \item $\trace(cA) = c\trace(A)$
+  \end{itemize}
+
+  We also have the following fact, proved on the homework.
+
+  \[
+    \trace(AB) = \trace(BA)
+  \]
+
+  And the following corollary
+
+  If $A$ and $A'$ are similar, then
+
+  \[
+    \trace(A) = \trace(A')
+  \]
+
+  The proof is that, if $A' = P^{-1} A P$, then $\trace(A') = \trace(P A^{-1} P)
+  = \trace(A P^{-1} P) = \trace(A)$
+
+  We also have another corollary,
+
+  For any square matrices in fields of characteristic $0$, we have that
+
+  $AB - BA = I$ is impossible, proved on the homework
+
+  \TODO{} explain why
+
+  Recall the dual space.
+
+  If the $\dim(V) = n$ with basis $\B = \{\alpha_1, \dots, \alpha_n\}$, and
+  $\dim(V^*) = n$ with basis $\{f_1, \dots, f_n \}$ with the following property
+
+  \[
+    f_i(\alpha_j) = \begin{cases}
+      1 \text{if $i = j$} \\
+      0 \text{if $i \ne j$}
+    \end{cases}
+  \]
+
+  \definition {
+    The Annihilator of $S$ denoted by $\Ann(S)$ or $S^0$, defined by
+
+    \[
+      \{f \in V^* : f(\beta) = 0 \text{ for every $\beta \in S$ } \}
+    \]
+
+    By this definition, we can see that $S$ is a subspace of $V^*$ for any $S
+    \subseteq V$.
+  }
+
+  Note that if $S \subseteq T$, then $\Ann(T) \supseteq \Ann(S)$. Why?
+
+  Choose some $f \in \Ann(T)$, then $f(\beta) = 0$ for all $\beta \in T$. Since
+  $S \subseteq T$, this implies that all $S = 0$ for all $\beta \in S$.
+  Therefore \TODO{}
+
+  Let's look at some examples
+
+  \example {
+    $\Ann(\{0\}) = \{f \in V^* : f(0) = 0\} = V^*$
+
+    $\Ann(V) = \{f \in V^* : f(\beta) = 0 \text{ for all $\beta \in V$ } \}$ is
+    the zero transformation in $V^*$.
+  }
+
+  \thm {
+    If $\dim(V)$ is finite, say $n$, then for any subspace $W \subseteq V$
+
+    \[
+      \dim(W) + \dim(\Ann(W)) = n
+    \]
+  }
+  {
+    Let $\{\alpha_1, \dots, \alpha_k\}$ be a basis for $W \subseteq V$.
+    This basis can be extended to a basis of $V$. Let $\B = \{\alpha_1, \dots,
+    \alpha_n\}$ be an extension to a basis for all of $V$.
+
+    Let $\B^* = \{f_1, \dots, f_n\}$ be the dual basis of $V^*$.
+
+    {\bf Claim}: $\{f_{k + 1}, \dots, f_{n}\}$ form a basis for $\Ann(W)$.
+
+    Given the claim, the theorem is proved, since the numbers would add up.
+
+    There are three steps.
+    \begin{enumerate}
+      \item Step 1 is to show that $\{f_{k + 1}, \dots, f_n\} \subseteq \Ann(W)$.
+
+        Chose any $\beta \in W$, say $\beta = c_1 \alpha_1 + \cdots + c_k \alpha_k$.
+        Now chose any $i \ge k + 1$. Then $f_i(\beta) = f_i(c_1 \alpha_1 + \cdots +
+        c_k \alpha_k) = c_1 f(\alpha_1) + \cdots + c_k f(\alpha_k)$. But since $i
+        \ge k$
+
+        \[
+          c_1 f(\alpha_1) + \cdots + c_k f(\alpha_k) = 0
+        \]
+
+        so what we've shown is that $f_i(\beta) = 0$, therefore $f_i \in \Ann(W)$.
+
+      \item Step 2: $\{f_{k + 1}, \dots, f_n\}$ are linearly independent.
+
+        This is obvious since this is how they were defined, all $f_1, \dots, f_n$
+        is a basis for $V^*$.
+
+      \item $\{f_{k + 1}, \dots, f_n\}$ spans $\Ann(W)$.
+
+        Chose any $g \in \Ann(W) \subseteq V^*$. Since $\B^*$ spans $V^*$
+
+        \[
+          g = d_1 f_1 + \cdots + d_n f_n
+        \]
+
+        for some $d_1, \dots, d_n$
+
+        then for any $j$,
+
+        \[
+          g(\alpha_j) = d_1 f_1(\alpha_j) + \cdots + d_n f_n (\alpha_j) = d_j
+          (1) = d_j
+        \]
+
+        But $g \in \Ann(W)$, therefore for $1 \le j \le k$
+
+        \[
+          g(\alpha_j) = 0
+        \]
+
+        since $\alpha_1, \dots, \alpha_k$ are in $W$.
+
+        Therefore, $d_1 = 0, d_2 = 0, \dots, d_k = 0$, therefore $g \in
+        \Span(\{f_{k + 1}, \dots, f_n\})$
+    \end{enumerate}
+  }
+
   % \date {Mon Mar. 13 2023}
   %
   %

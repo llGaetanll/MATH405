@@ -102,6 +102,8 @@
 \newcommand{\rk}{\mathrm{rk}}
 \newcommand{\im}{\mathrm{Im}}
 
+\def\Ann{\text{Ann}}
+
 % Linear Algebra
 
 \newcommand{\lind}{linearly independent}
@@ -121,6 +123,8 @@
 \newcommand{\constantsz}[2]{
   #1_{0}, \constants{#1}{#2}
 }
+
+\def\trace{\text{trace}}
 
 % Analysis
 \newcommand{\limfty}[1]{\lim_{#1 \to \infty}}
@@ -2556,5 +2560,599 @@
         \]
     \end{enumerate}
   }
+
+  \date {Mon. Mar 6 2023}
+
+  Recall our discussion about linear operators last time.
+
+  \[
+    T(\begin{bmatrix} x \\ y \end{bmatrix}) = \begin{bmatrix} -y \\ x\end{bmatrix}
+  \]
+
+  There is a nice visual intuition for these. In this case, this operation flips
+  values over the $x$ axis.
+
+  Let's look at other examples.
+
+  \[
+    T_F (\begin{bmatrix} x \\ y \end{bmatrix}) = \begin{bmatrix} y \\ x \end{bmatrix}
+  \]
+
+  This linear transformation (or more precisely, linear operator) flips values
+  across the $y = x$ line.
+
+  Let's define a basis $S = \{\begin{bmatrix} 1 \\ 0 \end{bmatrix},
+  \begin{bmatrix} 0 \\ 1 \end{bmatrix}\}$, the standard basis in $\R^2$.
+
+  {\bf Question}: What is the matrix associated with $T_F$? Well, $T_F$ sends
+  the first basis vector to the second, and the second to the first, so we get
+  the linear transformation
+
+  \[
+    [T_F]_S = \begin{bmatrix}
+      0 & 1 \\
+      1 & 0
+    \end{bmatrix}
+  \]
+
+  Now, we can compute where a vector ends up on $T$ by multiplying it by its
+  associated matrix.
+
+  \[
+    \begin{bmatrix}
+      0 & 1 \\
+      1 & 0
+    \end{bmatrix}
+    \begin{bmatrix}
+      5 \\ 3
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      3 \\ 5
+    \end{bmatrix}
+  \]
+
+  Let $\B = \{\begin{bmatrix} 1 \\ 2 \end{bmatrix}, \begin{bmatrix} 1 \\ -1
+  \end{bmatrix}\}$ be a different basis (we know they form a basis because the two
+  vectors are linearly independent)
+
+  {\bf Want}: $[T]_\B$
+
+  We want $[T]_\B$, and we know that $[T]_\B = \left[[T(\alpha_1)]_\B,
+  [T(\alpha_2)]_\B\right]$.
+
+  $T(\alpha_1) = T(\begin{bmatrix} 1 \\ 2 \end{bmatrix}) = \begin{bmatrix} -2 \\
+  1 \end{bmatrix}$. Notice that the coordinates of the output vector is with
+  respect to the standard basis $S$. We want it expressed in terms of $\B$. But
+  we know how to do that
+
+  \[
+    \begin{bmatrix}
+      -2 \\
+      1
+    \end{bmatrix}
+    =
+    c_1
+    \begin{bmatrix}
+      1 \\ 2
+    \end{bmatrix}
+    + c_2
+    \begin{bmatrix}
+      1 \\ -1
+    \end{bmatrix}
+  \]
+
+  By inspection, we see that $-1 = 3c_1$, so $c_1 = -\frac{1}{3}$, and so $c_2 =
+  -\frac{5}{3}$.
+
+  So we have that
+
+  \[
+    \begin{bmatrix}
+      -2 \\ 1
+    \end{bmatrix}_S
+    =
+    \begin{bmatrix}
+      -1 / 3 \\ -5 / 3
+    \end{bmatrix}_\B
+  \]
+
+  Similarly, we can find that
+
+  \[
+    \begin{bmatrix}
+      1 \\ 1
+    \end{bmatrix}_S
+    =
+    \begin{bmatrix}
+      2 / 3 \\ 1 / 3
+    \end{bmatrix}_\B
+  \]
+
+  Putting everything together, we have
+
+  \[
+    [T]_\B = \left[[T(\alpha_1)]_\B, [T(\alpha_2)]_\B\right]
+    = \begin{bmatrix}
+      -1 / 3 & 2 / 3 \\
+      -5 / 3 & 1 / 3
+    \end{bmatrix}
+  \]
+
+  So the two matrices $\begin{bmatrix}
+      -1 / 3 & 2 / 3 \\
+      -5 / 3 & 1 / 3
+    \end{bmatrix}$ and $\begin{bmatrix}
+      0 & -1 \\
+      1 & 0
+    \end{bmatrix}$ represent the {\it same} operator in $\R^2$. Hopefully at
+    this point, we can see that certain matrices are easier to work with than
+    others, even if they do the same thing.
+
+  {\bf} Comic Relief
+
+  Let $c \in \R$
+
+  {\bf Claim}: $T - cI$ is invertible.
+
+  With respect to the standard basis $S$,
+
+  \[
+    T - cI = \begin{bmatrix} 
+      0 & -1 \\ 
+      1 & 0 
+    \end{bmatrix} 
+    - c 
+    \begin{bmatrix} 
+    1 & 0 \\ 
+    0 & 1 
+    \end{bmatrix}
+  \]
+
+  So for any $2 \times 2$ matrix $\begin{bmatrix}
+    a & b \\ c & d
+  \end{bmatrix}$, it's invertible if and only if $ad - bc \ne
+  0$.
+
+  \definition {
+    Two $n \times n$ matrices are {\bf similar} if they represent the same linear
+    transformation, but with respect to different bases.
+  }
+
+  Let $\B' = \{\beta_1 = \begin{bmatrix} a \\ b \end{bmatrix}, \beta_2 = \begin{bmatrix} c \\ d
+  \end{bmatrix}\}$ be {\it any} basis for $\R^2$.
+
+  {\bf Find} $[T]_{\B'}$
+
+  Well we have
+
+  \[
+    [T]_{\B'} = \left[[T(\beta_1)]_{\B'}, [T(\beta_2)]_{\B'}\right]
+  \]
+
+  and we have that
+
+  \[
+    [T(\beta_1)]_S = T(\begin{bmatrix}
+      a \\ b
+    \end{bmatrix})
+    =
+    \begin{bmatrix}
+      -b \\ a
+    \end{bmatrix}_S
+  \]
+
+  \[
+    [T(\beta_2)]_S = T(\begin{bmatrix}
+      c \\ d
+    \end{bmatrix})
+    =
+    \begin{bmatrix}
+      -d \\ c
+    \end{bmatrix}_S
+  \]
+
+  {\bf Need}: $[T(\beta_1)]_{\B'}, [T(\beta_2)]_{\B'}$
+
+  For this, we need $M_{\B'}^S (I)$, but this is kind of a pain, instead, let's
+  ask:
+
+  What is $M_{S}^{\B'} (I)$? Well this is easy:
+
+  \[
+    M_{S}^{\B'} (I) = \left[
+      [\beta_1]_S, [\beta_2]_S
+    \right]
+    =
+    \begin{bmatrix}
+      a & c \\
+      b & d
+    \end{bmatrix}
+  \]
+
+  But then, finding the inverse is easy!
+
+  \[
+    M_{\B'}^{S} (I) = \left(M_{S}^{\B'} (I)\right)^{-1}
+    =
+    \frac{1}{ad - bc}
+    \begin{bmatrix}
+      d & -c \\
+      -b & a
+    \end{bmatrix}
+  \]
+
+  Notice: $ad - bc$ will never be zero, if they were, and $ad = bc$, the rows
+  would not be linearly independent, so $\B$ would not be a basis.
+
+  Finally, we have
+
+  \begin{align*}
+    [T]_{\B'} =&M_{\B'}^S \cdot [T]_S \cdot M_S^{\B'} (I) \\
+    =&
+    \frac{1}{ad - bc}
+    \begin{bmatrix}
+      d & -c \\
+      -b & a
+    \end{bmatrix}
+    \left(
+    \begin{bmatrix}
+      0 & -1 \\ 1 & 0
+    \end{bmatrix}
+    \begin{bmatrix}
+      a & c \\ b & d
+    \end{bmatrix}
+    \right) \\
+    =&
+    \frac{1}{ad - bc}
+    \begin{bmatrix}
+      d & -c \\
+      -b & a
+    \end{bmatrix}
+    \left(
+    \begin{bmatrix}
+      -b & -d \\ a & c
+    \end{bmatrix}
+    \right) \\
+    =&
+    \frac{1}{ad - bc}
+    \begin{bmatrix}
+      -db - ca & -d^2 - c^2 \\
+      b^2 + a^2 & bd + ac
+    \end{bmatrix}
+    = [T]_{\B'}
+  \end{align*}
+
+  Now notice: $-d^2 - c^2 = 0$ only if $c = d = 0$. Secondly, $b^2 + a^2 = 0$
+  only if $a = b = 0$
+
+  For any $2 \times 2$ matrix, you can look at the trace, the sum of the
+  diagonal.
+
+  Later, we will study similar matrices and we will show that $\text{trace}(A) =
+  \text{trace}(A')$ if $A, A'$ are similar. (The converse does not hold)
+
+  \TODO{} Get Notes for March 7
+
+  % \date{Fri. Mar 10 2023}
+  %
+  % For $n \times n$ matrices
+  %
+  % The $\trace(A)$ is defined as the sum of the main diagonal. In other words,
+  % the trace is a linear functional from $F^{n \times n} \to F$, and we then have
+  % the following operations.
+  %
+  % \begin{itemize}
+  %   \item $\trace(A + B) = \trace(A) + \trace(B)$
+  %   \item $\trace(cA) = c\trace(A)$
+  % \end{itemize}
+  %
+  % We also have the following fact, proved on the homework.
+  %
+  % \[
+  %   \trace(AB) = \trace(BA)
+  % \]
+  %
+  % And the following corollary
+  %
+  % If $A$ and $A'$ are similar, then
+  %
+  % \[
+  %   \trace(A) = \trace(A')
+  % \]
+  %
+  % The proof is that, if $A' = P^{-1} A P$, then $\trace(A') = \trace(P A^{-1} P)
+  % = \trace(A P^{-1} P) = \trace(A)$
+  %
+  % We also have another corollary,
+  %
+  % For any square matrices in fields of characteristic $0$, we have that
+  %
+  % $AB - BA = I$ is impossible, proved on the homework
+  %
+  % \TODO{} explain why
+  %
+  % Recall the dual space.
+  %
+  % If the $\dim(V) = n$ with basis $\B = \{\alpha_1, \dots, \alpha_n\}$, and
+  % $\dim(V^*) = n$ with basis $\{f_1, \dots, f_n \}$ with the following property
+  %
+  % \[
+  %   f_i(\alpha_j) = \begin{cases}
+  %     1 \text{if $i = j$} \\
+  %     0 \text{if $i \ne j$}
+  %   \end{cases}
+  % \]
+  %
+  % \definition {
+  %   The Annihilator of $S$ denoted by $\Ann(S)$ or $S^0$, defined by
+  %
+  %   \[
+  %     \{f \in V^* : f(\beta) = 0 \text{ for every $\beta \in S$ } \}
+  %   \]
+  %
+  %   By this definition, we can see that $S$ is a subspace of $V^*$ for any $S
+  %   \subseteq V$.
+  % }
+  %
+  % Note that if $S \subseteq T$, then $\Ann(T) \supseteq \Ann(S)$. Why?
+  %
+  % Choose some $f \in \Ann(T)$, then $f(\beta) = 0$ for all $\beta \in T$. Since
+  % $S \subseteq T$, this implies that all $S = 0$ for all $\beta \in S$.
+  % Therefore \TODO{}
+  %
+  % Let's look at some examples
+  %
+  % \example {
+  %   $\Ann(\{0\}) = \{f \in V^* : f(0) = 0\} = V^*$
+  %
+  %   $\Ann(V) = \{f \in V^* : f(\beta) = 0 \text{ for all $\beta \in V$ } \}$ is
+  %   the zero transformation in $V^*$.
+  % }
+  %
+  % \thm {
+  %   If $\dim(V)$ is finite, say $n$, then for any subspace $W \subseteq V$
+  %
+  %   \[
+  %     \dim(W) + \dim(\Ann(W)) = n
+  %   \]
+  % }
+  % {
+  %   Let $\{\alpha_1, \dots, \alpha_k\}$ be a basis for $W \subseteq V$.
+  %   This basis can be extended to a basis of $V$. Let $\B = \{\alpha_1, \dots,
+  %   \alpha_n\}$ be an extension to a basis for all of $V$.
+  %
+  %   Let $\B^* = \{f_1, \dots, f_n\}$ be the dual basis of $V^*$.
+  %
+  %   {\bf Claim}: $\{f_{k + 1}, \dots, f_{n}\}$ form a basis for $\Ann(W)$.
+  %
+  %   Given the claim, the theorem is proved, since the numbers would add up.
+  %
+  %   There are three steps.
+  %   \begin{enumerate}
+  %     \item Step 1 is to show that $\{f_{k + 1}, \dots, f_n\} \subseteq \Ann(W)$.
+  %
+  %       Chose any $\beta \in W$, say $\beta = c_1 \alpha_1 + \cdots + c_k \alpha_k$.
+  %       Now chose any $i \ge k + 1$. Then $f_i(\beta) = f_i(c_1 \alpha_1 + \cdots +
+  %       c_k \alpha_k) = c_1 f(\alpha_1) + \cdots + c_k f(\alpha_k)$. But since $i
+  %       \ge k$
+  %
+  %       \[
+  %         c_1 f(\alpha_1) + \cdots + c_k f(\alpha_k) = 0
+  %       \]
+  %
+  %       so what we've shown is that $f_i(\beta) = 0$, therefore $f_i \in \Ann(W)$.
+  %
+  %     \item Step 2: $\{f_{k + 1}, \dots, f_n\}$ are linearly independent.
+  %
+  %       This is obvious since this is how they were defined, all $f_1, \dots, f_n$
+  %       is a basis for $V^*$.
+  %
+  %     \item $\{f_{k + 1}, \dots, f_n\}$ spans $\Ann(W)$.
+  %
+  %       Chose any $g \in \Ann(W) \subseteq V^*$. Since $\B^*$ spans $V^*$
+  %
+  %       \[
+  %         g = d_1 f_1 + \cdots + d_n f_n
+  %       \]
+  %
+  %       for some $d_1, \dots, d_n$
+  %
+  %       then for any $j$,
+  %
+  %       \[
+  %         g(\alpha_j) = d_1 f_1(\alpha_j) + \cdots + d_n f_n (\alpha_j) = d_j
+  %         (1) = d_j
+  %       \]
+  %
+  %       But $g \in \Ann(W)$, therefore for $1 \le j \le k$
+  %
+  %       \[
+  %         g(\alpha_j) = 0
+  %       \]
+  %
+  %       since $\alpha_1, \dots, \alpha_k$ are in $W$.
+  %
+  %       Therefore, $d_1 = 0, d_2 = 0, \dots, d_k = 0$, therefore $g \in
+  %       \Span(\{f_{k + 1}, \dots, f_n\})$
+  %   \end{enumerate}
+  % }
+  %
+  % \date {Mon Mar. 13 2023}
+  %
+  %
+  % Last time, we saw that we have a vector space $V$ and a subspace $W
+  % \subseteq V$ with $\dim(V) = n$ and $\dim(W) = k$.
+  %
+  % Let $\{\alpha_1, \dots, \alpha_k\}$ be a basis for $W$. Extend to a basis of
+  % $\B = \{\alpha_1, \dots, \alpha_n\}$ of $V$.
+  %
+  % Let $\B^* = \{f_1, \dots, f_n\}$ be a basis for $\Ann(W)$ so $\dim(V) = n =
+  % \dim(W) + \dim(\Ann(W))$, then we have that $\dim(\Ann(W)) = n - k$
+  %
+  %
+  % {\bf Corrolary}
+  %
+  % If $W \subseteq V$ is a subspace $\beta \in V \backslash W$, the nthere is
+  % some $f: V \to F \in V^*$  such that $f \in \Ann(W)$, but $f(\beta) \ne 0$
+  %
+  % {\bf Proof}
+  %
+  % Write $\beta = c_1 \alpha_1 + \cdots + c_n \alpha_n$
+  %
+  % {\bf Claim}. At least one of $c_{k + 1}, c_{k + 2}, \dots, c_n \ne 0$. If not,
+  % $\beta \in c_1 \alpha_1 + \cdots + c_k \alpha_k$ implies that $\beta \in W$.
+  % 
+  % Say that $c_i \ne 0$ with $i \ge k + 1$. Then, $f_i \in \Ann(W)$, but
+  % $f_i(\beta) = c_i \ne 0$.
+  %
+  %
+  % {\bf Corrolary}
+  %
+  % If $W_1, W_2$ are both subspaces of $V$, then $W_1 = W_2$ if and only if
+  % $\Ann(W_1) = \Ann(W_2)$
+  %
+  % {\bf Proof}
+  %
+  % The forwards direction is obvious, if they are the same, they have the same
+  % annihilator space.
+  %
+  % For the backwards direction, there are two cases
+  %
+  % \begin{enumerate}
+  %   \item There is some $\beta \in W_1 \backslash W_2$.
+  %
+  %     Apply the first corollary to $W_2$, then there is some $f \in \Ann(W_2)$
+  %     with $f(\beta) \ne 0$, therefore $f \in \Ann(W_1)$ and so $\Ann(W_2) \ne
+  %     \Ann(W_1)$.
+  %
+  %   \item There is some $\beta \in W_2 \backslash W_1$
+  %
+  %     Apply the first corollary to $W_1$, the argument is similar.
+  % \end{enumerate}
+  %
+  % Say that $f: V \to F$ is any linear functional, but $f \ne 0$. Then
+  % $\nullity(f) = \dim(V) - 1$.
+  %
+  % {\bf Proof}. $\range(f) \subseteq F'$, but $\range(F) \ne \{0\}$ therefore the
+  % range of $F$ must equal $F$. So $\rank(f) = 1$.
+  %
+  % \[
+  %   \nullity(f) = n - 1
+  % \]
+  %
+  % \definition {
+  %   A {\bf Hyperspace} is a subspace $W \subseteq V$ with $\dim(W) = \dim(V) -
+  %   1$.
+  %
+  %   We say that $W$ has ``co-dimension" $1$.
+  % }
+  %
+  % $\Null(f)$ is a hyperspace.
+  %
+  % {\bf Corollary}
+  %
+  % Let $W \subseteq V$ with $\dim(W) = k$, $\dim(V) = n$, and $k < n$.
+  %
+  % Then $W$ is the {\bf intersection} of $n - k$ hyperspaces.
+  %
+  % \btw {
+  %   What this is saying is that you can shrink down from $V$ to $W$ in $n - k$
+  %   steps.
+  % }
+  %
+  % {\bf Proof}
+  %
+  % {\it Claim}.
+  %
+  % \[
+  %   W = \Null(f_{k + 1}) \cap \Null(f_{k + 1}) \cap \cdots \cap \Null(f_{n})
+  % \]
+  %
+  % \btw {Note that $f_{k + 1}$ can't be $0$ because they are part of a basis.}
+  %
+  % {\it Proof}. Chose $\beta \in W$. For $i \ge k + 1$, $f_i \in \Ann(W)$,
+  % therefore $f_i (\beta) = 0$, and so $\beta \in \Null(f_i)$, and so $\beta$ is
+  % in the intersection.
+  %
+  % Next, chose $\beta \in \Null(f_{k + 1}) \cap \Null(f_{k + 1}) \cap \cdots \cap
+  % \Null(f_{n})$. Then
+  %
+  % \[
+  %   f_{k + 1}(\beta) = 0, f_{k + 2}(\beta) = 0, \dots, f_{n}(\beta) = 0, 
+  % \]
+  %
+  % But since $\{f_{k + 1}, \dots, f_n\}$ is a basis of $\Ann(W)$. Therefore, for
+  % any $g \in \Ann(W)$, $g(\beta) = 0$. What we can conclude from this is that
+  % $\beta$ must be in $W$.
+  %
+  % \btw {
+  %   There is no $g$ that kills off everything in $W$ but does not kill $\beta$.
+  % }
+  %
+  % Say $\dim(V) = n$, $\dim(W) = m$, and $T: V \to W$ is any linear
+  % transformation.
+  %
+  % We now know that each of $V$ and $W$ have dual spaces $V^*$ and $W^*$
+  % respectively. Note that $V$ and $W$ are not necessarily the same size, so
+  % their dual spaces might not either.
+  %
+  % \definition{
+  %   The {\bf transpose} of $T$, written $T^t$ is a linear transformation going
+  %   from $W^* \to V^*$, defined as
+  %
+  %   \[
+  %     T^t(g) = f
+  %   \]
+  %
+  %   Where $g \in W^*$, and $f \in V^*$ is a linear functional defined as $f: V
+  %   \to F$. Take $f$, and apply it to any $\alpha \in V$
+  %
+  %   \[
+  %     T^t(g)(\underbrace{\alpha}_{\in V}) := \underbrace{g(T(\alpha))}_{\in F}
+  %   \]
+  %
+  %   {\bf Check}. $T^t: W^* \to V^*$  is a linear transformation.
+  % }
+  %
+  % \TODO{} cleanup
+  % \thm {
+  %   Say $V, W$ are finite dimensional vector spaces with $\dim(V) = n, \dim(W) =
+  %   m$, and $T: V \to W$ is any linear transformation where $\rank(T) = r$.
+  %
+  %   Then, the following are true
+  %
+  %   \begin{enumerate}
+  %     \item $\Null(T^t) = \Ann(\range(T))$
+  %     \item $\rank(T^t) = \rank(T) = r$
+  %     \item $\range(T^t) = \Ann(\Null(T))$
+  %   \end{enumerate}
+  % }
+  % {
+  %   \begin{enumerate}
+  %     \item $\Null(T^t) = \Ann(\range(T))$
+  %
+  %       $g \in \Null(T^t)$, if and only if $T^t(g) = \vec{0}$, if and only if
+  %       $\forall \alpha \in V, (T^t(g))(\alpha) = 0$, if and only if $\forall
+  %       \alpha \in V, T(g(\alpha)) = 0$, if and only if $g$ annihilates
+  %       $\range(T)$, if and only if $g \in \Ann(\range(T))$.
+  %
+  %     \item $\rank(T^t) = \rank(T) = r$ \TODO{} Diagram chasing
+  %
+  %     \item $\range(T^t) = \Ann(\Null(T))$
+  %
+  %       {\bf Check}. $\range(T^t) \subseteq \Ann(\Null(T))$
+  %
+  %       Given this, $\dim(\Ann(\Null(T))) = r$. Now we know that $\range(T^t) =
+  %       r$, and $\dim(\Ann(\Null(T))) = r$
+  %
+  %       Therefore
+  %
+  %       \[
+  %         \range(T^t) = \Ann(\Null(T))
+  %       \]
+  %   \end{enumerate}
+  % }
+
 
 \end{document}

@@ -2567,7 +2567,7 @@
   Recall our discussion about linear operators last time.
 
   \[
-    T(\begin{bmatrix} x \\ y \end{bmatrix}) = \begin{bmatrix} -y \\ x\end{bmatrix}
+    T\left(\begin{bmatrix} x \\ y \end{bmatrix}\right) = \begin{bmatrix} -y \\ x\end{bmatrix}
   \]
 
   There is a nice visual intuition for these. In this case, this operation flips
@@ -2576,14 +2576,14 @@
   Let's look at other examples.
 
   \[
-    T_F (\begin{bmatrix} x \\ y \end{bmatrix}) = \begin{bmatrix} y \\ x \end{bmatrix}
+    T_F \left(\begin{bmatrix} x \\ y \end{bmatrix}\right) = \begin{bmatrix} y \\ x \end{bmatrix}
   \]
 
   This linear transformation (or more precisely, linear operator) flips values
   across the $y = x$ line.
 
-  Let's define a basis $S = \{\begin{bmatrix} 1 \\ 0 \end{bmatrix},
-  \begin{bmatrix} 0 \\ 1 \end{bmatrix}\}$, the standard basis in $\R^2$.
+  Let's define a basis $S = \left\{\begin{bmatrix} 1 \\ 0 \end{bmatrix},
+  \begin{bmatrix} 0 \\ 1 \end{bmatrix}\right\}$, the standard basis in $\R^2$.
 
   {\bf Question}: What is the matrix associated with $T_F$? Well, $T_F$ sends
   the first basis vector to the second, and the second to the first, so we get
@@ -2613,8 +2613,8 @@
     \end{bmatrix}
   \]
 
-  Let $\B = \{\begin{bmatrix} 1 \\ 2 \end{bmatrix}, \begin{bmatrix} 1 \\ -1
-  \end{bmatrix}\}$ be a different basis (we know they form a basis because the two
+  Let $\B = \left\{\begin{bmatrix} 1 \\ 2 \end{bmatrix}, \begin{bmatrix} 1 \\ -1
+  \end{bmatrix}\right\}$ be a different basis (we know they form a basis because the two
   vectors are linearly independent)
 
   {\bf Want}: $[T]_\B$
@@ -2622,7 +2622,7 @@
   We want $[T]_\B$, and we know that $[T]_\B = \left[[T(\alpha_1)]_\B,
   [T(\alpha_2)]_\B\right]$.
 
-  $T(\alpha_1) = T(\begin{bmatrix} 1 \\ 2 \end{bmatrix}) = \begin{bmatrix} -2 \\
+  $T(\alpha_1) = T\left(\begin{bmatrix} 1 \\ 2 \end{bmatrix}\right) = \begin{bmatrix} -2 \\
   1 \end{bmatrix}$. Notice that the coordinates of the output vector is with
   respect to the standard basis $S$. We want it expressed in terms of $\B$. But
   we know how to do that
@@ -2720,8 +2720,8 @@
     transformation, but with respect to different bases.
   }
 
-  Let $\B' = \{\beta_1 = \begin{bmatrix} a \\ b \end{bmatrix}, \beta_2 = \begin{bmatrix} c \\ d
-  \end{bmatrix}\}$ be {\it any} basis for $\R^2$.
+  Let $\B' = \left\{\beta_1 = \begin{bmatrix} a \\ b \end{bmatrix}, \beta_2 = \begin{bmatrix} c \\ d
+  \end{bmatrix}\right\}$ be {\it any} basis for $\R^2$.
 
   {\bf Find} $[T]_{\B'}$
 
@@ -2845,7 +2845,7 @@
 
   \begin{itemize}
     \item $\trace(A + B) = \trace(A) + \trace(B)$
-    \item $\trace(cA) = c\trace(A)$
+    \item $\trace(cA) = c(\trace(A))$
   \end{itemize}
 
   We also have the following fact, proved on the homework.
@@ -3110,7 +3110,7 @@
     \to F$. Take $f$, and apply it to any $\alpha \in V$
 
     \[
-      T^t(g)(\underbrace{\alpha}_{\in V}) := \underbrace{g(T(\alpha))}_{\in F}
+      T^t(g)(\alpha \in V) := g(T(\alpha)) \in F
     \]
 
     {\bf Check}. $T^t: W^* \to V^*$  is a linear transformation.
@@ -3231,7 +3231,7 @@
   When we had a linear transformation $T: \R^3 \to \R^2$, say for example
 
   \[
-    T(\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}) = \begin{pmatrix}
+    T\left(\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}\right) = \begin{pmatrix}
       2x_1 + 3x_2 + x_3 \\
       4x_1 + 0x_2 + 5x_3
     \end{pmatrix}

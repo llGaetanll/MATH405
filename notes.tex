@@ -2880,8 +2880,8 @@
 
   \[
     f_i(\alpha_j) = \begin{cases}
-      1 \text{if $i = j$} \\
-      0 \text{if $i \ne j$}
+      1 \text{ if $i = j$} \\
+      0 \text{ if $i \ne j$}
     \end{cases}
   \]
 
@@ -3170,7 +3170,7 @@
   But it's incredibly easy to go from $A$ to $A^t$,
 
   \[
-    \left(A^t\right)_{ij} = \left(A_ji\right)
+    \left(A^t\right)_{ij} = \left(A_{ji}\right)
   \]
 
   For example
@@ -3231,10 +3231,11 @@
   When we had a linear transformation $T: \R^3 \to \R^2$, say for example
 
   \[
-    T\left(\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}\right) = \begin{pmatrix}
+    T\left(\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}\right) = (2x_1 + 3x_2
+    + x_3, 4x_1 + 0x_2 + 5x_3) = \begin{bmatrix}
       2x_1 + 3x_2 + x_3 \\
       4x_1 + 0x_2 + 5x_3
-    \end{pmatrix}
+    \end{bmatrix}
   \]
 
   We have the matrix associated with $T$ is
@@ -3246,10 +3247,10 @@
     \end{bmatrix}
   \]
 
-  We also saw that $\rank\left(\left(T_a\right)^t\right) = \rank(T_A) =
+  We also saw that $\rank\left(\left(T_A\right)^t\right) = \rank(T_A) =
   \dim(\ColSpace(A))$
 
-  But we know that $\rank\left(\left(T_a\right)^t\right)$ is the same as
+  But we know that $\rank\left(\left(T_A\right)^t\right)$ is the same as
   $\dim(\ColSpace((T_A)^t))$ which is the same as $\dim(\ColSpace(A^t))$ which
   is the same as $\dim(\RowSpace(A))$.
 
@@ -3429,6 +3430,270 @@
   For polynomials, we can do something similar. Given $\{f_1, f_2, f_3\}$,
   $\GCD(f_1, f_2, f_3)$ is the polynomial $h$ of largest degree such that
   $h$ divides $f_1$, $f_2$, and $f_3$.
+
+  \date{Fri. Mar 17 2023}
+
+  Looking at 3 on the homework
+
+  \prob{3}
+  {
+    Suppose that $V, W$ are finite dimensional vector spaces and $T: V \to W$ is
+    a linear transformation.
+
+    \begin{enumerate}
+      \item Prove that if there is some $f \in W^*$ such that $\Null(T^t) =
+        \Span(\{f\})$, then $\range(T) = \Null(\{f\})$
+
+      \item Prove that if there is some $f \in V^*$ such that $\range(T^t) =
+        \Span(\{f\})$, then $\Null(T) = \Null(\{f\})$
+    \end{enumerate}
+  }
+  {
+    Recall our picture
+
+    \TODO update picture
+
+    \begin{center}
+      \begin{tikzpicture}[>=latex]
+        % Define the main vector spaces
+        \def\vsA{(-1,0) ellipse (2cm and 2.7cm)}
+        \def\vsB{(7,0) ellipse (2cm and 2.7cm)}
+
+        % Draw the main vector spaces
+        \draw \vsA node at (-1,3) {$V: \dim(n)$};
+        \draw \vsB node at (7,3) {$W: \dim(m)$};
+
+        \node at (-3.3,0) {$\B$};
+        \node at (9.3,0) {$\B'$};
+        % \draw \bsBp node at (1,2.3) {$\B'$};
+
+        % Define the subspaces
+        \def\subA{(-1,-0.4) ellipse (1cm and 1.1cm)}
+
+        % Draw the subspaces
+        \draw \subA node at (-1,1) {$\Null(T)$};
+
+        % Define the linear transformation
+        \draw[->] (1.2, 0.5) to [bend left=15] node[above] {$T$} (4.8,0.5);
+      \end{tikzpicture}
+    \end{center}
+
+    \begin{center}
+      \begin{tikzpicture}[>=latex]
+        % Define the main vector spaces
+        \def\vsA{(-1,0) ellipse (2cm and 2.7cm)}
+        \def\vsB{(7,0) ellipse (2cm and 2.7cm)}
+
+        % Draw the main vector spaces
+        \draw \vsA node at (-1,3) {$V^*: \dim(n)$};
+        \draw \vsB node at (7,3) {$W^*: \dim(m)$};
+
+        \node at (-3.3,0) {$\B^*$};
+        \node at (9.5,0) {$\left(\B'\right)^*$};
+        % \draw \bsBp node at (1,2.3) {$\B'$};
+
+        % Define the subspaces
+        \def\subA{(-1,-0.4) ellipse (1cm and 1.1cm)}
+
+        % Draw the subspaces
+        \draw \subA node at (-1,1) {$\rank(T)$};
+
+        % Define the linear transformation
+        \draw[<-] (1.2, 0.5) to [bend left=15] node[above] {$T^t$} (4.8,0.5);
+
+        \node at (7,0) {$g$};
+      \end{tikzpicture}
+    \end{center}
+
+    From class, we saw that $\Ann(\range(T)) = \Null(T^t)$.
+
+    For part a, since we have that $\Null(T^t) = \Span(\{f\})$ for some $f \in
+    W^*$. Thus we have that
+
+    \begin{equation}
+      \Ann(\range(T)) = \Span(\{f\})
+    \end{equation}
+
+    {\bf Claim}: $\range(T) = \Null(\{f\})$
+
+    {\bf Proof}: Chose any $\beta \in \range(T)$, by (1), we must have that
+    $f(\beta) = 0$, because $f$ is in the Annihilator of the Range of $T$, that
+    means that $f$ kills anything in the Range of $T$, but $\beta$ is in the
+    range of $T$, so $f(\beta) = 0$. But this means that
+
+    \[
+      \beta \in \Null(\{f\})
+    \]
+
+    so we have that $\range(T) \subseteq \Null(\{f\})$
+
+    For the other direction, its easier to just count the dimension.
+
+    Say that $f \ne 0$. Since $f: W \to F$ is a linear transformation, 
+
+    \[
+      \dim(\Null(f)) = m - 1
+    \]
+
+    By the Rank Nullity Theorem (since the output is of dimension 1) (but how do
+    we know its not less than $m - 1$, oh because it outputs a single number,
+    the dimensions just work out)
+
+    Since $\Null(T^t) = \Span(f)$ by assumption, $\dim(\Null(T^t)) = 1$
+
+    By Rank Nullity of $T^t$,
+
+    \[
+      \dim(\range(T^t)) + \dim(\Null(T^t)) = m
+    \]
+
+    So $\dim(\range(T^t)) = m - 1$ but from the diagram chase from class we saw
+    that $\dim(\range(T^t)) = \dim(\range(T))$
+
+    3b is similar to this
+  }
+
+  Let's look at other problem
+
+    \prob{4.2.3}
+  {
+    Let $A$ be an $n \times n$ diagonal matrix over the field $F$, i.e., a
+    matrix satisfying $A_{ij} = 0$ for $i \ne j$. Let $f$ be the polynomial over
+    $F$ defined by
+
+    \[
+      f = (x - A_{11}) \cdots (x - A_{nn})
+    \]
+
+    What is the matrix $f(A)$?
+  }
+  {
+    Let's start by asking: what would $(A - a_{11}(I))$ look like? It would
+    simply be $A$ without the top left entry. What about $(A - a_{22}(I))$? That
+    would be the matrix with an entry in each element of the diagonal, except
+    for the second.
+
+    When we multiply all these guys together, we get zeroes along the diagonal,
+    since each matrix removes an element from the diagonal.
+
+    All in all, this is then the zero matrix!
+  }
+
+  Let's look at ideals. We want to factor polynomials, and prove theorems about
+  factorization, so we want to do this carefully.
+
+  \subsubsection{Euclidean Algorithm}
+
+  {\bf Lemma}: For any polynomials $f, d \in F[x]$ with $d \ne 0$ and $\deg(d)
+  \le \deg(f)$, there is a polynomial $g \in F[x]$ such that
+
+  \[
+    \deg(f - gd) < \deg(f) \text{ or } f - gd = 0
+  \]
+
+  {\bf Proof}: 
+
+  Write $f = a_mx^m + (\text{stuff of degree $< m$})$, similarly, write $d = b_n
+  x^n + (\text{stuff of degree $< n$})$. By assumption, $n \le m$.
+
+  Let $g(x) = (\frac{a_m}{b_n} x^{m - n})$. Then $f - gd$ has
+  degree $<m$ or is equal to zero.
+
+  {\bf Note}: we use the fact that we're in a field to do this division.
+
+  \thm {
+    Suppose that $f$ and $d$ are two different polynomials in $F[x]$ and $d \ne
+    0$. There are $q, r \in F[x]$ such that
+
+    \[
+      f = d \cdot q + r
+    \]
+
+    Where $q$ is the quotient, and $r$ is the remainder.
+    Additionally, $\deg(r) < \deg(d)$ or $r = 0$.
+  }
+  {
+    {\it By induction.}
+
+    Fix any $d \in F[x]$ with $d \ne 0$. Let $(*)_m$: For every $f \in F[x]$ of
+    degree less than $m$ (or $f = 0$), there are $q, r \in F[x]$ such that $f =
+    d \cdot q + r$ with $\deg(r) < \deg(d)$ or $r = 0$.
+
+    So the theorem says that $(*)_m$ holds for all $m$, we assume that it holds
+    for $m$ and we will prove that $(*)_{m + 1}$ holds. (This is just induction)
+
+    To do this, chose $f \in F[x]$ with $\deg(f) = m$. Now there are two cases.
+
+    \begin{enumerate}
+      \item If $m < \deg(d)$, then we're trivially done! Simply take $f = r$, and
+        $q = 0$, and $\deg(r) < \deg(d)$.
+
+      \item If $m \ge \deg(d)$. But then, we can use the Lemma. We apply it to
+        get some $g(x) \in F[x]$ such that $f - dg = 0$ or $\deg(f - dg) <
+        \deg(f) = m$. But now we can apply $(*)_m$ to $f - dg$, since its degree
+        is strictly smaller than $m$. So we get $q, r \in F[x]$ such that
+
+        \[
+          (f - dg) = dq + r
+        \]
+
+        Where $r = 0$ or $\deg(r) < \deg(d)$. Now let $q^* = g + q$, then $f = d
+        \cdot q^* + r$, where $\deg(r) < \deg(d)$ or $r = 0$. So we're done.
+    \end{enumerate}
+  }
+
+  Let's look at a fun Corollary from this.
+
+  {\bf Corollary}: For any $f \in F[x]$ and $c \in F$. $(x - c)$ is a factor of
+  $f$ if and only $f(c) = 0$ (if $c$ is a root of $f$)
+
+  {\bf Proof}:
+  Say $f(x) = (x - c)h(x)$ for some $h(x) \in F[x]$, then just apply $c$, so we
+  have
+
+  \[
+    f(c) = (c - c)h(c) = 0
+  \]
+
+  More interestingly is the other direction. Assume that $f(c) = 0$. Apply the
+  theorem to $f$ and $d(x) = (x - c)$, and we get $q, r \in F[x]$ such that
+
+  \[
+    f(x) = (x - c) q(x) + r(x)
+  \]
+
+  with $\deg(r) < \deg(x - c)$ or $r = 0$. But since $\deg(x - c) = 1$, that
+  tells us that $r$ must be a constant (possibly zero).
+
+  Plugging in $c$, we get
+
+  \[
+    f(c) = (c - c) q(c) + r(c) = r(c)
+  \]
+
+  But $f(c) = 0$, so $r(c) = 0$, but since $r$ was a constant function, $r$ must
+  have been the zero polynomial this whole time. Rolling back, this tells us
+  that there was no remainder in $f(x)$, so $(x - c)$ is a factor!
+
+  \[
+    f(x) = (x - c) q(x)
+  \]
+
+  \definition{
+    An {\bf Ideal} $I \subseteq F[x]$ satisfies
+
+    \begin{enumerate}
+      \item $0 \in I$
+      \item if $f, f' \in I$, then $f + f' \in I$
+      \item If $f \in I$ and $g \in F[x]$, then $fg \in I$
+    \end{enumerate}
+  }
+
+  {\bf Ex}: $\{0\}$ is an ideal, called the zero ideal.
+
+  Another fact, maybe more surprising, is the following. Suppose that $I$ is an
+  ideal, and $1 \in I$, then $I = F[x]$ by (3)
+  
 
 
 \end{document}

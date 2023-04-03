@@ -104,6 +104,7 @@
 \newcommand{\im}{\mathrm{Im}}
 
 \def\Ann{\text{Ann}}
+\def\sgn{\text{sgn}}
 
 % Linear Algebra
 
@@ -4037,5 +4038,304 @@
 
   I should get paid for texing this.
 
+
+
+  \date{Mon Apr. 3 2023}
+
+  {\it We're in the midst of determining that there is a unique determinant for
+  any $n \ge 1$. Today, we will finish proving uniqueness.}
+
+  Let's recall what this means.
+
+  $K$ is any commutative ring, $n \ge 1$. For any $n \times n$ matrix $A$ with
+  {\bf rows} $\alpha_1, \dots, \alpha_n$, we can either write 
+
+  \begin{itemize}
+    \item $D: K^{n \times n} \to K$ for which we have $D(A)$
+    \item $D: (K^n)^n \to K$ for which we have $D(\alpha_1, \dots, \alpha_n)$
+  \end{itemize}
+
+  These mean the same thing, and are just notational tricks.
+
+  We also had the following properties for the determinant
+
+  \begin{enumerate}
+    \item $D$ is {\bf $n$ linear}
+    \item $D$ is {\bf alternating}
+
+      With this property, we ensure that if two rows are the same, the
+      determinant is zero.
+
+    \item {\bf ``normalization"}, $D(I) = D(\eps_1, \eps_2, \dots, \eps_n) = 1$ 
+  \end{enumerate}
+
+  We want to show that {\bf there is only one} function which satisfies these
+  three properties.
+
+  Last time, we saw that if $D$ is $n$ linear, we had this property
+
+  \begin{align*}
+    D(A) = D(\alpha_1, \dots, \alpha_n) =& \sum_{(k_1, \dots, k_n)} A_{1, k_1} A_{2, k_2} \cdots A_{n, k_n} D(\eps_{k_1}, \eps_{k_2}, \dots, \eps_{k_2}) \\
+    =& \sum_{k_1 = 1}^n \sum_{k_2 = 1}^n \cdots \sum_{k_n = 1}^n A_{1, k_1} A_{2, k_2} \cdots A_{n, k_n} D(\eps_{k_1}, \eps_{k_2}, \dots, \eps_{k_2})
+  \end{align*}
+
+  In other words, this is the sum of $n^n$ products.
+
+  The question now is, what happens to $D(\eps_{k_1}, \eps_{k_2}, \dots,
+  \eps_{k_n})$ ?
+
+  Let's assume that $D$ is $n$ linear and alternating. Then, by definition, we
+  have that $D(\eps_{k_1}, \eps_{k_2}, \dots, \eps_{k_n}) = 0$ {\bf unless}
+  $k_1, \dots, k_n$ are all distinct!
+
+  \definition {
+    A {\bf permutation} of $\{1, \dots, n\}$ is a one to one (therefore onto)
+    function $\sigma: \{1, \dots, n\} \to \{1, \dots, n\}$.
+
+    \btw {This function just shuffles things around}
+
+    We know that it's onto simply by pigeonhole principle! (Also this isn't
+    exactly true for infinite sets)
+  }
+
+  \TODO{} clean up and explain examples.
+
+  \example {
+    $\sigma(1) = 2$
+
+    $\sigma(2) = 4$
+
+    $\sigma(3) = 5$
+
+    $\sigma(4) = 1$
+
+    $\sigma(5) = 3$
+  }
+
+  Let $S_n$ be the set of all permutations $\sigma: \{1, \dots, n\} \to \{1,
+  \dots, n\}$.
+
+  {\bf Question}: How big in $S_n$? Well,
+
+  \begin{itemize}
+    \item How many places can you send $1$ to? $n$ places of course
+    \item What about 2? Well you fixed a place for 1, so $n - 1$ places are left
+      for 2.
+    \item For 3, we have $n - 2$ places left, and so on...
+  \end{itemize}
+
+  So $S_n$ is $n!$ big.
+
+  If $D$ is both $n$ linear and alternating, then
+  \[
+    D(\alpha_1, \dots, \alpha_n)
+    = \sum_{\sigma \in S_n} A_{1, \sigma(1)} A_{2, \sigma(2)} \cdots A_{n,
+  \sigma(n)} D(\eps_{\sigma(1)}, \eps_{\sigma(2)}, \dots, \sigma_{\sigma(n)})
+  \]
+
+  \TODO{} explain notation here
+
+  \example {
+    $\tau(1) = 1$
+
+    $\tau(2) = 2$
+
+    $\tau(3) = 5$
+
+    $\tau(4) = 4$
+
+    $\tau(5) = 3$
+  }
+
+  \definition {
+    A {\bf transposition} $\tau_{i, j}$ is the permutation swapping only $i$ and
+    $j$.
+  }
+
+  Given any 2 permutations $\sigma$ and $\tau$, we can ``compose them".
+
+  \[
+    \sigma \circ \tau \in S_n
+  \]
+
+  \example {
+    Given
+
+    $\sigma(1) = 2$
+
+    $\sigma(2) = 4$
+
+    $\sigma(3) = 5$
+
+    $\sigma(4) = 1$
+
+    $\sigma(5) = 3$
+
+    and
+
+    $\tau(1) = 1$
+
+    $\tau(2) = 2$
+
+    $\tau(3) = 5$
+
+    $\tau(4) = 4$
+
+    $\tau(5) = 3$
+
+
+    $\sigma \circ \tau(1) = 2$
+
+    $\sigma \tau(2) = 4$
+
+    $\sigma \tau(3) = 3$
+
+    $\sigma \tau(4) = 1$
+
+    $\sigma \tau(5) = 5$
+  }
+
+  Every $\sigma \in S_n$ has an ``inverse".
+
+  \example {
+    Following from the examples from earlier, we have
+
+    $\sigma^{-1}(1) = 4$
+
+    $\sigma^{-1}(2) = 1$
+
+    $\sigma^{-1}(3) = 5$
+
+    $\sigma^{-1}(4) = 2$
+
+    $\sigma^{-1}(5) = 3$
+  }
+
+  \note {
+    If $\tau$ is a transposition, $\tau \circ \tau$ is the same as doing
+    nothing!
+
+    \[
+      \tau \circ \tau = I
+    \]
+
+    Transpositions are called ``idempotent" from this property.
+  }
+
+  \note {
+    As a sidenote, $S_n$ is a {\bf group} with operation of composition and
+    identity element being the ``do nothing" permutation.
+  }
+
+  {\bf Fact}: In $S_n$, every $\sigma \in S_n$ is a composition of
+  {\it transpositions}.
+
+  We might see $\sigma = \tau_k \circ \tau_{k - 1}, \circ \cdots \circ \tau_1$
+  where each $\tau_j$ is a transposition.
+
+  {\bf Proof}: Fix any permutation $\sigma \in S_n$. Choose any $a \in \{1,
+  \dots, n\}$. Now keep applying $\sigma$ to $a$.
+
+  \[
+    a, \sigma(a), \sigma(\sigma(a)), \dots, \sigma^k(a) = a
+  \]
+
+  Eventually, we'll get back to $a$, since there's only finitely many ways to
+  permute finitely many things.
+
+  The cycle $C = \{a, \sigma(a), \dots, \sigma^{k - 1}(a)\}$ is a subset of
+  $\{1, \dots, n\}$.
+
+  Choose any $b \in \{1, \dots, n\} \setminus C$. Then
+
+  \[
+    C_b = \{b, \sigma(b), \dots, \sigma^{k' - 1}(b)\}
+  \]
+
+  So $\{1, \dots, n\}$ is partitioned into {\bf cycles}.
+
+  \[
+    \sigma = \tau_{3, 5} \circ \tau_{4, 1} \circ \tau_{1, 2} (1)
+  \]
+
+  What we get is that each cycle is a product of transpositions.
+
+  Even though the permutations might not be the shortest, their parity will
+  always be right.
+
+  \definition{
+    A permutation $\sigma$ is called {\bf even} if $\sigma$ is the product of of
+    an {\bf even number} of transpositions.
+
+    $\sigma$ is odd otherwise.
+  }
+
+  \note {
+    The identity is even. Any transposition is $\tau$ is odd.
+
+    In our example, $\sigma$ is odd.
+
+    \[
+      \sigma = \tau_{3, 5} \circ \tau_{4, 1} \circ \tau_{1, 2} (1)
+    \]
+
+    The number of even transpositions is $n! / 2$ and so is the number of odd
+    transpositions.
+  }
+
+  Now if $\sigma$ is even, we have
+
+  \[
+    1 \cdot D(\eps_{\sigma(1)}, \eps_{\sigma(2)}, \dots, \sigma_{\sigma(n)})
+  \]
+
+  \btw {
+    We can get from $\sigma$ to the identity in an even number of flips, but
+    every time we flip, we switch the sign.
+  }
+
+  But if $\sigma$ is odd, we have
+
+  \[
+    -1 \cdot D(\eps_{\sigma(1)}, \eps_{\sigma(2)}, \dots, \sigma_{\sigma(n)})
+  \]
+
+  \btw {
+    We can get from $\sigma$ to the identity in an odd number of flips, but
+    every time we flip, we switch the sign.
+  }
+
+  \definition {
+    We define $\sgn(\sigma)$ as a function $\sgn: S_n \to \pm 1$
+
+    \[
+      \sgn(\sigma) = \begin{cases}
+        1 & \text{ if $\sigma$ is even} \\
+        -1 & \text{ if $\sigma$ is odd}
+      \end{cases} 
+    \]
+
+    Which represents the parity of permutation $\sigma$.
+  }
+
+  {\bf Finally},
+  
+  If $D$ is $n$ linear and alternating, then
+
+  \[
+    D(\alpha_1, \dots, \alpha_n) = \sum_{\sigma \in S_n} \sgn(\sigma) A_{1,
+    \sigma(1)} \cdots A_{n, \sigma(n)} \cdot D(\eps_1, \dots, \eps_n)
+  \]
+
+  {\bf Corollary}:
+
+  There is {\it exactly one} determinant function
+
+  \[
+    \det(A) = \det(\alpha_1, \dots, \alpha_n) = \sum_{\sigma \in S_n}
+    \sgn(\sigma) A_{1, \sigma(1)} A_{2, \sigma(2)} \cdots A_{n, \sigma(n)}
+  \]
+
+  Since $D(\eps_1, \dots, \eps_n) = 1$ by ``normalization".
 
 \end{document}

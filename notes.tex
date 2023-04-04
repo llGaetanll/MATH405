@@ -1,12 +1,9 @@
 \documentclass[12pt]{article}
-\usepackage{amssymb}
-\usepackage{amsmath, amsthm}
-\usepackage{xcolor}
 \usepackage[
     top=10mm,
     bottom=10mm,
-    left=30mm,
-    right=30mm,
+    left=10mm,
+    right=10mm,
     marginparwidth=0mm,
     marginparsep=0mm,
     % headheight=15pt,
@@ -15,346 +12,28 @@
     includefoot,
     % includehead
 ]{geometry}
-\usepackage{fancyhdr}
-\usepackage{enumitem}
-\usepackage{mathtools}
-\usepackage{framed}
-\usepackage{parskip}
-\usepackage{graphicx}
-\usepackage{chngcntr}
-\usepackage{float}
-\usepackage{multicol}
-% \usepackage{quiver}
 \usepackage{tikz-cd}
-
-
-% \input xypic (for commutative diagrams)
-% \include{mssymb}
-
-\def\A{{\mathbb A}}
-\def\P{{\mathbb P}}
-\def\N{{\mathbb N}}
-\def\Z{{\mathbb Z}}
-\def\Q{{\mathbb Q}}
-\def\R{{\mathbb R}}
-\def\C{{\mathbb C}}
-\def\F{{\mathbb F}}
-\def\O{{\cal O}}
-\let\sec\S
-\let\S\relax
-\def\S{{\mathfrak S}}
-\def\g{{\mathfrak g}}
-\def\p{{\mathfrak p}}
-\def\h{{\mathfrak h}}
-\def\n{{\mathfrak n}}
-\def\v{{\mathfrak v}}
-\def\m{{\mathfrak m}}
-\def\a{{\alpha}}
-
-
-\newcommand{\skipline}{\vspace{\baselineskip}}
-\newcommand{\dis}{\displaystyle}
-\newcommand{\noin}{\noindent}
-
-\newcommand{\GCD}{\text{GCD}}
-
-% remove all paragraph indents
-\setlength{\parindent}{0pt}
-
-% Figure counter include section
-\counterwithin{figure}{section}
-
-% Cleaner figures
-\newcommand{\fig}[3][0.4]{
-  \begin{figure}[H]
-    \centering
-    \includegraphics[width=#1\textwidth, keepaspectratio]{#2}
-    \caption{#3}
-  \end{figure}
-}
-% Mathematical notation
-
-
-\newcommand{\Span}{\mathrm{Span}}
-\newcommand{\rank}{\mathrm{Rank}}
-\newcommand{\nullity}{\mathrm{Nullity}}
-\newcommand{\longhookrightarrow}{\lhook\joinrel\relbar\joinrel\rightarrow}
-\newcommand{\la}{\leftarrow}
-\newcommand{\ra}{\rightarrow}
-\newcommand{\La}{\Leftarrow}
-\newcommand{\Ra}{\Rightarrow}
-\newcommand{\dbar}{\overline{\partial}}
-\newcommand{\gequ}{\geqslant}
-\newcommand{\lequ}{\leqslant}
-\newcommand{\Hom}{\mathrm{Hom}}
-\newcommand{\End}{\mathrm{End}}
-\newcommand{\Aut}{\mathrm{Aut}}
-\newcommand{\Coker}{\mathrm{Coker}}
-\newcommand{\Row}{\mathrm{Row}}
-\newcommand{\Ker}{\mathrm{Ker}}
-\newcommand{\Tr}{\mathrm{Tr}}
-\newcommand{\Id}{\mathrm{Id}}
-% \newcommand{\mod}{\mathrm{mod }}
-\newcommand{\un}{\underline}
-\newcommand{\ov}{\overline}
-\newcommand{\wt}{\widetilde}
-\newcommand{\wh}{\widehat}
-\newcommand{\pr}{\prime}
-\newcommand{\rk}{\mathrm{rk}}
-\newcommand{\im}{\mathrm{Im}}
-
-\def\Ann{\text{Ann}}
-\def\sgn{\text{sgn}}
-
-% Linear Algebra
-
-\newcommand{\lind}{linearly independent}
-\newcommand{\ldep}{linearly dependent}
-\renewcommand{\vec}[1]{
-  {\bf #1}
-}
-\newcommand{\lincomb}[3]{
-  #1_{1}#2_{1} + #1_{2}#2_{2} + \cdots + #1_{#3}#2_{#3}
-}
-\newcommand{\neglincomb}[3]{
-  -#1_{1}#2_{1} - #1_{2}#2_{2} - \cdots - #1_{#3}#2_{#3}
-}
-\newcommand{\constants}[2]{
-  #1_{1}, #1_{2}, \cdots, #1_{#2}
-}
-\newcommand{\constantsz}[2]{
-  #1_{0}, \constants{#1}{#2}
-}
-
-\def\trace{\text{trace}}
-
-% Analysis
-\newcommand{\limfty}[1]{\lim_{#1 \to \infty}}
-\newcommand{\seq}[2]{\{#1_{#2}\}_{#2 \in \N}}
-\newcommand{\sseq}[3]{\{#1_{#2_{#3}}\}_{#3 \in \N}}
-\newcommand{\chep}{Let $\epsilon > 0$}
-
-% Category Theory
-\newcommand{\catC}{\mathcal{C}}
-\newcommand{\catD}{\mathcal{D}}
-\newcommand{\functF}{\mathcal{F}}
-\newcommand{\functG}{\mathcal{G}}
-\newcommand{\functI}{\mathcal{I}}
-\newcommand{\functU}{\mathcal{U}}
-
-\newcommand{\op}[1]{#1^{\mathrm{op}}}
-\newcommand{\Obj}{\mathrm{Obj}}
-
-\newcommand{\Set}{\mathbf{Set}}
-\newcommand{\Grp}{\mathbf{Grp}}
-\newcommand{\Top}{\mathbf{Top}}
-\newcommand{\cRing}{\mathbf{cRing}}
-\newcommand{\BanAnaMan}{\mathbf{BanAnaMan}}
-\newcommand{\FinSet}{\mathbf{FinSet}}
-\newcommand{\Vect}{\mathbf{Vect}}
-\newcommand{\Two}{\mathbf{2}}
-
-
-% ================= %
-% Headers & Footers
-% ================= %
-\pagestyle{fancy}
-\fancyhf{}
-\newcommand{\intros}[3]{
-  \lhead{\textbf{#1} {#2}}
-  \rhead{#3}}
-\rfoot{\thepage}
-\renewcommand{\headrulewidth}{0pt}
-
-
-
-% ================= %
-%       Utils
-% ================= %
-\newcommand{\induction}[3]{
-  \textbf{Base Case} #1 \\
-  \textbf{Inductive Hypothesis} \\ #2 \\
-  \textbf{Inductive Step} \\ #3
-}
-
-
-
-% Used to list all problems on homework
-\newcommand{\problems}[1]{
-  \medskip \noin
-  {\bf Problems}
-
-  #1
-
-  \medskip{}
-}
-
-
-% augmented matrices
-\makeatletter
-\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
-  \hskip -\arraycolsep
-  \let\@ifnextchar\new@ifnextchar
-  \array{#1}}
-\makeatother
-
-% ================= %
-%      Box Meta
-% ================= %
-
-% #2 - FG Color
-% #3 - BG Color
-\newenvironment{fancyleftbar}[3][\hsize]
-{%
-    \def\FrameCommand
-    {%
-        {\color{#2}\vrule width 3pt}%
-        \hspace{0pt}%must no space.
-        \fboxsep=\FrameSep\colorbox{#3}%
-    }%
-    \MakeFramed{\hsize#1\advance\hsize-\width\FrameRestore}%
-}
-{\endMakeFramed}
-
-% Used to allow the color argument to pass through the environment%
-\newsavebox{\boxqed} 
-
-% #1 - Header
-% #2 - FG Color
-% #3 - BG Color
-\newenvironment{fancybox}[3]{
-  \sbox\boxqed{\textcolor{#2}{$\blacksquare$}}
-  \begin{fancyleftbar}{#2}{#3}
-
-  \noin
-  {\large \sc #1} \\
-}
-{
-
-  \medskip
-  \noin
-  \usebox\boxqed
-
-  \end{fancyleftbar}
-}
-
-% #1 - Text header
-% #2 - Outer Text
-% #3 - Inner Text
-% #4 - Inner Header
-% #5 - FG Color
-% #6 - Background Color
-\newcommand{\boxmeta}[6]{
-  \bigskip \bigskip \noin
-  {\large\sc #1}
-
-  \smallskip\noin
-  #2
-
-  \begin{fancybox}{#4}{#5}{#6}
-    \noin
-    #3
-  \end{fancybox}
-}
-
-% #1 - Title
-% #2 - FG Color
-% #3 - BG Color
-% #4 - Inner Text
-\newcommand{\baronly}[4]{
-  \begin{fancyleftbar}{#2}{#3}{\large \sc #1}
-
-    #4
-  \end{fancyleftbar}
-}
-
-% ================= %
-%     Box Colors
-% ================= %
-
-\definecolor{theorem_fg}{HTML}{EABAC3}
-\definecolor{theorem_bg}{HTML}{F9EEF0}
-
-\definecolor{problem_fg}{HTML}{ABABAB}
-\definecolor{problem_bg}{HTML}{EDEDED}
-
-\definecolor{lemma_fg}{HTML}{D0C97D}
-\definecolor{lemma_bg}{HTML}{FCF9DB}
-
-\definecolor{prop_fg}{HTML}{7DDB89}
-\definecolor{prop_bg}{HTML}{D7FADB}
-
-\definecolor{defn_fg}{HTML}{83D4CF}
-\definecolor{defn_bg}{HTML}{E7FCFB}
-
-% ================= %
-%     Box Meso
-% ================= %
-
-\newcommand{\thm}[2]{
-  \boxmeta{Theorem}{#1}{#2}{Proof}{theorem_fg}{theorem_bg}
-}
-
-\newcommand{\namedtheorem}[3]{
-  \boxmeta{#1}{#2}{#3}{Proof}{theorem_fg}{theorem_bg}
-}
-
-\newcommand{\prob}[3]{
-  \boxmeta{Problem #1}{#2}{#3}{Solution}{problem_fg}{problem_bg}
-}
-
-\newcommand{\exampleprob}[2]{
-  \boxmeta{Example}{#1}{#2}{Solution}{problem_fg}{problem_bg}
-}
-
-\newcommand{\lemma}[2]{
-  \boxmeta{Lemma}{#1}{#2}{Proof}{lemma_fg}{lemma_bg}
-}
-
-\newcommand{\namedlemma}[3]{
-  \boxmeta{#1}{#2}{#3}{Proof}{lemma_fg}{lemma_bg}
-}
-
-\newcommand{\corr}[2]{
-  \boxmeta{Corrolary}{#1}{#2}{Proof}{lemma_fg}{lemma_bg}
-}
-
-\newcommand{\proposition}[2]{
-  \boxmeta{Proposition}{#1}{#2}{Proof}{prop_fg}{prop_bg}
-}
-
-\newcommand{\definition}[1]{
-  \baronly{Definition}{defn_fg}{defn_bg}{#1}
-}
-
-\newcommand{\example}[1]{
-  \baronly{Example}{problem_fg}{problem_bg}{#1}
-}
-
-\newcommand{\note}[1]{
-  \baronly{Note}{problem_fg}{problem_bg}{#1}
-}
-
-\def\B{\mathcal B}
-\def\P{\mathcal P}
-
-\newcommand{\btw}[1]{
-    $\langle$ #1 $\rangle$
-}
 
 \renewcommand{\date}[1]{\underline{\bf #1}}
 
 \def\eps{\varepsilon}
 \def\range{\text{Range}}
-\def\Null{\text{Null}}
 
+\newcommand{\GCD}{\text{GCD}}
 \def\RowSpace{\text{RowSpace}}
 \def\ColSpace{\text{ColSpace}}
+\def\trace{\text{trace}}
+\def\Ann{\text{Ann}}
+\def\sgn{\text{sgn}}
+\def\B{\mathcal B}
+\def\P{\mathcal P}
 
 
 % create a command for TODOs
 \newcommand{\TODO}{\color{red}\textbf{TODO}\color{black}}
 
+% preamble
+\input{preamble}
 
 
 \begin{document}
@@ -378,7 +57,7 @@
 
     Fix the ordering of $\B$.
 
-    \thm {
+    \theorem {
       For any $\alpha \in V$, there is a unique $n$ tuple $(x_1, ..., x_n) \in F^n$
       such that
 
@@ -992,7 +671,7 @@
     Is the zero transformation. It takes any $\alpha \in V$ to the $0$ of $W$.
     We'll use this to prove theorems about linear transformations later.
 
-    \thm{
+    \theorem {
       Let's prove existence and uniqueness of linear transformations.
 
       \begin{enumerate}
@@ -1164,7 +843,7 @@
     This is also sometimes called the \textbf{Kernel} of $T$.
   }
 
-  \thm{
+  \theorem{
     Let $T: V \to W$ be a linear transformation. $\Null(T)$ is a subspace of $V$.
   }
   {
@@ -1220,7 +899,7 @@
   }
 
   \subsection{The Rank-Nullity Theorem}
-  \namedtheorem{Rank-Nullity Theorem}{
+  \NamedTheorem{Rank-Nullity Theorem}{
     Let $V$ be a vector space with $\dim V = n$. Let $T: V \to W$.
     \[ \rank(T) + \nullity(T) = \dim V = n \] 
   }{
@@ -1287,7 +966,7 @@
     The \textbf{Row Space} is the vector space spanned by the $m$ rows of $A$.
   }
 
-  \thm{
+  \theorem{
     Let $A$ be a matrix, that when row-reduced has $n$ unknowns and $r$ non-zero
     rows. $\nullity(T_A) = n - r$
   }{
@@ -1413,7 +1092,7 @@
       This requires some more work.
   \end{enumerate}
 
-  \thm{
+  \theorem{
     $T: V \to W$ is one to one if and only if $\Null(T) = \{\vec{0}\}$.
 
     \btw{In other words, the Null space must only contain the zero vector.}
@@ -1438,7 +1117,7 @@
     This is just another term for something we already know.
   }
 
-  \thm {
+  \theorem {
     Now suppose that $T: V \to W$ is a linear transformation with $\dim(V) =
     \dim(W)$. Then $T$ is one to one if and only if $T$ is onto.
   }
@@ -1821,7 +1500,7 @@
 
   Let $L(V, W)$ consist of all linear transformations $T: V \to W$.
 
-  \thm {
+  \theorem {
     $L(V, W)$ is a vector space.
   }
   {
@@ -1843,7 +1522,7 @@
     of being a vector space.
   }
 
-  \thm {
+  \theorem {
     Suppose that $\dim(V) = n$ and $\dim(W) = m$, then $\dim(L(V, W)) = nm$.
   }
   {
@@ -2916,7 +2595,7 @@
     the zero transformation in $V^*$.
   }
 
-  \thm {
+  \theorem {
     If $\dim(V)$ is finite, say $n$, then for any subspace $W \subseteq V$
 
     \[
@@ -3123,7 +2802,7 @@
 
   \TODO{} cleanup
 
-  \thm {
+  \theorem {
     Say $V, W$ are finite dimensional vector spaces with $\dim(V) = n, \dim(W) =
     m$, and $T: V \to W$ is any linear transformation where $\rank(T) = r$.
 
@@ -3465,7 +3144,7 @@
 
   Looking at 3 on the homework
 
-  \prob{3}
+  \Problem{3}
   {
     Suppose that $V, W$ are finite dimensional vector spaces and $T: V \to W$ is
     a linear transformation.
@@ -3573,7 +3252,7 @@
 
   Let's look at other problem
 
-    \prob{4.2.3}
+    \Problem{4.2.3}
   {
     Let $A$ be an $n \times n$ diagonal matrix over the field $F$, i.e., a
     matrix satisfying $A_{ij} = 0$ for $i \ne j$. Let $f$ be the polynomial over
@@ -3619,7 +3298,7 @@
 
   {\bf Note}: we use the fact that we're in a field to do this division.
 
-  \thm {
+  \theorem {
     Suppose that $f$ and $d$ are two different polynomials in $F[x]$ and $d \ne
     0$. There are $q, r \in F[x]$ such that
 
@@ -3735,7 +3414,7 @@
   as with the integers, they turn out to be incredibly nice. We'll even show
   that every ideal is generated by a single polynomial
 
-  \thm{
+  \theorem{
     In $F[x]$, every ideal $I \subseteq F[x]$ is generated by a single
     polynomial $d \in F[x]$.
 
@@ -3916,7 +3595,7 @@
   Of course, we already know how to take an $n \times n$ determinant of a
   matrix, so this shouldn't feel completely arbitrary to the reader.
 
-  \thm{
+  \theorem{
     For every $1 \le j \le n$, $E_j$ is a determinant function on $n \times n$
     matrices.
   }
@@ -3975,7 +3654,7 @@
   The answer is Theorem 1 in 5.2, it will not be proved in class because it's
   pretty involved.
 
-  \thm {
+  \theorem {
     We've now proved that for every $n \ge 1$, a determinant function $D:
     (K^n)^n \to K$ exists.
   }
@@ -3986,7 +3665,7 @@
 
   \subsection{Uniqueness}
 
-  \thm {
+  \theorem {
     For any $n \ge 1$, there is {\bf exactly one} determinant function $D:
     (K^n)^n \to K$.
   }
@@ -3996,40 +3675,46 @@
     \alpha_n$.
 
     Let $D(A) = D(\alpha_1, \dots, \alpha_n)$. Use the fact that $D$ is linear
-    with $i = 1$. (since it's linear in all terms, since it's $n$ linear)
+    with $i = 1$. (after all, it's linear in all terms since it's $n$ linear)
 
-    We know that $\alpha_1 = (A_{11}, A_{12}, \dots, A_{1n})$. We can also write
-    it as $\alpha_1 = (A_{11} \eps_1, A_{12} \eps_2, \dots, A_{1n} \eps_n)$,
-    where recall that $\eps_1 = (1, 0, \dots, 0), \eps_2 = (0, 1, 0, \dots, 0),
-    \dots$
+    We know that $\alpha_1 = (A_{1,1}, A_{1,2}, \dots, A_{1,n})$. We can also
+    write it as $\alpha_1 = (A_{1,1} \eps_1, A_{1,2} \eps_2, \dots, A_{1,n}
+    \eps_n)$. Recall that $\eps_1 = (1, 0, \dots, 0), \eps_2 = (0, 1, 0, \dots,
+    0), \dots$ \btw{$\eps_i$ is the $i$th row of the identity matrix.}
 
     Then we have
 
     \begin{align}
-      &D((A_{11} \eps_1 + \cdots + A_{1n} \eps_n), \alpha_2, \dots, \alpha_n) \\
+       &D(\alpha_1, \alpha_2, \dots, \alpha_n) \\
+      =&D((A_{1,1} \eps_1 + \cdots + A_{1,n} \eps_n), \alpha_2, \dots, \alpha_n) \\
       =&A_{1, 1} D(\eps_1, \alpha_2, \dots, \alpha_n) + A_{1, 2} D(\eps_2, \alpha_2,
       \dots, \alpha_n) + \cdots + A_{1, n} D(\eps_n, \alpha_2, \dots, \alpha_n) \\
       =&\sum_{j = 1}^n A_{1, j} D(\eps_j, \alpha_2, \dots, \alpha_n)
     \end{align}
 
-    Let's look at the determinant of (4) in more detail.
+    For (4), recall that $A_{i, j}$ is just a number in $K$, so we can factor it
+    from $D$ by $n$ linearity.
+
+    Let's look at $D(\eps_j, \alpha_2, \dots, \alpha_n)$ in more detail.
 
     \begin{align}
-      =&D(\eps_j, \alpha_2, \dots, \alpha_n) \\
-      =&D(\eps_j, (A_{21} \eps_1 + \cdots + A_{2n} \eps_n), \alpha_3, \dots, \alpha_n) \\
+       &D(\eps_j, \alpha_2, \dots, \alpha_n) \\
+      =&D(\eps_j, (A_{2,1} \eps_1 + \cdots + A_{2,n} \eps_n), \alpha_3, \dots, \alpha_n) \\
       =&A_{2, 1} D(\eps_j, \eps_1, \alpha_2, \dots, \alpha_n) + A_{2, 2}
       D(\eps_j, \eps_2, \alpha_3, \dots, \alpha_n) + \cdots + A_{2, n} D(\eps_j, \eps_n, \alpha_3, \dots, \alpha_n) \\
-      =&\sum_{j = 1}^n A_{2, j} D(\eps_j, \eps_k, \alpha_3, \dots, \alpha_n)
+      =&\sum_{k = 1}^n A_{2, k} D(\eps_j, \eps_k, \alpha_3, \dots, \alpha_n)
     \end{align}
 
-    We care keep exploding these terms on and on, and for $D$ $n$ linear, we end
-    up with
+    We can keep exploding these terms on and on. Since $D$ is $n$ linear, we end
+    up with this
 
     \begin{align*}
       D(A) =&D(\alpha_1, \dots, \alpha_n) \\
       =& \sum_{(k_1, \dots, k_n)} A_{1, k_1} A_{2, k_2} \cdots A_{n, k_n} D(\eps_{k_1}, \eps_{k_2}, \dots, \eps_{k_2}) \\
       =& \sum_{k_1 = 1}^n \sum_{k_2 = 1}^n \cdots \sum_{k_n = 1}^n A_{1, k_1} A_{2, k_2} \cdots A_{n, k_n} D(\eps_{k_1}, \eps_{k_2}, \dots, \eps_{k_2})
     \end{align*}
+
+    This is a lot of products.
 
     For $n = 3$: Sum of $3^3 = 27$ products.
 
@@ -4055,7 +3740,8 @@
     \item $D: (K^n)^n \to K$ for which we have $D(\alpha_1, \dots, \alpha_n)$
   \end{itemize}
 
-  These mean the same thing, and are just notational tricks.
+  These mean the same thing, and they are just different ways of thinking about
+  what we're doing.
 
   We also had the following properties for the determinant
 

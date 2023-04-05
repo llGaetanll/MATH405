@@ -899,10 +899,11 @@
   }
 
   \subsection{The Rank-Nullity Theorem}
-  \NamedTheorem{Rank-Nullity Theorem}{
+  \Theorem{
     Let $V$ be a vector space with $\dim V = n$. Let $T: V \to W$.
     \[ \rank(T) + \nullity(T) = \dim V = n \] 
-  }{
+  }
+  {
     First, choose $\{\constants{\alpha}{k}\}$ to be a basis for $\Null(T)$. This
     set is necessarily linearly independent in $V$. So, we can choose an
     additional $\{\alpha_{k+1}, \cdots, \alpha_n\}$ so that
@@ -4023,5 +4024,225 @@
   \]
 
   Since $D(\eps_1, \dots, \eps_n) = 1$ by ``normalization".
+
+  \date{Wed. Apr 5 2023}
+
+  {\bf Last Time}: For any $n$ linear, alternating $D$, we had
+
+  \[
+    D(\alpha_1, \dots, \alpha_n) = \sum_{\sigma \in S_n} \sgn(\sigma) A_{1,
+    \sigma(1)} \cdots A_{n, \sigma(n)} D(I)
+  \]
+
+  And if we insist that $D(I) = 1$, it shrinks down.
+
+  We define
+
+  \[
+    \det(\alpha_1, \dots, \alpha_n)
+    = D(\alpha_1, \dots, \alpha_n) = \sum_{\sigma \in S_n} \sgn(\sigma) A_{1,
+    \sigma(1)} \cdots A_{n, \sigma(n)} D(I)
+  \]
+
+  so $\det(I) = 1$
+
+  \btw{
+    This is not even by definition, we just see it as a byproduct of the
+    definition.
+  }
+
+  \subsection{Properties of the Determinant}
+
+  \begin{enumerate}
+    \item $\det(AB) = \det(A) \cdot \det(B)$
+
+      {\bf Proof}
+
+      Fix an $n \times n$ matrix $B$. Say that $A = \begin{pmatrix}
+        \alpha_1 \\ \vdots \\ \alpha_n
+      \end{pmatrix}$ is any $n \times n$ matrix.
+
+      {\bf Check}
+
+      \[
+        AB = \begin{pmatrix}
+        \alpha_1 \cdot B \\ \vdots \\ \alpha_n \cdot B
+      \end{pmatrix}
+      \]
+
+      \btw {
+        These are the rows of $AB$
+      }
+
+      Now, we define $D(A) = \det(AB) = \begin{pmatrix}
+        \alpha_1 \cdot B \\ \vdots \\ \alpha_n \cdot B
+      \end{pmatrix}$.
+
+      {\bf Check}: $D$ is $n$ linear and alternating.
+
+      % \QUESTION{} How do we check if something is $n$ linear? Like I know that
+      % it factors in that weird way or whatever. Do we just check that?
+
+      % What about checking for alternating?
+
+      Therefore, by what we had last time, we have that
+      \[
+        D(A) = \underbrace{\Big( \sum_{\sigma \in S_n} \sgn(\sigma) A_{1, \sigma(1)} \cdots
+        A_{n, \sigma(n)} \Big)}_{\det(A)} D(I)
+      \]
+
+      But now notice
+
+      \[
+        D(I) = \det(I \cdot B) = \det(B)
+      \]
+
+      So we have
+
+      \[
+        D(A) = \Big( \sum_{\sigma \in S_n} \sgn(\sigma) A_{1, \sigma(1)} \cdots
+        A_{n, \sigma(n)} \Big) D(I) = \det(A) \cdot \det(B)
+      \]
+
+    \item $\det(A^t) = \det(A)$
+
+      Recall $A^t$ is defined as $(A^t)_{i, j} := A_{j, i}$. Again, by
+      definition of the determinant, we have
+
+      \[
+        \det(A^t) = \sum_{\sigma \in S_n} \sgn(\sigma) (A^t)_{1, \sigma(1)} \cdots
+        (A^t)_{n, \sigma(n)}
+      \]
+
+      Now fix any $\sigma \in S_n$, we have
+
+      \[
+        (A^t)_{i, \sigma(i)} := A_{\sigma(i), i}
+      \]
+
+      Then we have
+
+      \[
+        \det(A^t) = \sum_{\sigma \in S_n} \sgn(\sigma) A_{\sigma(1), 1} \cdots
+        A_{\sigma(n), n}
+      \]
+
+      But remember that every permutation has an inverse! If we have
+
+      \[
+        i = \sigma^{-1}(j)
+      \]
+
+      Then,
+
+      \[
+        A_{\sigma(i), j} = A_{i, \sigma^{-1}(j)}
+      \]
+
+      Additionally, the sign doesn't change, since
+
+      \[
+        \sigma = \tau_1 \tau_2 \cdots \tau_k
+      \]
+
+      \[
+        \sigma^{-1} = \tau_k \tau_{k - 1} \cdots \tau_1
+      \]
+
+      \btw {
+        We know these are inverses, because look what happens when we compose
+        them.
+
+        \[
+          \sigma \sigma^{-1} = \tau_1 \tau_2 \tau_3 \cdots (\tau_k \tau_k) \cdots \tau_3 \tau_2 \tau_1 = \text{id}
+        \]
+
+        So we have
+
+        \[
+          \sgn(\sigma^{-1}) = \sgn(\sigma)
+        \]
+      }
+
+      So finally, we have
+
+      \begin{align*}
+        \det(A^t) =&\sum_{\sigma \in S_n} \sgn(\sigma^{-1}) A_{1, \sigma^{-1}(1)} \cdots A_{n, \sigma^{-1}(n)} \\
+        =&\sum_{\sigma \in S_n} \sgn(\sigma) A_{\sigma(1), 1} \cdots A_{\sigma(n), n} = \det(A)
+      \end{align*}
+
+    \item $\det(cA) = c^n \det(A)$
+    \item If $A$ is upper or lower triangular, then
+
+      \[
+        \det(A) = \prod_{i = 1}^n A_{i, i}
+      \]
+
+      We can expand by minors for this
+
+      % \begin{align*}
+      %   \det(A) =&(-1)^{1 + 1} A_{1, 1} \det(A[1 | 1])
+      % \end{align*}
+
+      \TODO{} Write proof
+
+      To show this for the lower triangular case, simply notice that the
+      transpose of an upper triangular matrix is lower triangular, and then use
+      (2)
+
+    \item If $A$ has a zero row, or zero column, then $\det(A) = 0$
+
+      The proof of this is that every single one of the products in
+
+      \[
+        D(A) = \sum_{\sigma \in S_n} \sgn(\sigma) A_{1, \sigma(1)} \cdots A_{n, \sigma(n)} \Big) D(I)
+      \]
+
+      Is going to be zero. So if a row is all zeroes, the determinant is zero.
+
+      To show this for the columns, we use the transpose fact again.
+
+    \item Let $r + s = n$. Suppose that we can decompose $A$ as follows
+
+      Let $A = \begin{bmatrix}
+        B & C \\
+        0 & D
+      \end{bmatrix}$
+
+      Where
+      \begin{itemize}
+        \item $B: r \times r$
+        \item $D: s \times s$
+        \item $0$ is the $s \times r$ zero matrix
+        \item $C: r \times s$
+      \end{itemize}
+
+      Then $\det(A) = \det(B) \det(D)$. You can see this if you once again
+      expand by minors.
+
+    \item $A: n \times n$. Let's look at elementary row operations.
+
+      \[
+        A \to A^\text{rr}
+      \]
+
+      {\bf Question}: What do these row operations do to the determinant?
+
+      \begin{itemize}
+        \item {\bf Swap two rows}: $\det(A)$ switches signs
+        \item {\bf Multiply $\alpha_i$ by $c \ne 0$}: $\det(A)$ gets multiplied
+          by $c$.
+
+        \item {\bf Replace $\alpha_j$ by $c \alpha_i + \alpha_j$}: You can check
+          that $det(A)$ is unchanged
+      \end{itemize}
+
+      So
+
+      \[
+        \det(A) = 0 \Leftrightarrow \det(A^\text{rr}) = 0
+      \]
+  \end{enumerate}
+
 
 \end{document}

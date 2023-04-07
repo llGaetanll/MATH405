@@ -1,9 +1,9 @@
 \documentclass[12pt]{article}
 \usepackage[
-    top=10mm,
-    bottom=10mm,
-    left=10mm,
-    right=10mm,
+    % top=10mm,
+    % bottom=10mm,
+    % left=10mm,
+    % right=10mm,
     marginparwidth=0mm,
     marginparsep=0mm,
     % headheight=15pt,
@@ -32,595 +32,380 @@
 % create a command for TODOs
 \newcommand{\TODO}{\color{red}\textbf{TODO}\color{black}}
 
+\newcommand*{\xdash}[1][3em]{\color{darkgray}\rule[0.5ex]{#1}{0.55pt}\color{black}}
+
 % preamble
 \input{preamble}
 
 
 \begin{document}
-  \footnotesize
+  % \footnotesize
 
-    \tableofcontents
-    
-    \newpage
+  \tableofcontents
+  
+  \newpage
 
-    \date{Fri. Feb 10 2023}
+  \date{Fri. Feb 10 2023}
 
-    \section{Vector Spaces}
+  \section{Vector Spaces}
 
-    Suppose that $V$ is a finite dimensional vector space over $F$, with $\dim(V)
-    = n$.
+  Suppose that $V$ is a finite dimensional vector space over $F$, with $\dim(V)
+  = n$.
 
-    $V$ may have {\it many different} bases, we know that they all have the same
-    size $n$.
+  $V$ may have {\it many different} bases, we know that they all have the same
+  size $n$.
 
-    Say $\B = \{\alpha_1, ..., \alpha_n\}$ is a basis fix the ordering of $\B$.
+  Say $\B = \{\alpha_1, ..., \alpha_n\}$ is a basis fix the ordering of $\B$.
 
-    Fix the ordering of $\B$.
+  Fix the ordering of $\B$.
 
-    \theorem {
-      For any $\alpha \in V$, there is a unique $n$ tuple $(x_1, ..., x_n) \in F^n$
-      such that
+  \theorem {
+    For any $\alpha \in V$, there is a unique $n$ tuple $(x_1, ..., x_n) \in F^n$
+    such that
+
+    \[
+      \alpha = x_1 \alpha_1 + \cdots + x_n \alpha_n
+    \]
+  }
+  {
+    Existence is immediate, since $\B$ is a basis, thus $\B$ spans $V$.
+
+    {\bf Uniqueness}
+
+    Say $\alpha = x_1 \alpha_1 + \cdots + x_n \alpha_n$
+    and $\alpha = y_1 \alpha_1 + \cdots + y_n \alpha_n$.
+
+    Then we have that
+
+    $x_1 \alpha_1 + \cdots + x_n \alpha_n - y_1 \alpha_1 + \cdots + y_n \alpha_n
+    = 0$, so $(x_1 - y_1)\alpha_1 + \cdots + (x_n - y_n)\alpha_n = 0$
+
+    But since $\{\alpha_1, ..., \alpha_n\}$ is linearly independent, all
+    coefficients must be $0$.
+  }
+
+  What this means is that, for a vector space $V$, there is an associated
+  mapping in $F^n$. Notice that we know nothing about the vectors $\alpha_i$.
+
+  We define $[\alpha]_{\B}$ to be the {\it coordinates} of $\alpha$ with
+  respect to $\B$.
+
+  {\bf Check}: The mapping $\alpha \mapsto [\alpha]_{\B} \in F^n$ satisfies
+
+  \begin{enumerate}
+    \item One to one-ness
+    \item Onto-ness
+    \item "Additive", for any $\alpha, \beta \in V$, if $\alpha = x_1 \alpha_1
+      + \cdots + x_n \alpha_n$ and $\beta = y_1 \alpha_1 + \cdots + y_n
+      \alpha_n$. Then
 
       \[
-        \alpha = x_1 \alpha_1 + \cdots + x_n \alpha_n
-      \]
-    }
-    {
-      Existence is immediate, since $\B$ is a basis, thus $\B$ spans $V$.
-
-      {\bf Uniqueness}
-
-      Say $\alpha = x_1 \alpha_1 + \cdots + x_n \alpha_n$
-      and $\alpha = y_1 \alpha_1 + \cdots + y_n \alpha_n$.
-
-      Then we have that
-
-      $x_1 \alpha_1 + \cdots + x_n \alpha_n - y_1 \alpha_1 + \cdots + y_n \alpha_n
-      = 0$, so $(x_1 - y_1)\alpha_1 + \cdots + (x_n - y_n)\alpha_n = 0$
-
-      But since $\{\alpha_1, ..., \alpha_n\}$ is linearly independent, all
-      coefficients must be $0$.
-    }
-
-    What this means is that, for a vector space $V$, there is an associated
-    mapping in $F^n$. Notice that we know nothing about the vectors $\alpha_i$.
-
-    We define $[\alpha]_{\B}$ to be the {\it coordinates} of $\alpha$ with
-    respect to $\B$.
-
-    {\bf Check}: The mapping $\alpha \mapsto [\alpha]_{\B} \in F^n$ satisfies
-
-    \begin{enumerate}
-      \item One to one-ness
-      \item Onto-ness
-      \item "Additive", for any $\alpha, \beta \in V$, if $\alpha = x_1 \alpha_1
-        + \cdots + x_n \alpha_n$ and $\beta = y_1 \alpha_1 + \cdots + y_n
-        \alpha_n$. Then
-
-        \[
-          [\alpha + \beta]_{\B} = \begin{bmatrix}
-            x_1 + y_1 \\
-            x_2 + y_2 \\
-            \vdots \\
-            x_n + y_n \\
-          \end{bmatrix}
-          =
-          \begin{bmatrix}
-            x_1 \\
-            x_2 \\
-            \vdots \\
-            x_n \\
-          \end{bmatrix}
-          +
-          \begin{bmatrix}
-            y_1 \\
-            y_2 \\
-            \vdots \\
-            y_n \\
-          \end{bmatrix}
-          =
-          [\alpha]_{\B}
-          +
-          [\beta]_{\B}
-        \]
-      \item $[c\alpha]_{\B} + c[\alpha]_{\B}$
-    \end{enumerate}
-
-    There exists an {\it isomorphism} between $V$ and $F^n$.
-
-    \example{
-      Let $\P$ be the space of al polynomials. Let $f(x) = x^3$, and $g(x) =
-      x^5$. Then, let
-
-      \[
-        V = \Span\{f, g\} = \{\text{all } ax^3 + bx^5 : a, b \in F\}
-      \]
-
-      then, $\dim(V) = 2$, since $f$ and $g$ are linearly independent.
-
-      Typical $h(x) \in V$, say $h(x) = 10x^3 - 2x^5$.
-
-      \[
-        [h]_{\B} = \begin{bmatrix}
-          10 \\
-          -2
-        \end{bmatrix}
-      \]
-    }
-
-    \btw {
-      $[h]_{\B}$ is the mapping of $h$ to $F^n$. \TODO{} is this right?
-    }
-
-    Now let $k(x) = 2x^3 + 4x^5$ and $l(x) = x^3 + 3x^5$. Since $k, l$ are
-    linearly independent, they form another basis of $V$.
-
-    \[
-      \B' = \{k(x), l(x)\}
-    \]
-
-    \subsection{Change of Basis}
-
-    Given $\B = \{\alpha_1, \dots, \alpha_n\}$, and $\B' = \{\alpha_1', ...,
-    \alpha_n'\}$ bases for $V$.
-
-    We want to describe the map going from $[\alpha]_{\B} \mapsto
-    [\alpha]_{\B'}$.
-
-    \btw{ We want to find $\text{The $\B$ coordinate of $\alpha$} \mapsto
-    \text{the $\B'$ coordinate of $\alpha$}$}
-
-    {\bf Step 1}.
-
-    Compute the $\B$ coordinate of $\alpha_1', ..., \alpha_n'$, {\it old}
-    coordinates of the {\it new} basis elements. \\
-
-    {\bf Step 2}.
-
-    For an $n \times m$ matrix
-
-    \[
-      P = \Big[ [\alpha_1']_{\B}, \dots, [\alpha_n']_{\B} \Big]
-    \]
-
-    {\bf Check}: for any $\alpha \in V$
-
-    \[
-      [\alpha]_{\B} = P [\alpha]_{\B'}
-    \]
-
-    {\bf Ans}: This is what we actually want
-
-    \[
-      [\alpha]_{\B'} = P^{-1} [\alpha]_{\B}
-    \]
-
-    \date{Mon. Feb 13 2023}
-
-    \TODO{} Missing {\it some} info
-
-    {\bf Want}: Describe the mapping $T: F^n \to F^n$
-
-    \[
-      T([\alpha]_{\B_\text{old}}) = [\alpha]_{\B'_{\text{new}}}
-    \]
-
-    \btw {
-      If we switch the basis for some reason, we want to see what the new
-      coordinates are.
-    }
-
-    {\bf To do this}: For each $\alpha_j'$, compute
-    $[\alpha_j']_{\B_\text{old}}$. Let
-
-    \[
-      P = \Big[[\alpha_1']_{\B_\text{old}} \cdots [\alpha_n']_{\B_{\text{old}}}\Big]
-    \]
-
-    be an $n \times n$ matrix.
-
-    {\bf Claim}: For any $\alpha \in V$
-
-    \[
-      P \cdot [\alpha]_{\B'_\text{new}} = [\alpha]_{\B_\text{old}}
-    \]
-
-    {\bf How?}
-
-    \[
-      P \cdot [\alpha_1']_{\B'_\text{new}} = P \cdot \begin{bmatrix}
-        1 \\
-        0 \\
-        \vdots \\
-        0
-      \end{bmatrix}
-      = [\alpha_1']_{\B_\text{old}}
-    \]
-
-    This is the $1^{st}$ column of $P$, and similarly for all columns.
-
-    {\bf Thus}: For any $\alpha \in V$, 
-
-    \[
-      [\alpha]_\text{new} = P^{-1} \cdot [\alpha]_\text{old}
-    \]
-
-    \example {
-      In practice, we have the following.
-
-      $V = \Span(\{x^3, x^5\})$ subspace of $\P$, the set of all polynomials. Let
-      $f(x) = x^3, g(x) = x^5, \B = \{x^3, x^5\}$. Let $h(x) = 10x^3 - 2x^5 \in V$.
-
-      {\bf Question}: What are the coordinates of $h$ with respect to $\B$?
-
-      {\bf Answer}:
-      \[
-        [h]_{\B} = \begin{bmatrix}
-          10 \\
-          -2
-        \end{bmatrix}
-      \]
-    }
-
-    Let's now see what happens when we create a new basis $\B'$.
-
-    \example{
-      Let $k(x) = 2x^3 + 5x^5$, $l(x) = x^3 + 3x^5$.
-
-      Let $\B' = \{k(x), l(x)\} = \{2x^3 + 5x^5, x^3 + 3x^5\}$ be another basis
-      of $V$, still with $\B = \{f(x), g(x)\} = \{x^3, x^5\}$.
-
-      {\bf Question}: What are the coordinates of $h(x) = 10x^3 - 2x^5$ with
-      respect to $\B'$ now?
-
-      {\bf Answer}:
-
-      Well we know that $[k(x)]_{\B} = \begin{bmatrix} 2 \\ 5 \end{bmatrix}$ and
-      $[l(x)]_{\B} = \begin{bmatrix} 1 \\ 3 \end{bmatrix}$, these are just the
-      coordinates of $k$, and $l$ with respect to $\B$.
-
-      So now we can construct our $P$ matrix
-
-      \[
-        P = \Big[ [k(x)]_{\B}, [l(x)]_{\B} \Big] = \begin{bmatrix}
-          2 & 1 \\
-          5 & 3 \\
-        \end{bmatrix}
-      \]
-
-      notice that $P$'s columns are constructed from $k(x)$ and $l(x)$,
-      expressed in terms of our standard basis $\B$.
-
-      {\bf Check}:
-
-      \[
-        P^{-1} = \begin{bmatrix}
-          3 & -1 \\
-          -5 & 2 \\
-        \end{bmatrix}
-      \]
-
-      Then
-
-      \[
-        \begin{bmatrix}
-          3 & -1 \\
-          -5 & 2 \\
-        \end{bmatrix}
-        \cdot
-        \begin{bmatrix}
-          10 \\ -2
+        [\alpha + \beta]_{\B} = \begin{bmatrix}
+          x_1 + y_1 \\
+          x_2 + y_2 \\
+          \vdots \\
+          x_n + y_n \\
         \end{bmatrix}
         =
         \begin{bmatrix}
-          32 \\ -54
+          x_1 \\
+          x_2 \\
+          \vdots \\
+          x_n \\
         \end{bmatrix}
-      \]
-
-      {\bf This means}:
-
-      \[
-        h(x) = 32k(x) - 54l(x) = 10x^3 - 2x^5
-      \]
-
-      Which is what we expect.
-
-    }
-
-    \example {
-      Let $V = \R^2$. Standard basis $\B = \{\eps_1, \eps_2\} = \{(1, 0), (0, 1)\}$
-
-      \[
-        [(5, 4)]_{\B} = \begin{bmatrix}
-          5 \\ 4
+        +
+        \begin{bmatrix}
+          y_1 \\
+          y_2 \\
+          \vdots \\
+          y_n \\
         \end{bmatrix}
+        =
+        [\alpha]_{\B}
+        +
+        [\beta]_{\B}
       \]
+    \item $[c\alpha]_{\B} + c[\alpha]_{\B}$
+  \end{enumerate}
 
-      Fix angle $\theta$, Let
+  There exists an {\it isomorphism} between $V$ and $F^n$.
 
-      \[
-        \B' = \{(\cos(\theta), \sin(\theta)), (-\sin(\theta), \cos(\theta))\}
-      \]
-
-      {\bf Question}: What is $\begin{bmatrix} 5 \\ 4
-      \end{bmatrix}_{\B'_\text{new}}$?
-
-      {\bf Answer}:
-
-      \begin{enumerate}
-        \item Form $P$
-
-          \[
-            [(\cos(\theta), \sin(\theta))]_{\B} = \begin{bmatrix} \cos(\theta)
-            \\ \sin(\theta) \end{bmatrix}
-          \]
-
-          \[
-            [(-\sin(\theta), \cos(\theta))]_{\B} = \begin{bmatrix} -\sin(\theta)
-            \\ \cos(\theta) \end{bmatrix}
-          \]
-
-          Then 
-
-          \[
-            P = \begin{bmatrix}
-              \cos(\theta) & -\sin(\theta) \\
-              \sin(\theta) & \cos(\theta)
-            \end{bmatrix}
-          \]
-
-          {\bf Fact}:
-
-          \[
-            P^{-1} = \begin{bmatrix}
-              \cos(\theta) & \sin(\theta) \\
-              -\sin(\theta) & \cos(\theta)
-            \end{bmatrix}
-          \]
-
-          so we have
-
-          \begin{align*}
-            [(5, 4)]_{\B'_\text{new}} =&P^{-1}
-            \begin{bmatrix} 5 \\ 4 \end{bmatrix} \\
-            =&\begin{bmatrix}
-              \cos(\theta) & \sin(\theta) \\
-              -\sin(\theta) & \cos(\theta)
-            \end{bmatrix}
-            \begin{bmatrix} 5 \\ 4 \end{bmatrix} \\
-            =&\begin{bmatrix}
-              5\cos(\theta) & 4\sin(\theta) \\
-              -5\sin(\theta) & 4\cos(\theta)
-            \end{bmatrix}
-          \end{align*}
-      \end{enumerate}
-    }
-
-    \section{Linear Transformations}
-
-    Say $V$, $W$ are both vector spaces over the same field $F$.
-    
-    \definition{
-      A {\bf Linear Transformation} $T: V \to W$ is a function satisifying two
-      rules
-
-      \begin{enumerate}
-        \item For all $\alpha, \beta \in V$,
-
-          \[
-            T(\alpha + \beta) = T(\alpha) + T(\beta)
-          \]
-
-          Note that the first $+$ is addition in $V$, but the second
-          is addition in $W$.
-
-        \item For all $\alpha \in V$ and $c \in F$,
-
-          \[
-            T(c\alpha) = cT(\alpha)
-          \]
-      \end{enumerate}
-    }
-
-    The book combines the two definitions above into one, like this,
+  \example{
+    Let $\P$ be the space of al polynomials. Let $f(x) = x^3$, and $g(x) =
+    x^5$. Then, let
 
     \[
-      T(c\alpha + \beta) = cT(\alpha) + T(\beta)
+      V = \Span\{f, g\} = \{\text{all } ax^3 + bx^5 : a, b \in F\}
     \]
 
-    Let's quickly take some time to understand what $V$ and $W$ are here.
-    Suppose we have a transformation $T: V \to W$, then $V$ is the {\bf
-    domain} and $W$ is the {\bf codomain}.
+    then, $\dim(V) = 2$, since $f$ and $g$ are linearly independent.
 
-    Here, $T$ is just a function, which means that it {\it must} use all of $T$,
-    but it {\it does not} have to use all of $W$. For example, the following is
-    a perfectly valid transformation.
-
-    \example {
-      Let $T: \P^3 \to \P^2$ be the transformation that takes all degree $3$
-      polynomials to the space of degree $2$ polynomials, with
-
-      \[
-        T(f) = \vec{0}
-      \]
-
-      for all $f \in \P^3$.
-    }
-
-    Its obvious that there are more degree $2$ polynomials in the world than
-    just the $\vec{0}$ polynomial. So here, we say that the $\range(T) =
-    \{\vec{0}\}$, and that 
+    Typical $h(x) \in V$, say $h(x) = 10x^3 - 2x^5$.
 
     \[
-      \range(T) \subseteq W
+      [h]_{\B} = \begin{bmatrix}
+        10 \\
+        -2
+      \end{bmatrix}
+    \]
+  }
+
+  \btw {
+    $[h]_{\B}$ is the mapping of $h$ to $F^n$. \TODO{} is this right?
+  }
+
+  Now let $k(x) = 2x^3 + 4x^5$ and $l(x) = x^3 + 3x^5$. Since $k, l$ are
+  linearly independent, they form another basis of $V$.
+
+  \[
+    \B' = \{k(x), l(x)\}
+  \]
+
+  \subsection{Change of Basis}
+
+  Given $\B = \{\alpha_1, \dots, \alpha_n\}$, and $\B' = \{\alpha_1', ...,
+  \alpha_n'\}$ bases for $V$.
+
+  We want to describe the map going from $[\alpha]_{\B} \mapsto
+  [\alpha]_{\B'}$.
+
+  \btw{ We want to find $\text{The $\B$ coordinate of $\alpha$} \mapsto
+  \text{the $\B'$ coordinate of $\alpha$}$}
+
+  {\bf Step 1}.
+
+  Compute the $\B$ coordinate of $\alpha_1', ..., \alpha_n'$, {\it old}
+  coordinates of the {\it new} basis elements. \\
+
+  {\bf Step 2}.
+
+  For an $n \times m$ matrix
+
+  \[
+    P = \Big[ [\alpha_1']_{\B}, \dots, [\alpha_n']_{\B} \Big]
+  \]
+
+  {\bf Check}: for any $\alpha \in V$
+
+  \[
+    [\alpha]_{\B} = P [\alpha]_{\B'}
+  \]
+
+  {\bf Ans}: This is what we actually want
+
+  \[
+    [\alpha]_{\B'} = P^{-1} [\alpha]_{\B}
+  \]
+
+  \date{Mon. Feb 13 2023}
+
+  \TODO{} Missing {\it some} info
+
+  {\bf Want}: Describe the mapping $T: F^n \to F^n$
+
+  \[
+    T([\alpha]_{\B_\text{old}}) = [\alpha]_{\B'_{\text{new}}}
+  \]
+
+  \btw {
+    If we switch the basis for some reason, we want to see what the new
+    coordinates are.
+  }
+
+  {\bf To do this}: For each $\alpha_j'$, compute
+  $[\alpha_j']_{\B_\text{old}}$. Let
+
+  \[
+    P = \Big[[\alpha_1']_{\B_\text{old}} \cdots [\alpha_n']_{\B_{\text{old}}}\Big]
+  \]
+
+  be an $n \times n$ matrix.
+
+  {\bf Claim}: For any $\alpha \in V$
+
+  \[
+    P \cdot [\alpha]_{\B'_\text{new}} = [\alpha]_{\B_\text{old}}
+  \]
+
+  {\bf How?}
+
+  \[
+    P \cdot [\alpha_1']_{\B'_\text{new}} = P \cdot \begin{bmatrix}
+      1 \\
+      0 \\
+      \vdots \\
+      0
+    \end{bmatrix}
+    = [\alpha_1']_{\B_\text{old}}
+  \]
+
+  This is the $1^{st}$ column of $P$, and similarly for all columns.
+
+  {\bf Thus}: For any $\alpha \in V$, 
+
+  \[
+    [\alpha]_\text{new} = P^{-1} \cdot [\alpha]_\text{old}
+  \]
+
+  \example {
+    In practice, we have the following.
+
+    $V = \Span(\{x^3, x^5\})$ subspace of $\P$, the set of all polynomials. Let
+    $f(x) = x^3, g(x) = x^5, \B = \{x^3, x^5\}$. Let $h(x) = 10x^3 - 2x^5 \in V$.
+
+    {\bf Question}: What are the coordinates of $h$ with respect to $\B$?
+
+    {\bf Answer}:
+    \[
+      [h]_{\B} = \begin{bmatrix}
+        10 \\
+        -2
+      \end{bmatrix}
+    \]
+  }
+
+  Let's now see what happens when we create a new basis $\B'$.
+
+  \example{
+    Let $k(x) = 2x^3 + 5x^5$, $l(x) = x^3 + 3x^5$.
+
+    Let $\B' = \{k(x), l(x)\} = \{2x^3 + 5x^5, x^3 + 3x^5\}$ be another basis
+    of $V$, still with $\B = \{f(x), g(x)\} = \{x^3, x^5\}$.
+
+    {\bf Question}: What are the coordinates of $h(x) = 10x^3 - 2x^5$ with
+    respect to $\B'$ now?
+
+    {\bf Answer}:
+
+    Well we know that $[k(x)]_{\B} = \begin{bmatrix} 2 \\ 5 \end{bmatrix}$ and
+    $[l(x)]_{\B} = \begin{bmatrix} 1 \\ 3 \end{bmatrix}$, these are just the
+    coordinates of $k$, and $l$ with respect to $\B$.
+
+    So now we can construct our $P$ matrix
+
+    \[
+      P = \Big[ [k(x)]_{\B}, [l(x)]_{\B} \Big] = \begin{bmatrix}
+        2 & 1 \\
+        5 & 3 \\
+      \end{bmatrix}
     \]
 
-    but maybe we are getting ahead of ourselves.
+    notice that $P$'s columns are constructed from $k(x)$ and $l(x)$,
+    expressed in terms of our standard basis $\B$.
 
-    \subsection{Basic Facts}
+    {\bf Check}:
 
-    Suppose that $T: V \to W$ is a linear transformation
+    \[
+      P^{-1} = \begin{bmatrix}
+        3 & -1 \\
+        -5 & 2 \\
+      \end{bmatrix}
+    \]
+
+    Then
+
+    \[
+      \begin{bmatrix}
+        3 & -1 \\
+        -5 & 2 \\
+      \end{bmatrix}
+      \cdot
+      \begin{bmatrix}
+        10 \\ -2
+      \end{bmatrix}
+      =
+      \begin{bmatrix}
+        32 \\ -54
+      \end{bmatrix}
+    \]
+
+    {\bf This means}:
+
+    \[
+      h(x) = 32k(x) - 54l(x) = 10x^3 - 2x^5
+    \]
+
+    Which is what we expect.
+
+  }
+
+  \example {
+    Let $V = \R^2$. Standard basis $\B = \{\eps_1, \eps_2\} = \{(1, 0), (0, 1)\}$
+
+    \[
+      [(5, 4)]_{\B} = \begin{bmatrix}
+        5 \\ 4
+      \end{bmatrix}
+    \]
+
+    Fix angle $\theta$, Let
+
+    \[
+      \B' = \{(\cos(\theta), \sin(\theta)), (-\sin(\theta), \cos(\theta))\}
+    \]
+
+    {\bf Question}: What is $\begin{bmatrix} 5 \\ 4
+    \end{bmatrix}_{\B'_\text{new}}$?
+
+    {\bf Answer}:
+
     \begin{enumerate}
-      \item $T(0) = 0$
-
-        {\bf Proof}:
+      \item Form $P$
 
         \[
-          T(0 + 0) = T(0) + T(0) = \vec{0} + \vec{0} = \vec{0}
+          [(\cos(\theta), \sin(\theta))]_{\B} = \begin{bmatrix} \cos(\theta)
+          \\ \sin(\theta) \end{bmatrix}
         \]
-
-        {\bf Note}: $0$ lives in the field, and $\vec{0}$ lives in $W$, the {\bf
-        codomain} of the transformation $T$.
-
-        \btw{Always be aware of where the $0$ lives}
-
-      \item For all $\{\alpha_1, ..., \alpha_n\} \subseteq V$, all $\{c_1, ...,
-        c_n\} \in F$,
 
         \[
-          c_1 T(\alpha_1) + \cdots + c_n T(\alpha_n)
+          [(-\sin(\theta), \cos(\theta))]_{\B} = \begin{bmatrix} -\sin(\theta)
+          \\ \cos(\theta) \end{bmatrix}
         \]
 
-        {\bf Proof} Easy induction on $n$, just follows from part (2) of the
-        definition.
+        Then 
+
+        \[
+          P = \begin{bmatrix}
+            \cos(\theta) & -\sin(\theta) \\
+            \sin(\theta) & \cos(\theta)
+          \end{bmatrix}
+        \]
+
+        {\bf Fact}:
+
+        \[
+          P^{-1} = \begin{bmatrix}
+            \cos(\theta) & \sin(\theta) \\
+            -\sin(\theta) & \cos(\theta)
+          \end{bmatrix}
+        \]
+
+        so we have
+
+        \begin{align*}
+          [(5, 4)]_{\B'_\text{new}} =&P^{-1}
+          \begin{bmatrix} 5 \\ 4 \end{bmatrix} \\
+          =&\begin{bmatrix}
+            \cos(\theta) & \sin(\theta) \\
+            -\sin(\theta) & \cos(\theta)
+          \end{bmatrix}
+          \begin{bmatrix} 5 \\ 4 \end{bmatrix} \\
+          =&\begin{bmatrix}
+            5\cos(\theta) & 4\sin(\theta) \\
+            -5\sin(\theta) & 4\cos(\theta)
+          \end{bmatrix}
+        \end{align*}
     \end{enumerate}
+  }
 
+  \section{Linear Transformations}
 
-    \subsection{Examples}
+  Say $V$, $W$ are both vector spaces over the same field $F$.
+  
+  \definition{
+    A {\bf Linear Transformation} $T: V \to W$ is a function satisifying two
+    rules
 
-    Let's look at multiple examples of linear transformations to get an idea of
-    how they behave.
-
-    \example{
-      We already know that each matrix $A$ has an associated linear
-      transformation $T_A$. Let's look at this in more detail now.
-
-      Let $A \in F^{m \times n}$ be an $m \times n$ matrix with entries from a
-      field $F$.
-
-      Then, let $T_A: F^n \to F^m$ be defined by
-
-      \[
-        T_A(\vec{x}) = A \vec{x}
-      \]
-
-      where $\vec{x}$ is a vector in $F^n$.
-
-      Let's check that this is indeed a linear transformation.
-
-      Chose any $\vec{x}, \vec{y} \in F^n$, then
-
-      \begin{enumerate}
-        \item \btw{Check that $T_A(\vec{x} + \vec{y}) = T_A(\vec{x}) + T_A(\vec{y})$}
-
-          Let $\vec{x}, \vec{y} \in V$, then
-
-          \[
-            T_A(\vec{x} + \vec{y}) = A (\vec{x} + \vec{y}) = A \vec{x} + A \vec{y} = T_A(\vec{x}) + T_A(\vec{y})
-          \]
-
-          so this works as we expect.
-
-        \item \btw{Check that $T_A(c\vec{x}) = cT_A(\vec{x})$ for $c \in F$.}
-
-          let $c \in F$, then we have
-
-          \[
-            T_A(cX) = A \cdot (cX) = cAX = c T_A(X)
-          \]
-
-          which is also what we expect.
-      \end{enumerate}
-
-      so we have proved that $T_A$ is a linear transformation!
-    }
-
-    \example {
-      Consider $\P$ the set of all polynomials $a_0 + a_1x + \cdots + a_n x^n$.
-
-      Let's define $D: \P \to \P$ which takes a function $f \in \P$ to $f' \in
-      \P$, where $f'$ is the {\it derivative} of $f$.
-
-      \[
-        D(f) = f'
-      \]
-
-      {\bf Claim}:
-
-      $D$ is a linear transformation.
-
-      {\bf Proof}: 
-
-      Take two functions $f, g \in \P$, then by definition of $D$, we have
-
-      \[
-        D(f + g) = (f + g)' = f' + g' = D(f) + D(g)
-      \]
-
-      and for $c \in F$,
-
-      \[
-        D(cf) = (cf)' = c \cdot f' = c D(f)
-      \]
-
-      so the derivative is a linear transformation!
-    }
-
-    \example {
-      Let $C(\R)$ be the set of all continuous functions $f: \R \to \R$.
-
-      Let's define $I: C(\R) \to C(\R)$ which takes a function $f \in C(\R)$ to
-      $F \in C(\R)$, where $F$ is the {\it antiderivative} of $f$.
-
-      \[
-        I(f) = \int_0^x f(t)dt
-      \]
-
-      \btw {
-        Note that the integral exists because you can always integrate a
-        continuous function.
-      }
-
-      The result is also continuous and differentiable by the Fundamental
-      Theorem of Calculus.
-
-      \[
-        D(I(f)) = f
-      \]
-
-      Is the {\bf Fundamental Theorem of Calculus}.
-
-      Therefore $I(f)$ really {\it is} continuous, $I(f) \in C(\R)$.
-
-      {\bf Claim}:
-
-      $I$ is a linear transformation.
-
-      {\bf Proof}:
-
-      Take two functions $f, g \in \P$, then by definition of $I$, we have
-
-      \begin{align*}
-        I(f + g) =&\int_0^x (f(t) + g(t))dt \\
-                 =&\int_0^x f(t)dt + \int_0^x g(t)dt \\
-                 =&I(f) + I(g)
-      \end{align*}
-
-      and
-
-      \[
-        I(cf) = \int_0^x cf(t)dt = c\int_0^x f(t)dt = cI(f)
-      \]
-
-      so the integral is a linear transformation!
-    }
-
-    \newpage
-
-    \date{Fri. Feb 15 2023}
-
-    Recall: A linear transformation $T: V \to W$ is a function between two
-    vector spaces over the same field $F$, satisifying
     \begin{enumerate}
       \item For all $\alpha, \beta \in V$,
 
@@ -637,194 +422,411 @@
           T(c\alpha) = cT(\alpha)
         \]
     \end{enumerate}
+  }
 
-    For all $\alpha_1,..., \alpha_k \in V$,  and $c_1, ..., c_k \in F$, it
-    breaks nicely into
+  The book combines the two definitions above into one, like this,
 
-    \[
-      T(c_1 \alpha_1 + \cdots + c_k \alpha_k) = c_1 T(\alpha_1) + \cdots + c_k
-      T(\alpha_k)
-    \]
+  \[
+    T(c\alpha + \beta) = cT(\alpha) + T(\beta)
+  \]
 
-    \example {
-      $I^*: C(\R) \to \R$ (all continuous functions from $\R$ to $\R$)
+  Let's quickly take some time to understand what $V$ and $W$ are here.
+  Suppose we have a transformation $T: V \to W$, then $V$ is the {\bf
+  domain} and $W$ is the {\bf codomain}.
 
-      \[
-        I^*(f) = \int_0^1 f(x)dx
-      \]
+  Here, $T$ is just a function, which means that it {\it must} use all of $T$,
+  but it {\it does not} have to use all of $W$. For example, the following is
+  a perfectly valid transformation.
 
-      \[
-        I^*(x^2) = \int_0^1 x^2 dx = \frac{x^3}{x} \Big|_0^1 = \frac{1}{3}
-      \]
-
-      Note that the output of $I*$ is just a number here. Additionally, $I^*$ is
-      linear: you can split integrals up for polynomials, and you can take
-      constants outside.
-    }
-
-    For any $V, W$, we also have
+  \example {
+    Let $T: \P^3 \to \P^2$ be the transformation that takes all degree $3$
+    polynomials to the space of degree $2$ polynomials, with
 
     \[
-      X: V \to W
+      T(f) = \vec{0}
     \]
 
-    Is the zero transformation. It takes any $\alpha \in V$ to the $0$ of $W$.
-    We'll use this to prove theorems about linear transformations later.
+    for all $f \in \P^3$.
+  }
 
-    \theorem {
-      Let's prove existence and uniqueness of linear transformations.
+  Its obvious that there are more degree $2$ polynomials in the world than
+  just the $\vec{0}$ polynomial. So here, we say that the $\range(T) =
+  \{\vec{0}\}$, and that 
 
-      \begin{enumerate}
-        \item Linear Transformations $T: V \to W$ are {\bf determined} by their
-          behavior on a basis $\B$ of $V$. More precisely,
+  \[
+    \range(T) \subseteq W
+  \]
 
-          Suppose that $\B = \{\alpha_1, ..., \alpha_n\}$ is a basis for $V$ and
-          suppose that $T, U: V \to W$ are both linear transformations (and they
-          agree on a basis), such that
+  but maybe we are getting ahead of ourselves.
 
-          \[
-            T(\alpha_1) = U(\alpha_1), T(\alpha_2) = U(\alpha_2), ..., T(\alpha_n) =
-            U(\alpha_n)
-          \]
+  \subsection{Basic Facts}
 
-          Then $T = U$
+  Suppose that $T: V \to W$ is a linear transformation
+  \begin{enumerate}
+    \item $T(0) = 0$
 
-        \item For {\bf any map} $T_0: \B \to W$, there s a unique linear
-          transformation $T: V \to W$ with $T \supseteq T_0$. In other words,
+      {\bf Proof}:
 
-          Let $\B = \{\alpha_1, ..., \alpha_n\}$ be {\bf any basis} for $V$
-          and let $\beta_1, ..., \beta_n$ be {\bf any vectors} in $W$.
+      \[
+        T(0 + 0) = T(0) + T(0) = \vec{0} + \vec{0} = \vec{0}
+      \]
 
-          Then, there is a {\bf unique} linear transformation $T: V \to W$ such
-          that
+      {\bf Note}: $0$ lives in the field, and $\vec{0}$ lives in $W$, the {\bf
+      codomain} of the transformation $T$.
 
-          \[
-            T(\alpha_1) = \beta_1, T(\alpha_2) = \beta_2, ..., T(\alpha_n) = \beta_n
-          \]
-      \end{enumerate}
-    }
-    {
-      \begin{enumerate}
-        \item {\bf Uniqueness}: Chose any $\alpha \in V$, since $\B$ is a basis,
+      \btw{Always be aware of where the $0$ lives}
 
-        \btw{
-            Will show that $T = U \Leftrightarrow$ For any $\alpha \in V$,
-            $T(\alpha) = U(\alpha)$
-        }
+    \item For all $\{\alpha_1, ..., \alpha_n\} \subseteq V$, all $\{c_1, ...,
+      c_n\} \in F$,
 
-        \[
-          \alpha = c_1 \alpha_1 + \cdots + c_n \alpha_n
-        \]
-        
-        for some {\bf unique} $c_1, ..., c_n \in F$.
+      \[
+        c_1 T(\alpha_1) + \cdots + c_n T(\alpha_n)
+      \]
 
-        Since $T$ is a linear transformation,
+      {\bf Proof} Easy induction on $n$, just follows from part (2) of the
+      definition.
+  \end{enumerate}
 
-        \[
-          T(\alpha) = c_1 T(\alpha_1) + \cdots + c_n T(\alpha_n)
-        \]
 
-        Likewise with $U$,
+  \subsection{Examples}
 
-        \[
-          U(\alpha) = c_1 U(\alpha_1) + \cdots + c_n U(\alpha_n)
-        \]
+  Let's look at multiple examples of linear transformations to get an idea of
+  how they behave.
 
-        But, since $T(\alpha_1) = U(\alpha_1), ..., T(\alpha_n) = U(\alpha_n)$,
-        $T(\alpha) = U(\alpha)$.
+  \example{
+    We already know that each matrix $A$ has an associated linear
+    transformation $T_A$. Let's look at this in more detail now.
 
-        \btw{
-          Essentially, if $T, U$ work the same for all $\alpha_i$, then their
-          sum will obviously be the same, and so they'll give the same result
-          for the same $\alpha$.
-        }
+    Let $A \in F^{m \times n}$ be an $m \times n$ matrix with entries from a
+    field $F$.
 
-        Note that this theorem {\it still} works for infinite dimensional
-        vector spaces.
+    Then, let $T_A: F^n \to F^m$ be defined by
 
-      \item {\bf Existence}: Chose any $\alpha \in V$. \btw{ We must define
-        $T(\alpha)$}
+    \[
+      T_A(\vec{x}) = A \vec{x}
+    \]
 
-        Since $\B$ is a basis, we can write
+    where $\vec{x}$ is a vector in $F^n$.
+
+    Let's check that this is indeed a linear transformation.
+
+    Chose any $\vec{x}, \vec{y} \in F^n$, then
+
+    \begin{enumerate}
+      \item \btw{Check that $T_A(\vec{x} + \vec{y}) = T_A(\vec{x}) + T_A(\vec{y})$}
+
+        Let $\vec{x}, \vec{y} \in V$, then
 
         \[
-          \alpha = c_1 \alpha_1 + \cdots + c_n \alpha_n
+          T_A(\vec{x} + \vec{y}) = A (\vec{x} + \vec{y}) = A \vec{x} + A \vec{y} = T_A(\vec{x}) + T_A(\vec{y})
         \]
 
-        which is unique.
+        so this works as we expect.
 
-        Define 
+      \item \btw{Check that $T_A(c\vec{x}) = cT_A(\vec{x})$ for $c \in F$.}
+
+        let $c \in F$, then we have
 
         \[
-          T(\alpha) := c_1 \beta_1 + \cdots + c_n \beta_n \in W
+          T_A(cX) = A \cdot (cX) = cAX = c T_A(X)
         \]
 
-        {\bf Check}: Is $T$ linear?
+        which is also what we expect.
+    \end{enumerate}
 
-        Say $\gamma = d_1 \alpha_1 + \cdots + d_n \alpha_n$, $\delta = e_1
-        \alpha_1 + \cdots + e_n \alpha_n$.
+    so we have proved that $T_A$ is a linear transformation!
+  }
 
-        In $V$, we have that $\gamma + \delta = (d_1 + e_1) \alpha_1 + \cdots +
-        (d_n + e_n) \alpha_n$.
+  \example {
+    Consider $\P$ the set of all polynomials $a_0 + a_1x + \cdots + a_n x^n$.
 
-        By our definition of $T$, we have
+    Let's define $D: \P \to \P$ which takes a function $f \in \P$ to $f' \in
+    \P$, where $f'$ is the {\it derivative} of $f$.
 
-        \begin{align*}
-          T(\gamma + \delta) =&(d_1 + e_1) \beta_1 + \cdots + (d_n + e_n) \beta_n \\
-          =&(d_1 \beta_1 + \cdots + d_n \beta_n) + (e_1 \beta_1 +
-          \cdots + e_n \beta_n) \\
-          =&T(\gamma) + T(\delta)
-        \end{align*}
+    \[
+      D(f) = f'
+    \]
 
-        {\bf Check}: $T(c\gamma) = cT(\delta)$
+    {\bf Claim}:
 
-        So such a tranformation $T$ exists. Additionally by part (1), it is
-        unique.
+    $D$ is a linear transformation.
 
-      \end{enumerate}
-    }
+    {\bf Proof}: 
 
-    Let $T: V \to W$ be a linear transformation.
+    Take two functions $f, g \in \P$, then by definition of $D$, we have
 
-    \definition{
-      $\range(T) = \{ T(\alpha) : \alpha \in V\} \subseteq W$ is the set of all
-      vectors in $W$ hit by $T$.
+    \[
+      D(f + g) = (f + g)' = f' + g' = D(f) + D(g)
+    \]
 
-      {\bf Fact}: $\range(T)$ is a {\bf subspace} of $W$.
+    and for $c \in F$,
 
-      \begin{enumerate}
-        \item $0$ is in it. This is because $T(0) = 0$, obviously.
-        \item {\bf Combinations of $\alpha_i$ are in it}
+    \[
+      D(cf) = (cf)' = c \cdot f' = c D(f)
+    \]
 
-          Say that $\beta_1, \beta_2 \in \range(T)$. \btw {must show that $\beta_1 +
-          \beta_2 \in \range(T)$ }
+    so the derivative is a linear transformation!
+  }
 
-          Since $\beta_1 \in \range(T)$, there is some $\alpha_1 \in V$ such that
+  \example {
+    Let $C(\R)$ be the set of all continuous functions $f: \R \to \R$.
 
-          \[
-            T(\alpha_1) = \beta_1
-          \]
+    Let's define $I: C(\R) \to C(\R)$ which takes a function $f \in C(\R)$ to
+    $F \in C(\R)$, where $F$ is the {\it antiderivative} of $f$.
 
-          similarly for $\beta_2$. Now $T(\alpha_1 + \alpha_2) = T(\alpha_1) +
-          T(\alpha_2) = \beta_1 + \beta_2$, since $T$ is linear. So $T(\alpha_1 +
-          \alpha_2) = \beta_1 + \beta_2$ so $\beta_1 + \beta_2 \in \range(T)$ \btw{
-          since $\alpha_1, \alpha_2 \in V$ means that $\alpha_1 + \alpha_2 \in V$,
-          because it's a vector space! }
+    \[
+      I(f) = \int_0^x f(t)dt
+    \]
 
-        \item {\bf Scaling Works:}
-          Say $\beta \in \range(T)$, and $c \in F$.  Chose $\alpha \in V$ such that
-          $T(\alpha) = \beta$. Then $T(c\alpha) = cT(\beta) c \beta$, therefore
-          $c\alpha \in \range(T)$.
-      \end{enumerate}
-
-      In other books this space is also called the \textbf{image} of $T$.
+    \btw {
+      Note that the integral exists because you can always integrate a
+      continuous function.
     }
 
-    % \date{Fri. Feb 17 2023}
-    %
-    % Recall $T: V \to W$ is a linear transformation over $F$
-    %
-    % see grayson for notes today
+    The result is also continuous and differentiable by the Fundamental
+    Theorem of Calculus.
+
+    \[
+      D(I(f)) = f
+    \]
+
+    Is the {\bf Fundamental Theorem of Calculus}.
+
+    Therefore $I(f)$ really {\it is} continuous, $I(f) \in C(\R)$.
+
+    {\bf Claim}:
+
+    $I$ is a linear transformation.
+
+    {\bf Proof}:
+
+    Take two functions $f, g \in \P$, then by definition of $I$, we have
+
+    \begin{align*}
+      I(f + g) =&\int_0^x (f(t) + g(t))dt \\
+               =&\int_0^x f(t)dt + \int_0^x g(t)dt \\
+               =&I(f) + I(g)
+    \end{align*}
+
+    and
+
+    \[
+      I(cf) = \int_0^x cf(t)dt = c\int_0^x f(t)dt = cI(f)
+    \]
+
+    so the integral is a linear transformation!
+  }
+
+  \newpage
+
+  \date{Fri. Feb 15 2023}
+
+  Recall: A linear transformation $T: V \to W$ is a function between two
+  vector spaces over the same field $F$, satisifying
+  \begin{enumerate}
+    \item For all $\alpha, \beta \in V$,
+
+      \[
+        T(\alpha + \beta) = T(\alpha) + T(\beta)
+      \]
+
+      Note that the first $+$ is addition in $V$, but the second
+      is addition in $W$.
+
+    \item For all $\alpha \in V$ and $c \in F$,
+
+      \[
+        T(c\alpha) = cT(\alpha)
+      \]
+  \end{enumerate}
+
+  For all $\alpha_1,..., \alpha_k \in V$,  and $c_1, ..., c_k \in F$, it
+  breaks nicely into
+
+  \[
+    T(c_1 \alpha_1 + \cdots + c_k \alpha_k) = c_1 T(\alpha_1) + \cdots + c_k
+    T(\alpha_k)
+  \]
+
+  \example {
+    $I^*: C(\R) \to \R$ (all continuous functions from $\R$ to $\R$)
+
+    \[
+      I^*(f) = \int_0^1 f(x)dx
+    \]
+
+    \[
+      I^*(x^2) = \int_0^1 x^2 dx = \frac{x^3}{x} \Big|_0^1 = \frac{1}{3}
+    \]
+
+    Note that the output of $I*$ is just a number here. Additionally, $I^*$ is
+    linear: you can split integrals up for polynomials, and you can take
+    constants outside.
+  }
+
+  For any $V, W$, we also have
+
+  \[
+    X: V \to W
+  \]
+
+  Is the zero transformation. It takes any $\alpha \in V$ to the $0$ of $W$.
+  We'll use this to prove theorems about linear transformations later.
+
+  \theorem {
+    Let's prove existence and uniqueness of linear transformations.
+
+    \begin{enumerate}
+      \item Linear Transformations $T: V \to W$ are {\bf determined} by their
+        behavior on a basis $\B$ of $V$. More precisely,
+
+        Suppose that $\B = \{\alpha_1, ..., \alpha_n\}$ is a basis for $V$ and
+        suppose that $T, U: V \to W$ are both linear transformations (and they
+        agree on a basis), such that
+
+        \[
+          T(\alpha_1) = U(\alpha_1), T(\alpha_2) = U(\alpha_2), ..., T(\alpha_n) =
+          U(\alpha_n)
+        \]
+
+        Then $T = U$
+
+      \item For {\bf any map} $T_0: \B \to W$, there s a unique linear
+        transformation $T: V \to W$ with $T \supseteq T_0$. In other words,
+
+        Let $\B = \{\alpha_1, ..., \alpha_n\}$ be {\bf any basis} for $V$
+        and let $\beta_1, ..., \beta_n$ be {\bf any vectors} in $W$.
+
+        Then, there is a {\bf unique} linear transformation $T: V \to W$ such
+        that
+
+        \[
+          T(\alpha_1) = \beta_1, T(\alpha_2) = \beta_2, ..., T(\alpha_n) = \beta_n
+        \]
+    \end{enumerate}
+  }
+  {
+    \begin{enumerate}
+      \item {\bf Uniqueness}: Chose any $\alpha \in V$, since $\B$ is a basis,
+
+      \btw{
+          Will show that $T = U \Leftrightarrow$ For any $\alpha \in V$,
+          $T(\alpha) = U(\alpha)$
+      }
+
+      \[
+        \alpha = c_1 \alpha_1 + \cdots + c_n \alpha_n
+      \]
+      
+      for some {\bf unique} $c_1, ..., c_n \in F$.
+
+      Since $T$ is a linear transformation,
+
+      \[
+        T(\alpha) = c_1 T(\alpha_1) + \cdots + c_n T(\alpha_n)
+      \]
+
+      Likewise with $U$,
+
+      \[
+        U(\alpha) = c_1 U(\alpha_1) + \cdots + c_n U(\alpha_n)
+      \]
+
+      But, since $T(\alpha_1) = U(\alpha_1), ..., T(\alpha_n) = U(\alpha_n)$,
+      $T(\alpha) = U(\alpha)$.
+
+      \btw{
+        Essentially, if $T, U$ work the same for all $\alpha_i$, then their
+        sum will obviously be the same, and so they'll give the same result
+        for the same $\alpha$.
+      }
+
+      Note that this theorem {\it still} works for infinite dimensional
+      vector spaces.
+
+    \item {\bf Existence}: Chose any $\alpha \in V$. \btw{ We must define
+      $T(\alpha)$}
+
+      Since $\B$ is a basis, we can write
+
+      \[
+        \alpha = c_1 \alpha_1 + \cdots + c_n \alpha_n
+      \]
+
+      which is unique.
+
+      Define 
+
+      \[
+        T(\alpha) := c_1 \beta_1 + \cdots + c_n \beta_n \in W
+      \]
+
+      {\bf Check}: Is $T$ linear?
+
+      Say $\gamma = d_1 \alpha_1 + \cdots + d_n \alpha_n$, $\delta = e_1
+      \alpha_1 + \cdots + e_n \alpha_n$.
+
+      In $V$, we have that $\gamma + \delta = (d_1 + e_1) \alpha_1 + \cdots +
+      (d_n + e_n) \alpha_n$.
+
+      By our definition of $T$, we have
+
+      \begin{align*}
+        T(\gamma + \delta) =&(d_1 + e_1) \beta_1 + \cdots + (d_n + e_n) \beta_n \\
+        =&(d_1 \beta_1 + \cdots + d_n \beta_n) + (e_1 \beta_1 +
+        \cdots + e_n \beta_n) \\
+        =&T(\gamma) + T(\delta)
+      \end{align*}
+
+      {\bf Check}: $T(c\gamma) = cT(\delta)$
+
+      So such a tranformation $T$ exists. Additionally by part (1), it is
+      unique.
+
+    \end{enumerate}
+  }
+
+  Let $T: V \to W$ be a linear transformation.
+
+  \definition{
+    $\range(T) = \{ T(\alpha) : \alpha \in V\} \subseteq W$ is the set of all
+    vectors in $W$ hit by $T$.
+
+    {\bf Fact}: $\range(T)$ is a {\bf subspace} of $W$.
+
+    \begin{enumerate}
+      \item $0$ is in it. This is because $T(0) = 0$, obviously.
+      \item {\bf Combinations of $\alpha_i$ are in it}
+
+        Say that $\beta_1, \beta_2 \in \range(T)$. \btw {must show that $\beta_1 +
+        \beta_2 \in \range(T)$ }
+
+        Since $\beta_1 \in \range(T)$, there is some $\alpha_1 \in V$ such that
+
+        \[
+          T(\alpha_1) = \beta_1
+        \]
+
+        similarly for $\beta_2$. Now $T(\alpha_1 + \alpha_2) = T(\alpha_1) +
+        T(\alpha_2) = \beta_1 + \beta_2$, since $T$ is linear. So $T(\alpha_1 +
+        \alpha_2) = \beta_1 + \beta_2$ so $\beta_1 + \beta_2 \in \range(T)$ \btw{
+        since $\alpha_1, \alpha_2 \in V$ means that $\alpha_1 + \alpha_2 \in V$,
+        because it's a vector space! }
+
+      \item {\bf Scaling Works:}
+        Say $\beta \in \range(T)$, and $c \in F$.  Chose $\alpha \in V$ such that
+        $T(\alpha) = \beta$. Then $T(c\alpha) = cT(\beta) c \beta$, therefore
+        $c\alpha \in \range(T)$.
+    \end{enumerate}
+
+    In other books this space is also called the \textbf{image} of $T$.
+  }
+
+  % \date{Fri. Feb 17 2023}
+  %
+  % Recall $T: V \to W$ is a linear transformation over $F$
+  %
+  % see grayson for notes today
 
     
   \definition{
@@ -4244,5 +4246,254 @@
       \]
   \end{enumerate}
 
+
+  \date{Fri. Apr 7 2023}
+
+  \btw {
+    Exam 2 is next Friday. We'll be covering new material today though.
+  }
+
+  Today, we're going to use our results about polynomials and determinants to better
+  understand linear operators (remember, these are linear transformations going
+  from $V$ to $V$) over a field $F$.
+
+  \[
+    T: V \to V
+  \]
+
+  It's been a few weeks since we've been in the world of linear operators, and
+  it's time we jumped back in.
+
+  In 6.2, 6.3, we'll define two polynomials that help describe the behavior of
+  $T$. One is the {\it characteristic polynomial}, the other is the {\it minimal
+  polynomial}.
+
+  \xdash[6em]
+
+  {\bf Recall}: For any linear operator $T: V \to V$, and for any basis $\B$ of
+  $V$, $[T]_\B$ is the matrix of $T$ with respect to $\B$. Additionally, for any
+  $\alpha \in V$,
+
+  \[
+    [T]_\B [\alpha]_\B = [T(\alpha)]_\B
+  \]
+
+  As we vary $\B$, we get {\it different} matrices $[T]_{\B'}$, where $\B'$ is
+  another basis for $V$.
+
+  Additionally, recall the definition of {\it similar matrices}: two matrices
+  $A, B: n \times n$ are similar if they represent the same linear
+  transformation (possibly under different bases.)
+
+  \[
+    B = P^{-1} A P
+  \]
+
+  for some invertible matrix $P$.
+
+  {\bf Fact}: If $A, B$ are similar $n \times n$ matrices, then
+
+  \[
+    \det(A) = \det(B)
+  \]
+
+  {\bf Proof}: Say $B = P^{-1} A P$, then
+
+  \[
+    \det(B) = \det(P^{-1} A P) = \det(P^{-1}) \det(A) \det(P) = \det(P^{-1} P)
+    \det(A) = 1 \cdot \det(A)
+  \]
+
+  \definition {
+    For a linear operator $T: V \to V$, {\it define}
+
+    \[
+      \det(T) = \det(A)
+    \]
+
+    for any/some $n \times n$ matrix $A$ representing $T$ for some basis $\B$.
+
+    \[
+      A = [T]_\B
+    \]
+  }
+
+  Let $A$ be any $n \times n$ matrix over a field $F$.
+
+  Then $\det(A) \ne 0$ if and only if $A$ is invertible.
+
+  {\bf Proof}: Row reduce $A \to A^\text{rr}$. From last time, we saw that
+  $\det(A)$ might not equal $\det(A^\text{rr})$, but
+
+  \[
+    \det(A) \ne 0 \Leftrightarrow \det(A^\text{rr}) \ne 0
+  \]
+
+  If $A$ is invertible, then $A^\text{rr}$ has no completely zero rows (or
+  columns). Moreover, all the rows will contain ones, so $\det(A^\text{rr}) =
+  1$. So again, $\det(A) \ne 0$.
+
+  Conversely, if $A$ is not invertible, then there {\it is} a fully zero row, so
+  $\det(A^\text{rr}) = 0$, so $\det(A) = 0$.
+
+  {\bf Thus}: $T: V \to V$ is invertible (the book calls this ``non-singular")
+  if and only if $\det(T) \ne 0$.
+
+  This is great, but there is more.
+
+  \definition {
+    A linear operator $T: V \to V$ is {\bf diagonalizable} if there is some
+    basis $\B$ of $V$ such that $[T]_\B$ is {\bf diagonal}.
+
+    i.e. $A_{i, j} = 0$ whenever $i \ne j$.
+  }
+
+  Similarly
+
+  \definition {
+    An $n \times n$ matrix $A$ is {\bf diagonalizable} if it is {\bf similar}
+    to a diagonal matrix.
+
+    i.e. if and only if $T_A$ is diagonalizable.
+  }
+
+  Suppose that $T$ is diagonalizable and $\B =\{\alpha_1, \dots, \alpha_n\}$ is
+  a basis such that
+
+  \TODO{}
+
+  $T$ is invertible if and only if {\bf none} of $c_1, \dots, c_n$ are 0. More
+  generally,
+
+  \begin{itemize}
+    \item $\rank(T)$ is the number of non-zero $c_i$s.
+    \item $\nullity(T)$ is the number of zero $c_i$s.
+  \end{itemize}
+
+  Let's look at some examples.
+
+  \example {
+    Is
+
+    \[
+      \begin{bmatrix}
+        1 & 0 \\
+        0 & 2 
+      \end{bmatrix}
+    \]
+
+    diagonalizable?
+
+    {\bf Answer}: Yes
+
+    We'll also see that
+
+    \[
+      \begin{bmatrix}
+        1 & 4 \\
+        0 & 1
+      \end{bmatrix}
+    \]
+    
+    is {\bf not} diagonalizable.
+  }
+
+  Take $A$ to be the matrix
+
+  \[
+    A = \begin{bmatrix}
+      0 & 1 \\
+      -1 & 0
+    \end{bmatrix}
+  \]
+
+  Then there is {\bf no} matrix of the form
+
+  \[
+    \begin{bmatrix}
+      c_1 & 0 \\
+      0 & c_2
+    \end{bmatrix}
+  \]
+
+  With $c_1, c_2 \in \R$ similar to $A$, but in $\C$, there is!
+
+  What this tells us is that, whether a matrix is diagonalizable might depend on
+  the field that we're using.
+
+  \section{Eigenvalues}
+
+  \definition {
+    An element $c \in F$ is an {\bf eigenvalue} of $T$ if there is some non-zero
+    $\alpha \in V$ such that
+
+    \[
+      T(\alpha) = c \alpha
+    \]
+
+    In such a case, $\alpha$ is called the ``eigenvector".
+  }
+
+  \note {
+    For any $T: V \to V$, and $c \in F$, let $W_c = \{\alpha \in V : T(\alpha) =
+    c \alpha\}$.
+
+    {\bf Claim}: $W_c$ is always non-empty (after all, the zero vector is in it)
+
+    \[
+      T(0) = c \cdot 0
+    \]
+  }
+
+  More interestingly though, $W_c$ is a {\bf subspace} of $V$.
+
+  \[
+    = \{\alpha \in V : (c I - T)(\alpha) = 0\} = \Null(cI - T)
+  \]
+
+  \QUESTION{} woah woah woah what's happening here?
+
+  \note {
+    For most $c \in F$, $W_c = \{0\}$.
+  }
+
+  So $c \in F$ is an eigenvalue of $T$ if and only if $\Null(cI - T) \ne \{0\}$
+  if and only if $(c I - T)$ is {\bf not invertible} if and only if $\det(c I -
+  T) = 0$.
+
+  \subsection{Finding Eigenvalues}
+
+  To find the eigenvalues of $T$, let $A$ be a matrix of $T$ with respect to
+  $\B$. The {\bf characteristic polynomial} of $A$ is
+
+  \[
+    \det(x I - A)
+  \]
+
+  \Lemma {
+    In fact, if $A$ and $B$ are similar, they have the same characteristic
+    polynomial.
+  }
+  {
+    Say $B = P^{-1} A P$. Then $x I - B = x I - P^{-1} A P = x P^{-1} P - P^{-1}
+    A P = P^{-1} (x I) P - P^{-1} A P = P^{-1} (x I - A) P$.
+
+    \TODO{} clean up in align block
+  }
+
+  \definition {
+    The characteristic polynomial of $T$ is
+
+    \[
+      \det(x I - A)
+    \]
+
+    for some/every matrix $A$ representing $T$.
+  }
+
+
+  \TODO{} write down examples of characteristic polynomial for the two matrices
+  from earlier.
+  
 
 \end{document}

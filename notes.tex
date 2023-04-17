@@ -1,9 +1,9 @@
 \documentclass[12pt]{article}
 \usepackage[
-    % top=10mm,
-    % bottom=10mm,
-    % left=10mm,
-    % right=10mm,
+    top=10mm,
+    bottom=10mm,
+    left=10mm,
+    right=10mm,
     marginparwidth=0mm,
     marginparsep=0mm,
     % headheight=15pt,
@@ -27,6 +27,8 @@
 \def\sgn{\text{sgn}}
 \def\B{\mathcal B}
 \def\P{\mathcal P}
+
+\def\Tinv{$T$-invariant}
 
 
 % create a command for TODOs
@@ -4475,10 +4477,15 @@
     polynomial.
   }
   {
-    Say $B = P^{-1} A P$. Then $x I - B = x I - P^{-1} A P = x P^{-1} P - P^{-1}
-    A P = P^{-1} (x I) P - P^{-1} A P = P^{-1} (x I - A) P$.
+    Say $B = P^{-1} A P$. Then
 
-    \TODO{} clean up in align block
+    \begin{align*}
+       &x I - B \\
+      =&x I - (P^{-1} A P) \\
+      =&x (P^{-1} P) - P^{-1} A P \\
+      =&P^{-1} (x I) P - P^{-1} A P \\
+      =&P^{-1} (x I - A) P
+    \end{align*}
   }
 
   \definition {
@@ -4494,6 +4501,475 @@
 
   \TODO{} write down examples of characteristic polynomial for the two matrices
   from earlier.
+
+
+  \date{Mon. Apr 10 2023}
+
+  \btw {
+    Exam is Friday. Everything in class is fair game to be covered. 
+
+    5.4, 5.5, not the adjoint of $A$, or Cramer's Rule.
+
+    Material for today is also fair game.
+  }
+
+  We study linear operators $T: V \to V$ where $V$ is a vector space where
+  $\dim(V) = n$.
   
+  Last time, we learned about the {\bf characteristic polynomial}, defined as
+
+  \[
+    f(x) = \det(xI - A)
+  \]
+
+  Where $A$ is any $n \times n$ matrix representing $T$. We also saw that $f$
+  does not depend on our choice of $A$. If $B$ is similar to $A$, $\det(xI - A)
+  = \det(xI - B)$.
+
+  \begin{align*}
+    xI - A =&\begin{bmatrix}
+      x & 0 & \cdots & 0 & 0 \\
+      0 & x & \cdots & 0 & 0 \\
+      \vdots & \vdots & \ddots & \vdots & \vdots \\
+      0 & 0 & \cdots & x & 0 \\
+      0 & 0 & \cdots & 0 & x \\
+    \end{bmatrix}
+    -
+    \begin{bmatrix}
+      A_{1,1} & 0 & \cdots & 0 & 0 \\
+      0 & A_{2, 2} & \cdots & 0 & 0 \\
+      \vdots & \vdots & \ddots & \vdots & \vdots \\
+      0 & 0 & \cdots & A_{n - 1, n - 1} & 0 \\
+      0 & 0 & \cdots & 0 & A_{n, n} \\
+    \end{bmatrix} \\
+      =&
+    \begin{bmatrix}
+      x - A_{1,1} & 0 & \cdots & 0 & 0 \\
+      0 & x - A_{2, 2} & \cdots & 0 & 0 \\
+      \vdots & \vdots & \ddots & \vdots & \vdots \\
+      0 & 0 & \cdots & x - A_{n - 1, n - 1} & 0 \\
+      0 & 0 & \cdots & 0 & x - A_{n, n} \\
+    \end{bmatrix}
+  \end{align*}
+
+  \note {
+    $\det(xI - A)$ is a {\bf monic} of degree $n$
+  }
+
+  \QUESTION{} Why is it monic?
+
+  \[
+    \det(xI - A) = \sum_{\sigma \in S_n}
+  \]
+
+  Sometimes, $T$, might not have eigenvalues. Consider for example
+
+  \[
+    \begin{bmatrix}
+      0 & -1 \\
+      -1 & 0
+    \end{bmatrix}
+  \]
+
+  which doesn't have eigen values over $\R$. (but it does over $\C$.)
+
+  \Proposition {
+    Any $T: V \to V$ where $V$ is a vector space over $\C$ has {\bf at least
+    one} eigenvalue.
+  }
+  {
+    Let $f(x)$ be the characteristic polynomial. By the Fundamental Theorem of
+    Algebra, $f$ has a root $c$. Therefore $c$ is an eigenvalue of $T$.
+  }
+
+  For each eigenvalue $c \in F$ of $T: V \to V$, the corresponding {\bf
+  Eigenspace} $W_c = \{\alpha \in V : T(\alpha) = c \alpha\} = \Null(cI - T)$
+  is a subspace of $V$.
+
+  % {\bf Claim}: This space gives a decomposition of $V$.
+
+  Say $c_1 \ne c_2$, then $W_{c_1} \cap W_{c_2} = \{0\}$ Since $T(0) = 0 = c_1
+  \cdot 0 = c_2 \cdot 0$.
+
+  Then $T(\alpha) = c_1 \alpha$, and $T(\alpha) = c_2 \alpha$, we have that
+  $(c_1 - c_2) \alpha = 0$. Since $c_1 \ne c_2$, $\alpha$ must be $0$.
+
+  $W_{c_i}$ only share $\{0\}$.
+
+  Moreover, we have the following theorem.
+
+  \Theorem {
+    If $c_1, \dots, c_k$ are distinct eigenvalues of some transformation $T: V
+    \to V$. Then for any $\beta_i \in W_{c_i} \setminus \{0\}$ for $1 \le i \le
+    k$. We have that
+
+    \[
+      \{\beta_1, \dots, \beta_k\}
+    \]
+
+    are linearly independent in $V$.
+  }
+  {
+    By induction on $k$.
+
+    \induction {
+      $k = 1$. So $\beta_1 \in W_{c_1}$. We obviously see that $\{\beta_1\}$ is
+      linearly independent.
+    }
+    {
+      Assume that the result holds for $k$.
+    }
+    {
+      Chose $\beta \in W_{c_1} \setminus \{0\}, \dots, \beta_{k + 1} \in W_{c_{k
+      + 1}} \setminus \{0\}$.
+
+      We must show that $\{\beta_1, \dots, \beta_{k + 1}\}$ is linearly
+      independent.
+
+      Chose $a_1, \dots, a_{k + 1} \in F$, such that
+
+      \[
+        a_1 \beta_1 + \cdots a_{k + 1} \beta_{k + 1} = 0 \,\,\,\,\,\,\,\,\,\,\,\,(*)
+      \]
+
+      \begin{enumerate}
+        \item Multiply (*) by $c_{k + 1}$
+
+          \[
+            c_{k + 1} a_1 \beta_1 + \cdots c_{k + 1}  a_{k + 1} \beta_{k + 1} = 0
+          \]
+
+        \item Apply $T$ to (*)
+          \begin{align*}
+            &T(a_1 \beta_1 + \cdots + a_{k + 1} \beta_{k + 1}) = T(0) = 0
+            =&T(a_1 \beta_1) + \cdots + T(a_{k + 1} \beta_{k + 1})
+            =&c_1 \beta_1 + \cdots + c_{k + 1} \beta_{k + 1}
+          \end{align*}
+      \end{enumerate}
+
+      Subtract ($2$) from ($1$).
+
+      \[
+        (c_{k + 1} - c_1) \alpha_1 \beta_1 + \cdots (c_{k + 1} - c_k) \alpha_k
+        \beta_k = 0
+      \]
+
+      By the Inductive Hypothesis, $\{\beta_1, \dots, \beta_k\}$ are linearly
+      independent.
+    }
+  }
+
+  Given $T: V \to V$, is $T$ diagonalizable? In other words, is there a basis
+  $\B = \{\alpha_1, \dots, \alpha_n\}$ consisting of eigenvectors?
+
+  \[
+    [T]_\B = \begin{bmatrix}
+      c_1 & \cdots & 0 \\
+      \vdots & \ddots & \vdots \\
+      0 & \cdots & c_n \\
+    \end{bmatrix}
+  \]
+
+  where $\alpha_i \in W_{c_i}$, in other words $T(\alpha_i) = c_i \alpha_i$ for
+  all $i$.
+
+  \Corollary {
+    If $T$ has $n$ distinct eigenvalues, then $T$ is diagonalizable. Since
+    $\{\alpha_1, \dots, \alpha_n\}$ are linearly independent by the theorem,
+    they form a basis.
+  }
+  {
+    No
+  }
+
+  The characteristic polynomial doesn't tell you the dimension of the subspace
+
+  Let $T: V \to V$ be any linear operator. Let $I$ be the collection of all $f
+  \in F[x]$ such that $f(T) = 0$. Then $I$ is an ideal.
+
+  $L(V, V)$ is a vector space of $\dim$ $n^2$, so $\{1, T, T^2, \dots,
+  T^{n^2}\}$ are linearly dependent.
+
+  Say $c_0 + c_1 T + c_2 T^2 + \cdots + c_{n^2} T^{n^2} = 0$ with not all $0$.
+
+  Let $g(x) = c_0 + c_1 x + c_2 x^2 + \cdots + c_{n^2} x^{n^2}$, then $g(T) =
+  0$.
+
+  \Definition {}{
+    The {\bf minimum polynomial} of $T$ $m(x)$ is the non-zero element of $I$ of
+    {\it least degree}.
+
+    By Chapt. 4
+
+    \[
+      I = m(x) F[x]
+    \]
+  }
+
+  {\bf Fact}: Cayley-Hamilton Theorem. The min polynomial divides the
+  characteristic polynomial.
+
+  For instance if $f$ is the characteristic polynomial, then
+
+  \[
+    f(T) = 0
+  \]
+
+  For the matrix $\begin{bmatrix} 1 & 4 \\ 0 & 1 \end{bmatrix}$ is $m(x) = (x -
+  1)^2$. For the identity, its $(x - 1)$.
+
+  \date{Mon. Apr 17 2023}
+
+  Suppose that $T: V \to V$ is a linear operator, where $V$ is a vector space
+  over $F$ of dimension $n$.
+
+  {\bf Goal}: Decompose $T$ and $V$ into smaller understandable bits. To do
+  this, the tools we have are the characteristic polynomial, and the minimal
+  polynomial.
+
+  We're going to need some notions.
+
+  \begin{enumerate}
+    \item $T$-invariant subspaces. This is section 6.4 f the book, and what
+      we're going to talk about today.
+    \item Direct sum decompositions of $V$. (Chapter 6.6)
+    \item Direct sum decompositions into $T$ invariant subspaces. (Chapter 6.7)
+    \item The primary decomposition theorem. (Chapter 6.8)
+  \end{enumerate}
+
+  Let's do a simple example.
+
+  \example {
+    Say $\{c_1, \dots, c_k\}$ are the eigenvalues of $T$. Then for each
+    eigenvalue $c_i$, we have a subspace $W_{c_i}$ such that
+
+    \begin{align*}
+      W_{c_i} =&\{\alpha \in V \mid T(\alpha) = c_i \alpha\} \\
+              =&\{\alpha \in V \mid (T - c_i I)(\alpha) = 0 \} \\
+    \end{align*}
+
+    If we let $W = W_{c_1} + W_{c_2} + \cdots + W_{c_k}$, we'll see that $W$ is
+    a subspace of $V$, and more.
+  }
+
+  The minimal polynomial of $T$ $m(x)$ will really help us here.
+
+  \note {
+    Recall what the minimal polynomial $m(x)$ is: it's the least polynomial that
+    annihilates the matrix associated with $T$.
+  }
+
+  {\bf Check}: If $A$ is any matrix representing $T$, then $m(T) = 0$ if and
+  only if $m(A) = 0$.
+
+  Let's start easy.
+
+  \Definition{}
+  {
+    A subspace $W \subseteq V$ is {\bf $T$-invariant} if
+
+    \[
+      T(\alpha) \in W \text{ for all $\alpha \in W$}
+    \]
+  }
+
+  If $W$ is $T$-invariant, we get a {\bf restriction operator} $T_W: W \to W$
+  such that
+
+  \[
+    T_W(\alpha) = T(\alpha)
+  \]
+
+  Two boring examples.
+
+  \example {
+    \begin{itemize}
+      \item $V$ is always $T$-invariant
+      \item $\{0\}$ is always $T$-invariant
+    \end{itemize}
+  }
+
+  Let's look at more interesting examples.
+
+  \example {
+    Say $c$ is an eigenvalue of $T$. Then
+
+    \[
+      W_c = \{\alpha \in V \mid T(\alpha) = c \alpha\}
+    \]
+
+    is $T$-invariant.
+
+    {\bf Proof}.
+
+    Take any $\alpha \in W_c$. Then we know that $T(\alpha) = c\alpha$ but now,
+    is $c \alpha \in W_c$? Well
+
+    \[
+      T(c \alpha) = c T(\alpha) = c (c \alpha)
+    \]
+
+    Which is in $W_c$.
+
+    Therefore $W_c$ is $T$-invariant.
+  }
+
+  Let's look at another example
+
+  \example {
+    Let $F[x]$  be the vector space of all polynomials with coefficients in $F$.
+
+    For each $n$, let $P_n$ be the set of all polynomials with degree at most
+    $n$. So $P_n$ is a subspace of $F[x]$.
+
+    Let $D: F[x] \to F[x]$ be the differentiation operator.
+
+    \qna {
+      Is $P_n$ $D$-invariant?
+    }
+    {
+      Yes. When you differentiate a polynomial, the degree only gets lower, so
+      it's in $P_n$.
+    }
+  }
+
+  \example {
+    Let $W = W_{c_1} + \cdots + W_{c_k}$. Is $W$ \Tinv?
+
+    Take any $\beta \in W$. Then, $\beta$ is of the form
+
+    \[
+      \beta = a_1 \alpha_1 + a_2 \alpha_2 + \cdots + a_k \alpha_k
+    \]
+
+    Where each $\alpha_i \in W_{c_i}$ and each $a_i \in F$. So
+
+    \begin{align*}
+      T(\beta) =&T(a_1 \alpha_1 + a_2 \alpha_2 + \cdots + a_k \alpha_k) \\
+               =&a_1T(\alpha_1) + \cdots + a_kT(\alpha_k) \\
+               =&a_1 (c_1 \alpha_1) + \cdots + a_k (c_k \alpha_k) \\
+    \end{align*}
+
+    So $T(\beta) \in W$.
+  }
+
+  Let's look at a big source of examples.
+
+  \example {
+    Given $T: V \to V$. Let $U: V \to V$ be such that
+
+    \[
+      TU = UT
+    \]
+
+    Then, $\range(U)$ and $\Null(U)$ are \Tinv.
+
+    {\bf Proof}.
+
+    Choose any $\alpha \in \range(U)$, then we must show that $T(\alpha) \in
+    \range(U)$.
+
+    Choose any $\beta \in V$ such that $U(\beta) = \alpha$. Then
+
+    \[
+      T(\alpha) = T(U(\beta)) \underset{(TU = UT)}{=} U(T(\beta))
+    \]
+
+    Therefore, $T(\alpha) \in \range(U)$ by definition of the range!
+
+    Now choose any $\alpha \in \Null(U)$, we must show that $T(\alpha) \in
+    \Null(U)$.
+
+    {\bf Compute} $U(T(\alpha)) = T(U(\alpha)) = T(0) = 0$. Therefore $T(\alpha)
+    \in \Null(U)$.
+  }
+
+  Thus: If $g(x) \in F[x]$, then $\range(g(T))$ and $\Null(g(T))$ and both
+  \Tinv.
+  
+  {\bf Proof}. By our previous example, we only need to show that $g(T)$
+  commutes with $T$
+
+  \[
+    g(T) \cdot T = T \circ g(T)
+  \]
+
+  {\bf Obvious}: Since the polynomials $g(x) \cdot x = x \circ g(x)$.
+
+  Say $T: V \to V$ is a linear operator and $W \subseteq V$ is \Tinv. Choose
+  $\B_W = \{\alpha_1, \dots, \alpha_r\}$ a basis for $W$. Let $\B = \{\alpha_1,
+  \dots, \alpha_r, \alpha_{r + 1}, \dots, \alpha_n\}$ be a basis for $V$,
+  extending $\B_W$.
+
+  Let $\B = [T]_{\B_W}$ be the $r \times r$ matrix representing $T_W$.
+
+  Then
+  \[
+    [T]_\B = \begin{bmatrix}
+      B & C \\
+      0 & D
+    \end{bmatrix}
+    = [T(\alpha_1), T(\alpha_2), \dots, T(\alpha_n)]
+  \]
+
+  Where $D$ is an $(n - r) \times (n - r)$ matrix. Since for $1 \le i \le r$,
+
+  \[
+    T(\alpha_i) = T_W(\alpha_i) \in W = \Span(\alpha_1, \dots, \alpha_r)
+  \]
+
+  But recall the determinant of a block matrix of this form!
+
+  \[
+    \det\left([T]_\B\right) = \det\left(\begin{bmatrix}
+      B & C \\
+      0 & D
+    \end{bmatrix}\right) =\det(B) \cdot \det(D)
+  \]
+
+  {\bf Similarly}: $\det(xI - T) = \det(xI - T_W) \cdot \det(xI - D)$. Therefore
+  the characteristic polynomial of $T_W$ divides the characteristic polynomial
+  of $T$.
+
+  {\bf Similarly}: The minimum polynomial of $T_w$ divides the minimal
+  polynomial of $T$. Notice  \[
+    \left([T]_\B\right)^k = \begin{bmatrix}
+      B^k & C^k \\
+      0 & D^k
+    \end{bmatrix}
+  \]
+
+  ``If you don't believe the above, just trust me that it works" -Laskowski
+  (kinda)
+
+  The minimal polynomial $m(x)$ gives that $m(T) = 0$. In particular:
+  $m(T)(\alpha) = 0$.
+
+  Fix $\alpha \in V$, and $W \subseteq V$ \Tinv.
+
+  \Definition{} {
+    The {\bf stuffer ideal}
+
+    \[
+      I = \{g(x) \in F[x] \mid g(T)(\alpha) \in W\}
+    \]
+
+    $I$ (which really depends on $\alpha, W$) is an ideal of $F[x]$.
+  }
+
+  \Definition {}
+  {
+    The {\bf $T$-conductor} of $\alpha$ into $W$ is the monic $g(x) \in I$ of {\bf
+    least degree}.
+  }
+
+  Clearly, the $T$-conductor of $\alpha \in W$ {\bf divides} the minimal
+  polynomial $m(x)$.
+
+  {\bf Proof}.
+
+  Since $m(T)(\alpha) = 0 \in W$, we get that $m(x) \in I$, but $g(x)$ divides
+  every polynomial in $I$.
+
 
 \end{document}

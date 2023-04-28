@@ -5183,5 +5183,168 @@
     \TODO{} Proof will be finished (and formalized) on Wednesday.
   }
 
+  \date{Wed. Apr 25 2023}
+
+  \TODO{} missed class, sorry
+
+  \date{Fri. Apr 28 2023}
+
+  Let $V$ be a finite-dimensional vector space over any field $F$. $T: V \to V$
+  a linear operator.
+
+  Chose any $\alpha \in V$, and look at the set $\{f(T)(\alpha) : f(x) \in
+  F[x]\}$ (apply any polynomial of $T$ to $\alpha$). This is a {\it subspace} of
+  $V$, it is called $Z(\alpha, T)$, the {\bf cyclic subspace} of $V$ generated
+  by $T$ and $\alpha$.
+
+  Another way of writing this subspace is as the span of $\{\alpha, T(\alpha),
+  T^2(\alpha), \dots\}$.
+
+  We will see that for any such $T: V \to V$, there are finitely many
+  $\{\alpha_1, \dots, \alpha_r\} \subseteq V$ such that
+
+  \[
+    V = Z(\alpha_1, T) \oplus \cdots \oplus Z(\alpha_r, T)
+  \]
+
+  Here, what's happening is that $V$ is a direct sum of cyclic subspaces.
+  (\QUESTION{} Why cyclic? What's cyclic about them?)
+
+  Suppose $T: V \to V$ and there is some $\alpha \in V$, such that
+
+  \[
+    Z(\alpha, T) = V
+  \]
+
+  In this case, we say that $T$ is {\bf cyclic}, and $\alpha$ is a {\bf cyclic
+  vector} for $T$.
+
+  \example {
+    For any $V$, $Z(0, T) = \{f(T)(0) : f(x) \in F[x]\} = \{0\}$. \QUESTION{}
+    Wait what? What about with polynomials with constants on them?
+
+    This $0$ is a cyclic vector {\it only when} $V = \{0\}$.
+  }
+
+  \example {
+    Say $\dim(V) = 1$, and $T: V \to V$ is non-zero. Then every $\alpha \ne 0$
+    is a cyclic vector for $T$.
+
+    BORING!!
+  }
+
+  \example {
+    Suppose $\dim(V) \ge 2$, and $\alpha$ is an eigenvector for $T$. In other
+    words
+
+    \[
+      T(\alpha) = c(\alpha)
+    \]
+
+    for some $c \im F$. For any $f(x) \in F[x]$, we have
+
+    \[
+      f(T)(\alpha) = f(c)(\alpha)
+    \]
+
+    This is just some constant, times $\alpha$! (excitement. Not factorial)
+
+    So $\dim(Z(\alpha, T)) = 1$, so $Z(\alpha, T)$ cannot equal $V$, since
+    $\dim(V) \ge 2$.
+
+    When $\dim(V) \ge 2$, eigenvectors are {\bf not} cyclic vectors.
+  }
+
+  \example {
+    For any polynomial $f(x) = c_0 + c_1 x + \cdots + c_k x^k$, we have that
+
+    \[
+      f(I)(\alpha) = (c_0 + c_1 + \cdots + c_k) (\alpha)
+    \]
+
+    Again, we see that $\dim(Z(\alpha, T)) = 1$, so $Z(\alpha, T) \ne V$.
+
+    What we can gather from this is that, when $\dim(V) \ge 2$, The identity
+    transformation is {\bf not cyclic}!
+  }
+
+  Let's look at an example that is cyclic.
+
+  \example {
+    Let $A = \begin{bmatrix} 0 & 0 \\ 1 & 0 \end{bmatrix}: \R^2 \to \R^2$.
+
+    {\bf Claim}: $\begin{bmatrix} 1 \\ 0\end{bmatrix}$ is a cyclic vector for
+    $T_A$.
+
+    {\bf Proof}. Given some $\begin{bmatrix} a \\ b \end{bmatrix} \in \R^2$, we
+    must find some polynomial $g(x) \in \R[x]$ such that
+
+    \[
+      g(T) \begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} a \\ b \end{bmatrix}
+    \]
+
+    Let $g(x) = a + bx$. Then $g(T_A) = a(I) + b (T_A)$, and $g(T_A)
+    \begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} a \\ b \end{bmatrix}$
+  }
+
+  For the rest of the day, we assume that $V$ is finite dimensional, over some
+  field $F$, $T: V \to V$ is cyclic, and some $\alpha \in V$ is a cyclic vector.
+
+  When you have this, life is easy!
+
+  Let $I = \{f(x) \in F[x] : f(T)(\alpha) = 0\}$. Then, (you can check that) $I$
+  is an ideal. Obviously, $0$ is in it, but also the minimal polynomial of $T$,
+  $m(x)$ is also in it!
+
+  Let $p_\alpha(x) \in I$ be the monic polynomial of least degree.
+
+  Write $p_\alpha(x) c_0 + c_1 x + \cdots + c_{k - 1} x^{k - 1} + 1 \cdot x^k$.
+
+  {\bf Fact}.
+
+  Let $\B = \{\alpha, T(\alpha), T^2(\alpha), \dots, T^{k - 1}(\alpha)\}$ is a
+  basis for $V$.
+
+  In particular, $\dim(V) = k$.
+
+  {\bf Proof}.
+
+  \begin{enumerate}
+    \item $\B$ spans $V$.
+
+      Choose any $\beta \in V$. Chose any $g(x) \in F[x]$ such that
+
+      \[
+        g(T)(\alpha) = \beta
+      \]
+
+      (Since $Z(\alpha, T) = V$.)
+
+      By the Euclidean Algorithm, there are $q(x)$ and $r(x)$ such that
+
+      \[
+        g(x) = p_\alpha(x) q(x) + r(x)
+      \]
+
+      where either $r = 0$, or $\deg(r) < \deg(p_\alpha) = k$.
+
+      So, $g(T)(\alpha) = p_\alpha(T) q(T) \alpha + r(T) \alpha$. But notice
+      that $p_\alpha(T) q(T) \alpha = 0$ since $p_\alpha(T) \alpha = 0$, that's
+      why it's in the ideal! Therefore, we have that
+
+      \[
+        \beta = p_\alpha(T) q(T) \alpha + r(T) \alpha = r(T)(\alpha)
+      \]
+
+      Then $\beta = r(T)(\alpha) = d_0 \alpha + d_1 T(\alpha) + \cdots + d_{k -
+      1} T^{k - 1}(\alpha)$
+
+      So $\B$ spans $V$.
+
+    \item $\B$ linearly independent.
+
+      \TODO{} sorry, computer died
+
+  \end{enumerate}
 
 \end{document}

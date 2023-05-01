@@ -5241,7 +5241,7 @@
       T(\alpha) = c(\alpha)
     \]
 
-    for some $c \im F$. For any $f(x) \in F[x]$, we have
+    for some $c \in F$. For any $f(x) \in F[x]$, we have
 
     \[
       f(T)(\alpha) = f(c)(\alpha)
@@ -5298,7 +5298,7 @@
 
   Let $p_\alpha(x) \in I$ be the monic polynomial of least degree.
 
-  Write $p_\alpha(x) c_0 + c_1 x + \cdots + c_{k - 1} x^{k - 1} + 1 \cdot x^k$.
+  Write $p_\alpha(x) = c_0 + c_1 x + \cdots + c_{k - 1} x^{k - 1} + 1 \cdot x^k$.
 
   {\bf Fact}.
 
@@ -5343,8 +5343,272 @@
 
     \item $\B$ linearly independent.
 
-      \TODO{} sorry, computer died
+      Suppose that $e_0 \alpha + e_1 T(\alpha) + \cdots + e_{k - 1} T^{k - 1}
+      (\alpha) = 0$, for some $e_0, \dots, e_{k - 1} \in F$.
 
+      We must show that $e_0 = e_1 = \cdots = e_{k - 1} = 0$.
+
+      Let $s(x) = e_0 + e_1 x + e_2 x^2 + \cdots + e_{k - 1} x^{k - 1}$
+
+      Notice that $s(T)(\alpha) = 0$, it's the thing we're supposing. But
+      $\deg(s) < \deg(p_\alpha)$ and we assumed that $p_\alpha$ was the least
+      degree polynomial such that $p_\alpha(T)(\alpha) = 0$.
+
+      This {\it must} mean that $s$ is the 0 polynomial! Therefore, $e_0 = e_1 =
+      \cdots = e_{k - 1} = 0$, and we are done.
   \end{enumerate}
+
+  We have 3 relevant polynomials.
+
+  \begin{itemize}
+    \item $p_\alpha(x)$. This is the monic of least degree such that
+      $p_\alpha(T)(\alpha) = 0$. In other words, this is the smallest polynomial
+      that, for a given $T$ and $\alpha$, produces 0.
+
+    \item $m(x)$. This is the minimal polynomial. Recall that this is the
+      polynomial of least degree for which $m(T)(\beta) = 0$, for {\it any}
+      $\beta \in V$.
+
+    \item $f(x)$. This is the characteristic polynomial. It's computed as $f(x)
+      = \det(xI - A)$, where $A$ is any matrix representing $T$. It's degree is
+      always $k = \dim(V)$.
+  \end{itemize}
+
+  Clearly $p_\alpha(x)$ divides $m(x)$. I mean after all, $p_\alpha$ is the
+  polynomial that works for a specific $\alpha$, and $m(x)$ is the one that
+  works for all of them. We also saw by the Cayley-Hamilton Theorem that $m(x)$
+  divides $f(x)$.
+
+  Therefore, we have that $\deg(p_\alpha) = k = \dim(V)$, which is the degree of
+  the characteristic polynomial. \QUESTION{} Why?
+
+  What's nice is that, if $T: V \to V$ is cyclic, and $\alpha \in V$ is a cyclic
+  vector, all three of these polynomials are the same!
+
+  \[
+    p_\alpha(x) = m(x) = f(x)
+  \]
+
+  Next time, we'll see that the converse is also true.
+
+  \date{Mon. May 1 2023}
+
+  \NamedTheorem{\subsection{The Cyclic Decomposition Theorem}}
+  {
+    Let $V$ be a finite-dimensional vector space over any field $F$. Let $T: V
+    \to V$ be any linear operator. Then, there are finitely many $\alpha_1,
+    \dots, \alpha_r \subseteq V$ such that
+
+    \[
+      V = Z(\alpha_1, T) \oplus \cdots \oplus Z(\alpha_r, T)
+    \]
+
+    Where each of the $Z(\alpha_i, T)$ is $T$-invariant, and the characteristic
+    polynomial of $T_{Z(\alpha_i, T)}$ is equal to the minimal polynomial of
+    $T_{Z(\alpha_i, T)}$, which is equal to the $T$-annihilator of
+    $T_{Z(\alpha_i, T)}$.
+
+    Additionally, $\dim(Z(\alpha_i, T)) = \deg(m_{T_{Z(\alpha_i, T)}}(x))$.
+  }
+  {
+    The proof is quite long, we did not do it in class.
+  }
+
+  A basis for $V$, $\B = \B_1 \cup \B_2 \cup \cdots \cup \B_r$, where $\B_i$ is
+  a basis for $Z(\alpha_i, T)$, of the form
+
+  \[
+    \B_i = \{\alpha_i, T(\alpha_i), T^2(\alpha_i), \dots, T^{k_i - 1}(\alpha_i)\}
+  \]
+
+  where $k_i = \deg(p_{\alpha_i}(x)) = \dim(Z(\alpha_i, T))$. We also have the
+  companion matrix for $T_{Z(\alpha_i, T)}$ is
+
+  \[
+    A_i =
+    \begin{bmatrix}
+      0 & 0 & 0 & - c_0 \\
+      1 & 0 & 0 & - c_1 \\
+      0 & 1 & 0 & - c_2 \\
+      0 & 0 & 1 & - c_3
+    \end{bmatrix}
+  \]
+
+  Note that this is actually a $k_i \times k_i$ matrix. In this case, $k_i = 4$,
+  this is just to give you an idea. Also note that for this subspace we have
+
+  \[
+    p_{\alpha_i} = c_0 + c_1 x + c_2 x^2 + c_3 x^3 + x^4
+  \]
+
+  This is where the $c_j$ come from.
+
+  \note {
+    If $V$ is cyclic, $r = 1$ and $V$ looks like this
+
+    \[
+      V = Z(\alpha, T)
+    \]
+
+    Where $\alpha$ is a cyclic vector for $T$.
+  }
+
+  Let's ask an important question. Suppose $T: V \to V$, and $W \subseteq V$ is
+  $T$-invariant.
+
+  {\bf Question}: Is there a $T$-invariant $U$ such that $V = W \oplus U$?
+
+  \Definition{}
+  {
+    $W \subseteq V$ is {\bf $T$-admissible} if
+
+    \begin{enumerate}
+      \item $W$ is $T$-invariant
+      \item For any $\gamma \in V$, and $f(x) \in F[x]$, if $f(T)(\gamma) \in
+        W$, then there is a $\beta \in W$ such that
+
+        \[
+          f(T)(\beta) = f(T)(\gamma)
+        \]
+
+        (where $\beta$ and $\gamma$ might not be the same!)
+    \end{enumerate}
+  }
+
+  {\bf Fact}: $W \subseteq V$ is $T$-admissible {\bf if and only if} it has a
+  $T$-invariant complement. For instance, there is $U \subseteq V$ such that
+
+  \[
+    V = W \oplus U
+  \]
+
+  And $U$ is $T$-invariant.
+
+  \Definition{}
+  {
+    A linear operator $N: V \to V$ is called {\bf nilpotent} if $N^k = 0$ for
+    some $k \ge 0$.
+  }
+
+  If we have such an $N$, its minimal polynomial $m(x) = x^k$, where $k$ is the
+  least $k$ such that $N^k = 0$. The characteristic polynomial of $N$ is
+  $x^{\dim(V)}$.
+
+  If we apply the cyclic decomposition theorem, we have
+
+  \[
+    V = Z(\alpha_1, N) \oplus \cdots \oplus Z(\alpha_r, N)
+  \]
+
+  Where $p_{\alpha_i} = x^{k_i}$, and $k_i \dim(Z(\alpha_i, N))$.
+
+  We can also shuffle them so that $k_1 \ge k_2 \ge k_3 \ge \cdots \ge k_r \ge
+  1$. Well we know that $k_1 + \cdots + k_r = n = \dim(V)$. Also, $k_1$ (the
+  largest $k$) is going to be the degree of the minimal polynomial of $N$. Since
+  any $k$ less than $k_1$ is enough to annihilate any of the other $Z(\alpha_i,
+  T)$.
+
+  {\bf Question}: What is the companion matrix of $N_{Z(\alpha_1, N)}$?
+
+  For $k = 4$, we have
+
+  \[
+    A_i = \begin{bmatrix}
+      0 & 0 & 0 & 0 \\
+      1 & 0 & 0 & 0 \\
+      0 & 1 & 0 & 0 \\
+      0 & 0 & 1 & 0 \\
+    \end{bmatrix}
+  \]
+
+  With $p_{\alpha_i} = x^4$. For any $N: V \to V$, there is a matrix
+
+  \[
+    [N]_\B = \begin{bmatrix}
+      A_1 & 0 & \cdots & 0 \\
+      0 & A_2 & \cdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \cdots & A_r
+    \end{bmatrix}
+  \]
+
+  where each $A_i$ is a $k_i \times k_i$ matrix of the form above. Since each
+  $A_i$ has one row of zeroes, we can infer that
+
+  \[
+    \dim(\Null(N)) = r
+  \]
+
+  {\bf Question}: Counting up to similarity, how many nilpotent operators are
+  there?
+
+  Say we're dimension $2$, say $N: V \to V$ is nilpotent with $n = \dim(V) = 2$,
+  to understand these up to similarity, everything is determined by $r$, and the
+  sequence of integers
+
+  \[
+    k_1 \ge k_2 \ge \cdots \ge k_r \ge 1
+  \]
+
+  With $k_1 + k_2 + \cdots + k_r = n$. If $\dim(V) = 2$, then $r = 1$ or $r =
+  2$.
+
+  If $r = 1$, then $V = Z(\alpha_1, N)$, so $V$ is cyclic and the companion
+  matrix looks like this
+
+  \[
+    \begin{bmatrix}
+      0 & 0 \\
+      1 & 0
+    \end{bmatrix}
+  \]
+
+  If $r = 2$, then $V = Z(\alpha_1, N) \oplus Z(\alpha_2, N)$. Here, we must
+  have $k_1 = k_2 = 1$ (since $k_1 \ge k_2 \ge 1$ and $k_1 + k_2 = 2$.) But this
+  means that the Null space of $N$ is dimension $2$. This is just the zero
+  matrix!
+
+  \[
+    \begin{bmatrix}
+      0 & 0 \\
+      0 & 0
+    \end{bmatrix}
+  \]
+
+  Let's look what what happens when $n = \dim(V) = 3$.
+
+  If $r = 1$, then again $V = Z(\alpha_1, N)$ and $V$ is cyclic once again. The
+  matrix then looks like this
+
+  \[
+    \begin{bmatrix}
+      0 & 0 & 0 \\
+      1 & 0 & 0 \\
+      0 & 1 & 0 \\
+    \end{bmatrix}
+  \]
+
+  If $r = 2$, then $V = Z(\alpha_1, N) \oplus Z(\alpha_2, N)$, with $k_1 = 2,
+  k_2 = 1$, and we get the following matrix
+
+  \[
+    \begin{bmatrix}
+      0 & 0 & 0 \\
+      1 & 0 & 0 \\
+      0 & 0 & 0 \\
+    \end{bmatrix}
+  \]
+
+  If $r = 3$, this means that $\dim(\Null(N)) = 3$, so this is just the zero
+  matrix.
+
+  \[
+    \begin{bmatrix}
+      0 & 0 & 0 \\
+      0 & 0 & 0 \\
+      0 & 0 & 0 \\
+    \end{bmatrix}
+  \]
+
 
 \end{document}

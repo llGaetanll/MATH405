@@ -13,6 +13,7 @@
     % includehead
 ]{geometry}
 \usepackage{tikz-cd}
+\usepackage{multicol}
 
 \renewcommand{\date}[1]{\underline{\bf #1}}
 
@@ -5609,6 +5610,437 @@
       0 & 0 & 0 \\
     \end{bmatrix}
   \]
+
+  \date{Wed. May 3 2023}
+
+  \sidenote {
+    Final Exam review session on Wednesday, May 17 in the canonical room, at
+    3:45pm-5:30pm
+  }
+
+  Recall the nilpotent matrices from last time. $N: V \to V$ is nilpotent if and
+  only if $N^l = 0$ for some $l \ge 2$, if and only if the characteristic
+  polynomial $m_N(x) = x^n$ with $n = \dim(V)$.
+
+  The minimal polynomial of $N$ is $p(x) = x^{k_1}$. There are $\alpha_1, \dots,
+  \alpha_r \in V$ such that
+
+  \[
+    V = \underbrace{Z(\alpha_1, N)}_{\dim k_1} \oplus \cdots \oplus
+    \underbrace{Z(\alpha_r, N)}_{\dim k_r}
+  \]
+
+  With $k_1 \ge k_2 \ge \cdots \ge k_r$.
+
+  The companion matrix $A_i$ is of the form
+
+  \[
+    A_i = \begin{bmatrix}
+      0 & 0 & 0 & 0 \\
+      1 & 0 & 0 & 0 \\
+      0 & 1 & 0 & 0 \\
+      0 & 0 & 1 & 0 \\
+    \end{bmatrix}
+  \]
+
+  But of size $k_i \times k_i$.
+
+  The matrix of $N$ is then of the form
+
+  \[
+    [N]_\B = \begin{bmatrix}
+      A_1 & 0 & \cdots & 0 \\
+      0 & A_2 & \cdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \cdots & A_r
+    \end{bmatrix}
+  \]
+
+  In the same basis as last time, once again.
+
+  We also saw a couple more things:
+
+  \begin{itemize}
+    \item $k_1 + k_2 + \cdots + k_r = n$
+    \item $\dim(\Null(N)) = r$, and $N$ is cyclic if and only if $r = 1$.
+    \item $N$ is diagonalizable if and only if $r = n$, and each $A_i$ is of
+      size $1 \times 1$, where all $A_i = 0$. If $A_i$ was not $1 \times 1$, you
+      would have the stray ones, off the main diagonal.
+
+      \[
+        A_i = \begin{bmatrix}
+          0 & 0 \\
+          1 & 0
+        \end{bmatrix}
+      \]
+  \end{itemize}
+
+  Now we're going to apply a change of variable.
+
+  Suppose $T: V \to V$ has characteristic polynomial $m_T(x) = (x - c)^n$, where
+  $n = \dim(V)$. Let $N = T - cI$, then the characteristic polynomial of $N$ is
+  $m_N(x) = x^n$, therefore $N$ is nilpotent!
+
+  Also, $T = N + cI_{n \times n}$.
+
+  Notice that if $c$ were to be 0, $T$ would already have been nilpotent.
+
+  There are $\alpha_1, \dots, \alpha_r \in V$ such that
+
+  \[
+    V = Z(\alpha_1, N) \oplus \cdots \oplus Z(\alpha_r, N)
+  \]
+
+  With $k_1 \ge k_2 \ge \cdots \ge k_r$. Now the companion matrix of $N$,
+  restricted to $Z(\alpha_i, T)$ would be
+
+  \[
+    A_i = \begin{bmatrix}
+      0 & 0 & 0 & 0 \\
+      1 & 0 & 0 & 0 \\
+      0 & 1 & 0 & 0 \\
+      0 & 0 & 1 & 0 \\
+    \end{bmatrix}
+  \]
+
+  Where again, here I drew it as a $4 \times 4$ matrix, but it would be a $k_1
+  \times k_i$ matrix.
+
+  But now look at the companion matrix for $\restr{T}{Z(\alpha_i, T)} = A_i +
+  cI$:
+
+  \[
+    J_i = A_i + cI =
+    \begin{bmatrix}
+      c & 0 & 0 & 0 \\
+      1 & c & 0 & 0 \\
+      0 & 1 & c & 0 \\
+      0 & 0 & 1 & c \\
+    \end{bmatrix}
+  \]
+
+  This is called a {\bf Jordan Matrix} for $Z(\alpha_i, T)$.
+
+  The matrix of $T$ $A_T$ can then be written as
+
+  \[
+    A_T = \begin{bmatrix}
+      J_1 & 0 & \cdots & 0 \\
+      0 & J_2 & \cdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \cdots & J_r \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      A_1 & 0 & \cdots & 0 \\
+      0 & A_2 & \cdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \cdots & A_r \\
+    \end{bmatrix}
+    +
+    \begin{bmatrix}
+      c & 0 & \cdots & 0 \\
+      0 & c & \cdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \cdots & c \\
+    \end{bmatrix}
+  \]
+
+  Again, $k_1 + k_2 + \cdots + k_r = n$, and $\dim(\Null(T - cI)) = r$.
+
+  $T$ is cyclic if and only if $r = 1$, and $T$ is diagonalizable if and only if
+  $N$ is diagonalizable if and only if $N$ is the zero matrix, if and only if $r
+  = n$, if and only if $k_1 = k_2 = \cdots = k_r = 1$, if and only if the
+  minimal polynomial of $T$ is $m_T(x) = (x - c)^1$.
+
+  \TODO{} This is some important theorem, he said the name but I forgot
+
+  Say that $T: V \to V$ has a characteristic polynomial that factors into linear
+  terms terms. 
+
+  \[
+    f(x) = (x - c_1)^{s_1} (x - c_2)^{s_2} \cdots (x - c_t)^{s_t}
+  \]
+
+  Remember that this happens for any vector space $V$ over an algebraically
+  closed field (like $\C$)
+
+  By the Primary Decomposition Theorem, we can write
+
+  \[
+    V = W_1 \oplus \cdots \oplus W_t
+  \]
+
+  Where the characteristic polynomial of $\restr{T}{W_j}$ is
+  $f_{\restr{T}{W_j}}(x) = (x - c_j)^{s_j}$ (we can split it into $t$ different
+  pieces)
+
+  The matrix of $T$ can be written as follows.
+
+  \[
+    A_T = \begin{bmatrix}
+      B_1 & 0 & \cdots & 0 \\
+      0 & B_2 & \cdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \cdots & B_t \\
+    \end{bmatrix}
+  \]
+
+  Where each $B_j$ is of size $s_j \times s_j$, and can be written as
+
+  \[
+    B_j = \begin{bmatrix}
+      J_1 & 0 & \cdots & 0 \\
+      0 & J_2 & \cdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \cdots & J_{r_j}
+    \end{bmatrix}
+  \]
+
+  Just like before: $\restr{T}{W_j}$ has characteristic polynomial $(x -
+  c_j)^{s_j}$.
+
+  {\bf Corollary}
+
+  Suppose $T: V \to V$ has characteristic polynomial $(x - c_1)^{s_1} \cdots (x
+  - c_t)^{s_t}$.
+
+  $T$ will be diagonalizable if and only if each $B_j$ is diagonalizable, if and
+  only if the minimal polynomial of $T$ is precisely $m_T(x) = (x - c_1)^1
+  \cdots (x - c_t)^1$.
+
+  {\bf Question}: In the diagonalizable case, what does the matrix of $T$ look
+  like?
+
+  {\bf Answer}: It would look like this
+
+  \[
+    A_T = \begin{bmatrix}
+      B_1 & 0 & \cdots & 0 \\
+      0 & B_2 & \cdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \cdots & B_t
+    \end{bmatrix}
+  \]
+
+  where each $B_i$ would look like this
+
+  \[
+    B_i = \begin{bmatrix}
+      c_1 & 0 & \cdots & 0 \\
+      0 & c_2 & \cdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \cdots & c_{s_i}
+    \end{bmatrix}
+  \]
+
+  $A_T$ is of size $n \times n$, and each $B_i$ is of size $s_i \times s_i$.
+
+
+  This is all pretty intense, so let's look at and example
+
+  \example {
+    Say $T: V \to V$ has characteristic polynomial $f(x) = (x - 2)^3(x + 3)^2$.
+    We can read off the dimension of $V$ from this: it's $5$. We can also read
+    off the eigenvalues: $2$ and $-3$.
+
+    By the Primary Decomposition Theorem, we know that we can write
+
+    \[
+      V = W_1 \oplus W_2
+    \]
+
+    Where $W_1 = \Null((x - 2)^3)$, so the characteristic polynomial of
+    $\restr{T}{W_1}$ is 
+
+    \[
+      f_{\restr{T}{W_1}}(x) = (x - 2)^3
+    \]
+
+    Also, $W_2 = \Null((x + 3)^2)$, and its characteristic polynomial looks like
+    this:
+
+    \[
+      f_{\restr{T}{W_2}}(x) = (x + 3)^2
+    \]
+
+    {\bf Looking at $W_1$}
+
+    Looking now {\it only} at $\restr{T}{W_1}$, there are 3 possible cases for
+    $T$:
+
+    \begin{enumerate}
+      \item $r = 1$. In this case, we have $\restr{T}{W_1}$ is cyclic, and the
+        companion matrix $A_{\restr{T}{W_1}}$ looks like this
+
+        \[
+          A_{\restr{T}{W_1}}
+          =
+          \begin{bmatrix}
+            2 & 0 & 0 \\
+            1 & 2 & 0 \\
+            0 & 1 & 2 \\
+          \end{bmatrix}
+        \]
+
+      \item $r = 2$. In this case, we have that $W_1 = Z(\alpha_1,
+        \restr{T}{W_1}) \oplus Z(\alpha_2, \restr{T}{W_1})$.
+
+        The first with $\dim k_1$, and the second with $\dim k_2$. Remember: We
+        always take $k_1 \ge k_2 \ge 1$, but also $k_1 + k_2 = n = 3$.
+
+        This leaves only $k_1 = 2$ and $k_2 = 1$, so we have the following
+        matrix.
+
+        \[
+          \begin{bmatrix}
+            \begin{bmatrix}
+              2 & 0 \\
+              1 & 2 \\
+            \end{bmatrix} & 0 & 0 \\
+            0 & 0 & 0 \\
+            0 & 0 & \begin{bmatrix}
+              2 \\
+            \end{bmatrix} \\
+          \end{bmatrix}
+        \]
+
+      \item $r = 3$. In this case, we have 
+
+        \[
+          \begin{bmatrix}
+            2 & 0 & 0 \\
+            0 & 2 & 0 \\
+            0 & 0 & 2 \\
+          \end{bmatrix}
+        \]
+    \end{enumerate}
+
+    {\bf Looking at $W_2$}
+
+    Now let's look at $\restr{T}{W_2}$. This has characteristic polynomial
+    $f_{\restr{T}{W_2}}(x) = (x + 3)^2$. Again, there are 3 cases.
+
+    \begin{enumerate}
+      \item $r = 1$. In this case, we have $\restr{T}{W_2}$ is cyclic, and the
+        companion matrix $A_{\restr{T}{W_2}}$ looks like this
+
+        \[
+          A_{\restr{T}{W_2}}
+          =
+          \begin{bmatrix}
+            -3 & 0 \\
+            1 & -3 \\
+          \end{bmatrix}
+        \]
+
+      \item $r = 2$. In this case, we have that $\restr{T}{W_2}$ is {\bf
+        diagonalizable}, and the companion matrix looks like this
+
+        \[
+          A_{\restr{T}{W_2}}
+          =
+          \begin{bmatrix}
+            -3 & 0 \\
+            0 & -3 \\
+          \end{bmatrix}
+        \]
+    \end{enumerate}
+
+    Overall, there are 6 possible cases for the matrix of $T: V \to V$.
+
+    \begin{multicols}{3}
+      \[
+        \begin{bmatrix}
+          \begin{bmatrix}
+            2 & 0 & 0\\
+            1 & 2 & 0 \\
+            0 & 1 & 2 \\
+          \end{bmatrix} & 0 \\
+          0 & \begin{bmatrix}
+            -3 & 0 \\
+            1 & -3 \\
+          \end{bmatrix} \\
+        \end{bmatrix}
+      \]
+
+      \[
+        \begin{bmatrix}
+          \begin{bmatrix}
+            2 & 0 & 0\\
+            1 & 2 & 0 \\
+            0 & 0 & 2 \\
+          \end{bmatrix} & 0 \\
+          0 & \begin{bmatrix}
+            -3 & 0 \\
+            1 & -3 \\
+          \end{bmatrix} \\
+        \end{bmatrix}
+      \]
+
+      \[
+        \begin{bmatrix}
+          \begin{bmatrix}
+            2 & 0 & 0\\
+            0 & 2 & 0 \\
+            0 & 0 & 2 \\
+          \end{bmatrix} & 0 \\
+          0 & \begin{bmatrix}
+            -3 & 0 \\
+            1 & -3 \\
+          \end{bmatrix} \\
+        \end{bmatrix}
+      \]
+
+      \[
+        \begin{bmatrix}
+          \begin{bmatrix}
+            2 & 0 & 0\\
+            1 & 2 & 0 \\
+            0 & 1 & 2 \\
+          \end{bmatrix} & 0 \\
+          0 & \begin{bmatrix}
+            -3 & 0 \\
+            0 & -3 \\
+          \end{bmatrix} \\
+        \end{bmatrix}
+      \]
+
+      \[
+        \begin{bmatrix}
+          \begin{bmatrix}
+            2 & 0 & 0\\
+            1 & 2 & 0 \\
+            0 & 0 & 2 \\
+          \end{bmatrix} & 0 \\
+          0 & \begin{bmatrix}
+            -3 & 0 \\
+            0 & -3 \\
+          \end{bmatrix} \\
+        \end{bmatrix}
+      \]
+
+      \[
+        \begin{bmatrix}
+          \begin{bmatrix}
+            2 & 0 & 0\\
+            0 & 2 & 0 \\
+            0 & 0 & 2 \\
+          \end{bmatrix} & 0 \\
+          0 & \begin{bmatrix}
+            -3 & 0 \\
+            0 & -3 \\
+          \end{bmatrix} \\
+        \end{bmatrix}
+      \]
+    \end{multicols}
+
+    Also notice that the only diagonalizable matrix up here is the last one
+
+    Again, this is all {\bf up to similarity}! What we mean by this is that you
+    could write $T$ in any basis, but in all of them, $T$ is going to behave in
+    one of {\it these} six ways.
+  }
 
 
 \end{document}

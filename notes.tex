@@ -19,6 +19,7 @@
 
 \def\eps{\varepsilon}
 \def\range{\text{Range}}
+\def\proj{\text{proj}}
 
 \newcommand{\GCD}{\text{GCD}}
 \def\RowSpace{\text{RowSpace}}
@@ -36,6 +37,8 @@
 \newcommand{\TODO}{\color{red}\textbf{TODO}\color{black}}
 
 \newcommand*{\xdash}[1][3em]{\color{darkgray}\rule[0.5ex]{#1}{0.55pt}\color{black}}
+
+\newcommand{\ip}[2]{\left( #1 \mid #2 \right)}
 
 % preamble
 \input{preamble}
@@ -4962,6 +4965,9 @@
   {
     The {\bf $T$-conductor} of $\alpha$ into $W$ is the monic $g(x) \in I$ of {\bf
     least degree}.
+
+    In other words, this is the set $S_T(\alpha; W)$ (as the book calls it)
+    which consists of all polynomial such that $g(T)(\alpha) \in W$.
   }
 
   Clearly, the $T$-conductor of $\alpha \in W$ {\bf divides} the minimal
@@ -5221,8 +5227,13 @@
   vector} for $T$.
 
   \example {
-    For any $V$, $Z(0, T) = \{f(T)(0) : f(x) \in F[x]\} = \{0\}$. \QUESTION{}
-    Wait what? What about with polynomials with constants on them?
+    For any $V$, $Z(0, T) = \{f(T)(0) : f(x) \in F[x]\} = \{0\}$.
+
+    Notice that for constant polynomials, such as $f(x) = 4$, we still get zero.
+
+    \[
+      f(T)(0) = 4I \cdot 0 = 0
+    \]
 
     This $0$ is a cyclic vector {\it only when} $V = \{0\}$.
   }
@@ -5263,7 +5274,7 @@
       f(I)(\alpha) = (c_0 + c_1 + \cdots + c_k) (\alpha)
     \]
 
-    Again, we see that $\dim(Z(\alpha, T)) = 1$, so $Z(\alpha, T) \ne V$.
+    Again, we see that $\dim(Z(\alpha, I)) = 1$, so $Z(\alpha, I) \ne V$.
 
     What we can gather from this is that, when $\dim(V) \ge 2$, The identity
     transformation is {\bf not cyclic}!
@@ -5281,30 +5292,61 @@
     must find some polynomial $g(x) \in \R[x]$ such that
 
     \[
-      g(T) \begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} a \\ b \end{bmatrix}
+      g(T_A) \begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} a \\ b \end{bmatrix}
     \]
 
     Let $g(x) = a + bx$. Then $g(T_A) = a(I) + b (T_A)$, and $g(T_A)
-    \begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} a \\ b \end{bmatrix}$
+    \begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} a \\ b
+    \end{bmatrix}$. Here's the full process
+
+    \begin{align*}
+      g(T_A) \begin{bmatrix} 1 \\ 0 \end{bmatrix} =&(a(I) + b T_A)\begin{bmatrix} 1 \\ 0 \end{bmatrix} \\
+                                                =&a\begin{bmatrix} 1 & 0 \\ 0 &
+                                                  1 \end{bmatrix}\begin{bmatrix}
+                                                  1 \\ 0 \end{bmatrix} + b
+                                                  \begin{bmatrix} 0 & 0 \\ 1 & 0
+                                                    \end{bmatrix}
+                                                    \begin{bmatrix} 1 \\ 0
+                                                    \end{bmatrix} \\
+                                                =&\begin{bmatrix} a \\ b \end{bmatrix}
+    \end{align*}
   }
 
   For the rest of the day, we assume that $V$ is finite dimensional, over some
   field $F$, $T: V \to V$ is cyclic, and some $\alpha \in V$ is a cyclic vector.
 
-  When you have this, life is easy!
+  {\bf When you have this, life is easy!}
 
-  Let $I = \{f(x) \in F[x] : f(T)(\alpha) = 0\}$. Then, (you can check that) $I$
-  is an ideal. Obviously, $0$ is in it, but also the minimal polynomial of $T$,
-  $m(x)$ is also in it!
+  Let $I = \{f(x) \in F[x] : f(T)(\alpha) = 0\}$. In words, this is the set $I$,
+  of {\it all} polynomials $f$ in $F[x]$, such that for some cyclic $T: V \to
+  V$, and some cyclic vector $\alpha$, $f(T)(\alpha)$ is zero.
 
-  Let $p_\alpha(x) \in I$ be the monic polynomial of least degree.
+  Then, (you can check that) $I$ is an ideal. Obviously, $0$ is in it, but also
+  the minimal polynomial of $T$, $m(x)$ is also in it!
 
-  Write $p_\alpha(x) = c_0 + c_1 x + \cdots + c_{k - 1} x^{k - 1} + 1 \cdot x^k$.
+  Let $p_\alpha(x) \in I$ be the monic polynomial of least degree, the least
+  degree polynomial for which $f(T)(\alpha)$ is zero. Notice that this is much
+  more restrictive than the minimal polynomial! Here, $p_\alpha$ depends on the
+  $\alpha$.
+
+  We can write $p_\alpha(x)$ as follows
+
+  \[
+    p_\alpha(x) = c_0 + c_1 x + \cdots + c_{k - 1} x^{k - 1} + 1 \cdot x^k
+  \]
+  
 
   {\bf Fact}.
 
   Let $\B = \{\alpha, T(\alpha), T^2(\alpha), \dots, T^{k - 1}(\alpha)\}$ is a
   basis for $V$.
+
+  \btw {
+    This should be at least a little bit surprising! If you have some cyclic
+    vector $\alpha$, and some cyclic $T: V \to V$, then it only takes $T^{k -
+    1}$ applications of $T$ (possibly in combination with fewer applications) to
+    reach anywhere in $V$.
+  }
 
   In particular, $\dim(V) = k$.
 
@@ -5319,7 +5361,13 @@
         g(T)(\alpha) = \beta
       \]
 
-      (Since $Z(\alpha, T) = V$.)
+      Remember that $T$ is cyclic and $\alpha$ is a cyclic vector, so we can
+      make the claim that such a polynomial exists! $\alpha$ can reach anywhere
+      in $V$ on some polynomial of $T$, that's what it means to be cyclic.
+
+      \[
+        Z(\alpha, T) = V
+      \]
 
       By the Euclidean Algorithm, there are $q(x)$ and $r(x)$ such that
 
@@ -5327,7 +5375,9 @@
         g(x) = p_\alpha(x) q(x) + r(x)
       \]
 
-      where either $r = 0$, or $\deg(r) < \deg(p_\alpha) = k$.
+      The point here is that we can relate $g$ and $p_\alpha$ using the division
+      algorithm. Notice also that, either $r = 0$, or $\deg(r) < \deg(p_\alpha)
+      = k$.
 
       So, $g(T)(\alpha) = p_\alpha(T) q(T) \alpha + r(T) \alpha$. But notice
       that $p_\alpha(T) q(T) \alpha = 0$ since $p_\alpha(T) \alpha = 0$, that's
@@ -5366,6 +5416,8 @@
       $p_\alpha(T)(\alpha) = 0$. In other words, this is the smallest polynomial
       that, for a given $T$ and $\alpha$, produces 0.
 
+      The book calls this polynomial the $T$-annihilator.
+
     \item $m(x)$. This is the minimal polynomial. Recall that this is the
       polynomial of least degree for which $m(T)(\beta) = 0$, for {\it any}
       $\beta \in V$.
@@ -5381,7 +5433,7 @@
   divides $f(x)$.
 
   Therefore, we have that $\deg(p_\alpha) = k = \dim(V)$, which is the degree of
-  the characteristic polynomial. \QUESTION{} Why?
+  the characteristic polynomial.
 
   What's nice is that, if $T: V \to V$ is cyclic, and $\alpha \in V$ is a cyclic
   vector, all three of these polynomials are the same!
@@ -5389,6 +5441,10 @@
   \[
     p_\alpha(x) = m(x) = f(x)
   \]
+
+  \QUESTION{} Wait, so if they're all the same in this context, doesn't that
+  mean that every vector in $V$ must be a cyclic vector? Since it has to be
+  annihilated by $p_\alpha$ in the same way that it is annihilated by $m(x)$.
 
   Next time, we'll see that the converse is also true.
 
@@ -5473,6 +5529,10 @@
         \]
 
         (where $\beta$ and $\gamma$ might not be the same!)
+
+        The idea here is that, any $\gamma \in V$ for which $f(T)(\gamma)$ is in
+        $W$, there's a $\beta$ in $W$ which equals the same thing. Even if
+        $\gamma$ might not come from $W$ at all.
     \end{enumerate}
   }
 
@@ -5501,7 +5561,7 @@
     V = Z(\alpha_1, N) \oplus \cdots \oplus Z(\alpha_r, N)
   \]
 
-  Where $p_{\alpha_i} = x^{k_i}$, and $k_i \dim(Z(\alpha_i, N))$.
+  Where $p_{\alpha_i} = x^{k_i}$, and $k_i = \dim(Z(\alpha_i, N))$.
 
   We can also shuffle them so that $k_1 \ge k_2 \ge k_3 \ge \cdots \ge k_r \ge
   1$. Well we know that $k_1 + \cdots + k_r = n = \dim(V)$. Also, $k_1$ (the
@@ -5522,7 +5582,7 @@
     \end{bmatrix}
   \]
 
-  With $p_{\alpha_i} = x^4$. For any $N: V \to V$, there is a matrix
+  In this case, $p_{\alpha_i} = x^4$. For any $N: V \to V$, there is a matrix
 
   \[
     [N]_\B = \begin{bmatrix}
@@ -5896,8 +5956,8 @@
             \begin{bmatrix}
               2 & 0 \\
               1 & 2 \\
-            \end{bmatrix} & 0 \\
-            0 & \begin{bmatrix}
+            \end{bmatrix} & \begin{matrix} 0 \\ 0 \end{matrix} \\
+            \begin{matrix} 0 & 0 \end{matrix} & \begin{bmatrix}
               2 \\
             \end{bmatrix} \\
           \end{bmatrix}
@@ -6042,5 +6102,412 @@
     one of {\it these} six ways.
   }
 
+  \date{Fri. May 5 2023}
 
+  \sidenote {
+    For this course, we omit section 7.4 and 7.5.
+  }
+
+  Today, we look at section 8.1 and 8.2, which talk about inner product spaces.
+
+  Up to now, we've been talking about vector spaces over fields, but no notion
+  of ``distance." This is exactly what we're going to do today.
+
+  {\bf Recall}: Let $V$ be a vector space over $\R$ (or $\C$)
+
+  \Definition{}
+  {
+    For $\alpha = \begin{bmatrix} a_1 \\ a_2 \\ a_3 \end{bmatrix}$, $\beta =
+    \begin{bmatrix} b_1 \\ b_2 \\ b_3 \end{bmatrix}$, we defined the {\bf dot
+    product} as
+
+    \[
+      \alpha \cdot \beta = a_1 b_1 + a_2 b_2 + a_3 b_3
+    \]
+  }
+
+  The length of $\alpha$, we defined as
+
+  \[
+    ||\alpha|| = \sqrt{a_1^2 + a_2^2 + a_3^2}
+  \]
+
+  Which turns out to equal $\alpha \cdots \alpha$. We used this to define the
+  distance between $\alpha$ and $\beta$.
+
+  \[
+    ||\alpha - \beta||
+  \]
+
+  Our goal today is to generalize this.
+
+  We're definitely going to be working with complex numbers today, so it's worth
+  taking a minute to recall complex conjugation.
+
+  \Definition{}
+  {
+    For $c \in \C$, a {\bf complex number}, $\bar c$ is called the {\bf complex
+    conjugate} of $c$.
+
+    If $c = a + bi$ with $a, b \in \R$, we have 
+
+    \[
+      \bar c = a - bi
+    \]
+  }
+
+  \note {
+    There's a few nice things about complex conjugates
+
+    \begin{itemize}
+      \item For any $c \in \C$, $\overline{(\overline c)} = c$.
+      \item If $\bar c \in \R$, then $\bar c = c$
+      \item For any $c \in \C$
+
+        \[
+          c \cdot \bar c = (a + bi)(a - bi) = a^2 - b^2 i^2 = a^2 + b^2
+        \]
+
+        Which is always a real number! Moreover
+
+        \[
+          c \cdot \bar c = 0 \Leftrightarrow c = 0
+        \]
+    \end{itemize}
+
+    So this is giving a notion of {\it length} to a complex number.
+  }
+
+  Ok, let's generalize.
+
+  Let $V$ be a vector space over either $\R$ or $\C$
+
+  \Definition{}
+  {
+    An {\bf inner product} $\ip{\alpha}{\beta}$ is a binary function producing a
+    {\it scalar} such that 4 conditions hold.
+
+    \begin{enumerate}
+      \item It ``distributes"
+
+        \[
+          \ip{\alpha + \beta}{\gamma} = \ip{\alpha}{\gamma} + \ip{\beta}{\gamma}
+        \]
+
+      \item It ``factors." For $c \in F$
+
+        \[
+          \ip{c\alpha }{\gamma} = c\ip{\alpha}{\gamma}
+        \]
+    \end{enumerate}
+
+    Notice that these two properties only hold for the first coordinate! The
+    inner product is linear in the first coordinate.
+
+    \begin{enumerate}
+      \item[3.] For any $\alpha, \beta \in V$
+
+        \[
+          \ip{\beta}{\alpha} = \overline{\ip{\alpha}{\beta}}
+        \]
+
+        When $F = \R$, we just have
+
+        \[
+          \ip{\beta}{\alpha} = \ip{\alpha}{\beta}
+        \]
+
+      \item[4.] Whenever $\alpha \ne 0$,
+
+        \[
+          \ip{\alpha}{\alpha} > 0
+        \]
+    \end{enumerate}
+  }
+
+  The prime example of an inner product is the dot product on $\R^n$. On $\C^n$,
+  we will have the following
+
+  \[
+    \ip{\begin{bmatrix} c_1 \\ \vdots \\ c_n \end{bmatrix}}{\begin{bmatrix} d_1
+  \\ \vdots \\ d_n \end{bmatrix}} = c_1 \bar d_1 + \cdots + c_n \bar d_n
+  \]
+
+  There are {\bf many inner products}! Here's another example
+
+  \example {
+    Let $V$ be the space of all continuous functions $f: [0, 1] \to \R$. We can
+    define 
+
+    \[
+      \ip{f}{g} = \int_0^1 f(x) g(x) dx
+    \]
+
+    You can check that this is indeed an inner product.
+  }
+
+  There are many more examples in 8.1, unfortunately we won't have time to look
+  at many of them.
+
+  \Definition {}
+  {
+    An {\bf Inner Product Space} is a vector space $V$ over $\R$ or $\C$ with a
+    fixed inner product $\ip{\alpha}{\beta}$.
+
+    Sometimes, we'll say that this is a ``Euclidean Space" if the field is $\R$,
+    or a ``Unitary Space" if the field is $\C$, although we won't be using this.
+  }
+
+  \note {
+    Another thing to note is about notation: $(\alpha \mid \beta), (\alpha,
+    \beta), \langle \alpha, \beta \rangle$ are all different ways that you can
+    see the inner product being written in the wild. They are all the same.
+  }
+
+  \Definition {}
+  {
+    For any vector $\alpha \in V$, the {\bf length} of $\alpha$, denoted
+    $||\alpha||$ is defined as
+
+    \[
+      ||\alpha||^2 = \ip{\alpha}{\alpha}
+    \]
+
+    Moreover by axiom 4, $\ip{\alpha}{\alpha} > 0$ unless $\alpha = 0$.
+  }
+
+  {\bf Facts}
+
+  For all scalars $c \in F$ and vectors $\alpha, \beta$
+
+  \begin{enumerate}
+    \item $||c \alpha|| = |c| ||\alpha||$.
+
+      When the field is $\C$, $|c| = c \cdot \bar c$
+
+    \item $||\alpha|| > 0$ for all $\alpha > 0$
+
+
+    \item ``Cauchy-Schwartz Inequality"
+
+      \[
+        |\ip{\alpha}{\beta}| \le ||\alpha|| \cdot ||\beta||
+      \]
+
+    \item ``Triangle Inequality"
+
+      \[
+        ||\alpha + \beta|| \le ||\alpha|| + ||\beta||
+      \]
+  \end{enumerate}
+
+
+  \Definition {}
+  {
+    A set $\{\alpha_1, \dots, \alpha_n\}$ is called {\bf orthogonal} if
+
+    \[
+      \ip{\alpha_i}{\alpha_j} = 0 \text{ whenever } i \ne j
+    \]
+
+    We also write $\alpha_i \perp \alpha_j$ to say that $\alpha_i$ is orthogonal
+    to $\alpha_j$.
+
+    In multi-variable calculus words, this happens when their dot product is
+    zero.
+
+
+    A set is called {\bf orthonormal} if
+
+    \begin{enumerate}
+      \item It is orthogonal
+      \item $||\alpha_i|| = 1$, the length of $\alpha_1$ is one.
+    \end{enumerate}
+  }
+
+  \note {
+    For any $\alpha \ne 0$, $||\frac{\alpha}{||\alpha||}|| = 1$.
+  }
+
+  \Definition {}
+  {
+    An {\bf orthonormal basis} $\B$ of $V$ is a basis of $V$ that is
+    orthonormal.
+  }
+
+  \example {
+    The basis $\B = \{(1, 0, 0), (0, 1, 0), (0, 0, 1)\}$ of $\R^3$ is
+    orthonormal {\bf with respect to the dot product}!
+  }
+
+  This is all great, but
+
+  {\bf Why do we care about all this}?
+
+  Well, we know that if $\B = \{\alpha_1, \dots, \alpha_n\}$ is any basis for $V$,
+  then any $\beta \in V$ can be written {\it uniquely} as a linear combination
+
+  \[
+    \beta = c_1 \alpha_1 + \cdots + c_n \alpha_n
+  \]
+
+  for $c_1, \dots, c_n \in F$. But now, if $\B$ is orthonormal, the coefficient
+  $c_1, \dots, c_n$ are easily determined!
+
+  \example {
+    Say $\beta = c_1 \alpha_1 + \cdots + c_n \alpha_n$. Chose any $1 \le k \le
+    n$, then
+
+    \begin{align*}
+      \ip{\beta}{\alpha_k} =&\ip{c_1 \alpha_1 + \cdots + c_n \alpha_n}{\alpha_k} \\
+                           =&c_1 \ip{\alpha_1}{\alpha_k} + \cdots + c_n \ip{\alpha_n}{\alpha_k} & \text{By linearity} \\
+                           =&0 + \cdots + 0 + c_k \ip{\alpha_k}{\alpha_k} + 0 + \cdots + 0 & \text{By orthogonality} \\
+                           =&c_k \ip{\alpha_k}{\alpha_k} \\
+                           =&c_k ||\alpha_k||^2
+    \end{align*}
+
+    More generally, we have
+
+    \[
+      c_k = \frac{\ip{\beta}{\alpha_k}}{||\alpha_k||^2}
+    \]
+
+    This holds whenever $\B$ is an orthogonal basis. But we can do even better!
+    If $\B$ is orthonormal, $||\alpha_k||^2 = 1$ and we get
+
+    \[
+      c_k = \ip{\beta}{\alpha_k}
+    \]
+
+    so we get
+
+    \[
+      \beta = \ip{\beta}{\alpha_1} \alpha_1 + \ip{\beta}{\alpha_2} \alpha_2 +
+      \cdots + \ip{\beta}{\alpha_n} \alpha_n
+    \]
+
+    It doesn't get any simpler than that.
+  }
+
+  {\bf Recall}: If we have two vectors $\alpha, \beta$. We defined the
+  projection of $\beta$ onto $\alpha$ as $\proj_\alpha \beta$ as ``the 
+  point on the subspace generated by $\alpha$ to $\beta$."
+
+  \note {
+    The closest projected point of $\beta$ onto $\alpha$ happens to be
+    perpendicular to $\alpha$.
+
+    $\beta - \proj_\alpha \beta \perp \alpha$
+  }
+
+  Here, $W_1 = \Span(\alpha)$ is 1-Dimensional, but in an inner product space,
+  we can handle this for any subspaces.
+
+  Say $V$ is an inner product space $W \subseteq V$ subspace $\beta \in V
+  \setminus W$.
+
+  \Definition{}
+  {
+    The {\bf projection of $\beta$ onto $W$} is ``the best approximation to
+    $\beta$" in $W$. In other words, the vector $\alpha^* \in W$ such that
+    $||\beta - \alpha^*||$ is least possible.
+
+    From the properties of inner products
+    \begin{enumerate}
+      \item The ``best approximation" $\alpha^*$ implies $\beta - \alpha^*$ is
+        orthogonal to every vector in $W$
+
+      \item If $\B = \{\alpha_1, \dots, \alpha_m\}$ is an orthogonal basis for
+        $W$, then 
+
+        \[
+          \alpha^* = \frac{\ip{\beta}{\alpha_1}}{||\alpha_1||^2} \alpha_1 +
+          \cdots + \frac{\ip{\beta}{\alpha_m}}{||\alpha_m||^2} \alpha_m
+        \]
+    \end{enumerate}
+  }
+
+  \note {
+    Note that if $\beta$ was actually in $W$, then obviously $\alpha^* = \beta$,
+    and moreover
+
+    \[
+        \alpha^* = \frac{\ip{\beta}{\alpha_1}}{||\alpha_1||^2} \alpha_1 +
+        \cdots + \frac{\ip{\beta}{\alpha_m}}{||\alpha_m||^2} \alpha_m
+    \]
+
+    Give the coefficients of $\beta$.
+  }
+
+  \subsection*{The Gram-Schidtt Process}
+
+  This is how we produce an orthogonal, or orthonormal basis. Let $\B = \{\beta_1,
+  \dots, \beta_n\}$ be a basis for $V$. Then, we're going to construct $\B' =
+  \{\alpha_1, \dots, \alpha_n\}$, an orthogonal basis for $V$ such that, for any
+  $r$, $\Span(\{\beta_1, \dots, \beta_r\}) = \Span(\{\alpha_1, \dots,
+  \alpha_r\})$.
+
+  Here's the process.
+
+  {\bf 1. Creating an orthogonal basis}
+
+  First we want to create an orthogonal basis.
+
+  \begin{enumerate}
+    \item Let $\alpha_1 = \beta_1$. Let $W_1 = \Span(\alpha_1) =
+      \Span(\beta_1)$. So far so good, let's keep going.
+
+    \item Given $\beta_2$ from $\B$, let $\gamma_2$ be the best approximation of
+      $\beta$ in $W_1$. 
+
+      Well we have a nice formula for this
+
+      \[
+        \gamma_2 = \frac{\ip{\beta_2}{\alpha_1}}{||\alpha_1||^2} \alpha_1
+      \]
+
+      This is just an element of $W_1$, but now by orthogonality we can let
+      $\alpha_2 = \beta_2 - \gamma_2$. So now, $\alpha_2 \perp \alpha_1$, and by
+      extension, it's also orthogonal to every vector in $W_1$: the span of
+      $\alpha_1$.
+
+      This is it! We've figured out how to create more orthogonal vectors, you
+      can probably see where this is going now, but if not, let's keep going.
+
+      Let $W_2 = \Span(\{\alpha_1, \alpha_2\}) = \Span(\{\beta_1, \beta_2\})$.
+
+    \item Given $\beta_3$, let $\gamma_3$ be ``the best approximation to
+      $\beta_3 \in W_2$"
+
+      (Other books would simply say that $\gamma_3 = \proj_{W_2} \beta_3$. In
+      words: $\gamma_3$ is the projection of $\beta_3$ onto $W_2$.)
+      
+      So again, we have
+
+      \[
+        \gamma_3 = \frac{\ip{\beta_3}{\alpha_1}}{||\alpha_1||^2} \alpha_1 +
+        \frac{\ip{\beta_3}{\alpha_2}}{||\alpha_2||^2} \alpha_2
+      \]
+
+      Then, let $\alpha_3 = \beta_3 - \gamma_3$. Now, $\alpha_3 \perp \alpha_2$,
+      and $\alpha_3 \perp \alpha_1$. Therefore, $\{\alpha_1, \alpha_2,
+      \alpha_3\}$ is orthogonal.
+
+      Let $W_3 = \Span(\{\alpha_1, \alpha_2, \alpha_3\}) = \Span(\{\beta_1,
+      \beta_2, \beta_3\})$.
+  \end{enumerate}
+
+  We can continue this process, until we completely span $\B$, producing more
+  and more orthogonal vectors.
+
+  {\bf 2. Modifying it into an orthonormal basis}
+
+  To make this basis orthonormal, we can take our orthogonal basis $\B' =
+  \{\alpha_1, \dots, \alpha_n\}$, and produce
+
+  \[
+    \B^* = \left\{\frac{\alpha_1}{||\alpha_1||}, \dots, \frac{\alpha_n}{||\alpha_n||}\right\}
+  \]
+
+  Which is an orthonormal basis.
 \end{document}

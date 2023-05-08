@@ -44,6 +44,47 @@
 \input{preamble}
 
 
+
+% colors used in proof boxes
+\definecolor{proof_fg}{HTML}{ABABAB}
+\definecolor{proof_bg}{HTML}{EDEDED}
+
+
+
+% box solutions
+\newenvironment{solution}{
+  \begin{leftbar}
+
+  \noin
+  {\large \sc solution} \\
+}
+{
+
+  \medskip
+  \noin
+  \textcolor{proof_fg}{$\blacksquare$}
+
+  \end{leftbar}
+}
+
+
+
+% style a problem and solution
+\newcommand{\prob}[3]{
+  \bigskip \bigskip \noin
+  {\Large\sc Problem #1}
+
+  \medskip\noin
+  #2
+
+  \begin{solution}
+    \noin
+    #3
+  \end{solution}
+}
+
+
+
 \begin{document}
   % \footnotesize
 
@@ -6510,4 +6551,108 @@
   \]
 
   Which is an orthonormal basis.
+
+  \date{Mon. May 8 2023}
+
+  \sidenote {
+    The Final Exam will be on Monday 19, 8:00-10:00am, in the same room as
+    usual.
+
+    Using the Gram-Schidtt Method {\bf will} be covered on the exam.
+  }
+
+  Today, we'll roll back and look at 7.3 to make sure that everyone is on board.
+
+  \prob{7.3.1}
+  {
+    Nilpotent $3 \times 3$ linear operators $T: V \to V$
+  }
+  {
+    We know that the characteristic polynomial is $f(x) = x^n$, in this case
+    $f(x) = x^n$.
+
+    There are 3 possibilities for the minimal polynomial $m(x)$: $x, x^2, x^3$.
+
+    {\bf Case $m(x) = x$}
+
+    Then we have that 
+
+    \[
+      V = \underbrace{Z(x, T)}_{\dim 1} \oplus Z(\alpha_2, T) \oplus Z(\alpha_3, T)
+    \]
+
+    Then, the Jordan form will look like this
+
+    \[
+      \begin{bmatrix}
+        0 & 0 & 0 \\
+        0 & 0 & 0 \\
+        0 & 0 & 0 \\
+      \end{bmatrix}
+    \]
+
+
+    {\bf Case $m(x) = x^2$}
+
+    Then we have that 
+
+    \[
+      V = \underbrace{Z(\alpha_1, T)}_{\dim 2} \oplus \underbrace{Z(\alpha_2,
+      T)}_{\dim 1}
+    \]
+
+    Where $\alpha_1, \alpha_2$ are {\it any cyclic} vector in that subspace. But
+    notice that for any $\dim 1$ space, any vector is fine because any vector
+    spans a $\dim 1$ space!
+
+    Here, the Jordan Form will look like this
+
+    \[
+      \begin{bmatrix}
+        \begin{bmatrix}
+          0 & 0 \\
+          1 & 0
+        \end{bmatrix}
+        & 0 \\
+        0 & \begin{bmatrix}
+          0
+        \end{bmatrix}
+      \end{bmatrix}
+    \]
+
+
+    {\bf Case $m(x) = x^3$}
+
+    Then $V$ is cyclic! In other words
+
+    \[
+      V = Z(\alpha, T)
+    \]
+
+    For some cyclic vector $\alpha$.
+
+    \note {
+      $V$ is cyclic if and only if $f(x) = m(x)$. This fact came out of the
+      cyclic decomposition.
+    }
+
+    In this case, the Jordan Form will look like this
+
+    \[
+      \begin{bmatrix}
+        0 & 0 & 0 \\
+        1 & 0 & 0 \\
+        0 & 1 & 0 \\
+      \end{bmatrix}
+    \]
+
+    \TODO{} Write this better
+
+    Where the first column is where $\alpha$ is sent to, in this case:
+    $T(\alpha)$ goes, the second column is where $T(\alpha)$ goes, in this case:
+    $T(T(\alpha))$. The final column is where $T^2(\alpha)$ goes (and it goes to
+    $T^3(\alpha)$), but notice that the minimal polynomial is $x^3$, which means
+    that $T^3(\alpha) = 0$, so $T^2(\alpha)$ actually goes to $0$.
+  }
+
 \end{document}

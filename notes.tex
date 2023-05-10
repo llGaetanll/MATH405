@@ -6149,10 +6149,11 @@
     For this course, we omit section 7.4 and 7.5.
   }
 
-  Today, we look at section 8.1 and 8.2, which talk about inner product spaces.
+  Today, we look at section 8.1 and 8.2, in which talk about inner product spaces.
 
-  Up to now, we've been talking about vector spaces over fields, but no notion
-  of ``distance." This is exactly what we're going to do today.
+  Up to now, we've been talking about vector spaces over fields, but we haven't
+  really introduced a notion of ``distance." This is exactly what we're going to
+  do today.
 
   {\bf Recall}: Let $V$ be a vector space over $\R$ (or $\C$)
 
@@ -6167,13 +6168,13 @@
     \]
   }
 
-  The length of $\alpha$, we defined as
+  The length of $\alpha$, we defined the ``length" of $a$ as
 
   \[
     ||\alpha|| = \sqrt{a_1^2 + a_2^2 + a_3^2}
   \]
 
-  Which turns out to equal $\alpha \cdots \alpha$. We used this to define the
+  Which turns out to equal $\alpha \cdot \alpha$. We can use this to define the
   distance between $\alpha$ and $\beta$.
 
   \[
@@ -6181,6 +6182,8 @@
   \]
 
   Our goal today is to generalize this.
+
+  \subsection*{Quick Complex Numbers Review}
 
   We're definitely going to be working with complex numbers today, so it's worth
   taking a minute to recall complex conjugation.
@@ -6202,21 +6205,35 @@
 
     \begin{itemize}
       \item For any $c \in \C$, $\overline{(\overline c)} = c$.
+
+        If we apply the conjugate twice, we get back to where we started.
+
       \item If $\bar c \in \R$, then $\bar c = c$
+
+        Since the complex conjugate only flips the sign of the imaginary part,
+        real numbers are completely unaffected.
+
       \item For any $c \in \C$
 
         \[
           c \cdot \bar c = (a + bi)(a - bi) = a^2 - b^2 i^2 = a^2 + b^2
         \]
 
-        Which is always a real number! Moreover
+        Which is always a real number! Moreover $c \cdot \bar c = 0$ if and only
+        if $c = 0$.
 
-        \[
-          c \cdot \bar c = 0 \Leftrightarrow c = 0
-        \]
+        Oh look! This is just like our notion of distance from earlier except
+        this time, it's squared.
+
+        \TODO {} Show side by side examples
+        % \begin{multicols*}
+        %   \[
+        %     
+        %   \]
+        % \end{multicols*}
+
+        So this is giving a notion of {\it length} to a complex number.
     \end{itemize}
-
-    So this is giving a notion of {\it length} to a complex number.
   }
 
   Ok, let's generalize.
@@ -6654,5 +6671,286 @@
     $T^3(\alpha)$), but notice that the minimal polynomial is $x^3$, which means
     that $T^3(\alpha) = 0$, so $T^2(\alpha)$ actually goes to $0$.
   }
+
+  \date{Wed. May 10 2023}
+
+  Last day of class today! We're going to see exactly what to expect of 8.1 and
+  8.2. {\bf You will be asked to find a basis for an inner product space on the
+  final exam}.
+
+  Section 7.3 will be {\bf heavily} covered. It's essentially the culmination of
+  everything since Exam 2.
+
+  The Final Exam {\it is} cumulative, please look back at the first two Exams.
+  True False or short computation might be repeated.
+
+  {\bf Recall}:
+
+  \definition {
+    Say that $V$ is a vector space over $\R$ or $\C$. An inner product on $V$ is a
+    binary function $\ip{\alpha}{\beta}$ whose output is an element of the field
+    satisfying 4 conditions.
+
+    \begin{enumerate}
+      \item It ``distributes"
+
+        \[
+          \ip{\alpha + \beta}{\gamma} = \ip{\alpha}{\gamma} + \ip{\beta}{\gamma}
+        \]
+
+      \item It ``factors." For $c \in F$
+
+        \[
+          \ip{c\alpha }{\gamma} = c\ip{\alpha}{\gamma}
+        \]
+    \end{enumerate}
+
+    Notice that these two properties only hold for the first coordinate! The
+    inner product is linear in the first coordinate.
+
+    \begin{enumerate}
+      \item[3.] For any $\alpha, \beta \in V$
+
+        \[
+          \ip{\beta}{\alpha} = \overline{\ip{\alpha}{\beta}}
+        \]
+
+        When $F = \R$, we just have
+
+        \[
+          \ip{\beta}{\alpha} = \ip{\alpha}{\beta}
+        \]
+
+      \item[4.] Whenever $\alpha \ne 0$,
+
+        \[
+          \ip{\alpha}{\alpha} > 0
+        \]
+    \end{enumerate}
+  }
+
+  \example {
+    The dot product in $\R^n$ is an inner product.
+  }
+
+  \example {
+    If we have $C([0, 1])$ be the space of all continuous functions $f: [0, 1]
+    \to \R$ then
+
+    \[
+      \ip{f}{g} = \int_0^1 f(x)g(x)dx
+    \]
+
+    Is an inner product.
+  }
+
+  We also defined the length of $\alpha$, $||\alpha||$, where
+
+  \[
+    ||\alpha||^2 = \ip{\alpha}{\alpha}
+  \]
+
+  When the field is $\R$.
+
+  So we have
+
+  \[
+    ||\alpha|| = \sqrt{\ip{\alpha}{\alpha}}
+  \]
+
+  Let's look at some facts about length.
+
+  {\bf Facts}
+
+  \begin{enumerate}
+    \item $||c \alpha|| = |c| ||\alpha||$.
+
+      Here, if $c \in \R$, $|c|$ is the {\it absolute value}.
+
+      If $c \in \C$, say $c = a + bi$, then
+
+      \[
+        |c| = \sqrt{a^2 + b^2} \in \R
+      \]
+
+    \item $||\alpha|| \ge 0$. In fact, $||\alpha|| = 0$ {\bf if and only if}
+      $\alpha = 0$.
+
+    \item We also have the ``Cauchy-Schwartz" Inequality, which says
+
+      \[
+        |\ip{\alpha}{\beta}| \ge ||\alpha|| ||\beta||
+      \]
+
+    \item We also have the ``Triangle Inequality", which says
+
+      \[
+        ||\alpha + \beta|| \le ||\alpha|| + ||\beta||
+      \]
+  \end{enumerate}
+
+  Let's look at some definitions again.
+
+  \Definition {Unit Vector}
+  {
+    A vector $\alpha$ is a unit vector if $||\alpha|| = 1$.
+
+    For any $\alpha \ne 0$,
+
+    \[
+      \frac{\alpha}{||\alpha||}
+    \]
+
+    Is a unit vector.
+
+    Nothing crazy is happening here: we're only dividing $\alpha$ by its length.
+    This process is sometimes called ``normalization".
+  }
+
+  \Definition {Orthogonality}
+  {
+    Two vectors $\alpha, \beta$ are {\bf orthogonal} also written as
+
+    \[
+      \alpha \perp \beta
+    \]
+
+    {\bf if and only if} $\ip{\alpha}{\beta} = 0$.
+  }
+
+  \Definition {Orthogonal Basis}
+  {
+    We say that $\B = \{\alpha_1, \dots, \alpha_n\}$ is an orthogonal basis for
+    $V$ if
+
+    \[
+      \alpha_i \perp \alpha_j
+    \]
+
+    Whenever $i \ne j$.
+
+    We say $\B$ is {\bf orthonormal} if all $||\alpha_i|| = 1$.
+  }
+
+  One thing to note is this: if $\B$ is an orthonormal basis, then
+
+  \[
+    \ip{\alpha_i}{\alpha_j} = \begin{cases}
+      1 & \text{if $i = j$} \\
+      0 & \text{if $i \ne j$} \\
+    \end{cases}
+  \]
+
+  This should remind you of the Kroneker-Delta function we saw when we worked
+  with the dual space! This is no accident, we unfortunately won't be able to
+  get to why.
+
+  {\bf Why do we care about such a type of basis?}
+
+  Well, if we have some vector space $V$, and some orthogonal basis $\B =
+  \{\alpha_1, \dots, \alpha_n\}$, then any $\beta \in V$ can be expressed as a
+  linear combination of the $\alpha_i$. This is just what it means to be a
+  basis, but moreover
+
+  \[
+    \beta = \frac{\ip{\beta}{\alpha_1}}{||\alpha_1||^2} \alpha_1 + \cdots + \frac{\ip{\beta}{\alpha_n}}{||\alpha_n||^2} \alpha_n
+  \]
+
+  If $\B$ is {\it orthonormal}, it gets even better!
+
+  \[
+    \beta = \ip{\beta}{\alpha_1} \alpha_1 + \cdots + \ip{\beta}{\alpha_n} \alpha_n
+  \]
+
+  The coefficients are literally the inner products!
+
+  {\bf Fact}:
+
+  Every inner product space has an orthonormal basis. If $V$ is finite
+  dimensional, we can use the Gram-Schmidt process to find one.
+
+  \example {
+    Say $W \subseteq V$. For every $\beta \in V$, there is a ``best
+    approximation" to $\beta$ in $W$, say $\gamma^*$, such that $||\beta -
+    \gamma^*||$ (the length of $\beta$ minus $\gamma^*$) is {\it least possible}.
+
+    This ``best approximation" uses the same formula as above! We have
+
+    \[
+      \gamma^* = \frac{\ip{\beta}{\alpha_1}}{||\alpha_1||^2} \alpha_1 + \cdots + \frac{\ip{\beta}{\alpha_k}}{||\alpha_k||^2} \alpha_k
+    \]
+
+    In the reals, the vector $\beta - \gamma^*$ will be perpendicular to any
+    vector in $W$.
+  }
+
+  \Definition {}
+  {
+    $W^\perp$ (pronounced $W$ perp) is the set of all vectors $\delta \in V$
+    such that $\delta \perp \alpha$ for all $\alpha \in W$.
+
+    We have that $\ip{\delta}{\alpha} = 0$.
+  }
+
+  Additionally, $W^\perp$ is a {\it subspace} of $V$. In fact,
+
+  \[
+    V = W \oplus W^\perp
+  \]
+
+  We can decompose any $\beta \in V$ uniquely into a linear combination of
+  $\gamma^*$ and $\beta - \gamma^*$.
+
+  In $W$, $E(\beta) = \gamma^*$ is the best approximation of $\beta$ in
+  $\gamma^*$. In $W^\perp$, the projection of $\beta$ is $I - E = \beta -
+  \gamma^*$.
+
+  \example {
+    Let's find an orthogonal basis!
+
+    Let $V$ be $\R^3$, and let
+    \[
+      W = \Span(\{\begin{bmatrix} 1 \\ 2 \end{bmatrix}, \begin{bmatrix} 3 \\ 0 \end{bmatrix}\})
+    \]
+
+    We want to find an orthogonal basis for $W$.
+
+    {\bf The Gram-Schmidt Process}
+
+    Take $\alpha_1 \in W$ arbitrarily, say $\alpha_1 = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$
+
+    Let $U_1 = \Span(\alpha_1)$. Given $\alpha_2 = \begin{bmatrix} 3 \\ 0
+    \end{bmatrix}$, we have
+
+    \begin{align*}
+      \proj_{U_1} \begin{bmatrix} 3 \\ 0 \end{bmatrix}
+      =&\frac{\ip{\begin{bmatrix} 3 \\ 0 \end{bmatrix}}{\begin{bmatrix} 1 \\ 2
+      \end{bmatrix}}}{||\begin{bmatrix} 1 \\ 2 \end{bmatrix}||^2}
+      \begin{bmatrix} 1 \\ 2 \end{bmatrix} \\
+          =& \frac{3}{\sqrt{1^1 + 2^2}} \begin{bmatrix} 1 \\ 2 \end{bmatrix} =
+          \begin{bmatrix} 3 / 5 \\ 6 / 5 \end{bmatrix}
+      \end{align*}
+
+      Let $\alpha_1 = \begin{bmatrix} 3 \\ 0 \end{bmatrix} - \gamma^* =
+      \begin{bmatrix} 3 \\ 0 \end{bmatrix} - \begin{bmatrix} 3 / 5 \\ 6 / 5
+    \end{bmatrix} = \begin{bmatrix} 12 / 5 \\ -6 / 5\end{bmatrix}$.
+
+    So finally, we have the basis
+
+    \[
+      \left\{\alpha_1, \alpha_2 \right\} = \left\{ \begin{bmatrix} 1 \\ 2 \end{bmatrix}, \begin{bmatrix} 12 / 5 \\ -6 / 5 \end{bmatrix} \right\}
+    \]
+
+    If we wanted the orthonormal variant, we would divide each vector by its
+    length and get
+
+    \[
+      \left\{ \begin{bmatrix} 1 / \sqrt{5} \\ 2 / \sqrt{5} \end{bmatrix}, \begin{bmatrix} 2 / \sqrt{5} \\ -1 / \sqrt{5} \end{bmatrix} \right\}
+    \]
+  }
+
+  That's it! That's the end of the course. I hope you found these notes somewhat
+  helpful. I want to thank Professor Laskowski for making this class really
+  interesting and approachable.
 
 \end{document}
